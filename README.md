@@ -79,7 +79,9 @@ To Start the SDK :
         UbuduIOSSDK *sdk = [UbuduIOSSDK sharedInstance];
         [sdk setUseNamespace:@"ff356b88057340a771e9b072d16278829c67b9a1"];
         [sdk setApplication:[UIApplication sharedApplication]];
-        [sdk setUser:[[UbuduIOSSDKUser alloc] initWithID:nil withProperties:@{@"ext_id": kUDDefaultClientName}]]; //store in the ext_id id field a specific identifier used by the application to identify user 
+        /** optional store in the ext_id id field a specific identifier used by the application to identify user
+        [sdk setUser:[[UbuduIOSSDKUser alloc] initWithID:nil withProperties:@{@"ext_id": kUDDefaultClientName}]];
+        */
         BOOL started = [[UbuduIOSSDK sharedInstance] start:&error];
         if (!started) {
             NSLog(@"UbuduSDK start error: %@", error);

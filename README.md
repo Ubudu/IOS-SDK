@@ -41,7 +41,8 @@ Your framework folder should look like this :
 Consider the example below which is used in our demo-app which demonstrate 3 different usages of the SDK in scenarios.
 1. Start the SDK in AppDelegate
 To Start the SDK :
-`/* AppDelegate.m */
+```objective-c
+/* AppDelegate.m */
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -63,7 +64,7 @@ To Start the SDK :
 /**
  *
  */
-- (void)initUbuduSDK
+ (void)initUbuduSDK
 {
 
     NSError *error;
@@ -80,9 +81,7 @@ To Start the SDK :
             NSLog(@"%@", error);
             TraceLog(@"UbuduSDK start error: %@", error);
         }
-    }
-
-    
-}`
+    }}
+  ```
 
 Then still in the app delegate

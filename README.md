@@ -40,6 +40,7 @@ Your framework folder should look like this :
 ## Starting and hooking to the Ubudu SDK in your AppDelegate
 Consider the example below which is used in our demo-app which demonstrate 3 different usages of the SDK in scenarios.
 1. Start the SDK in AppDelegate
+
 To Start the SDK :
 ```objective-c
 /* AppDelegate.m */
@@ -84,4 +85,4 @@ To Start the SDK :
     }}
   ```
 
-Then still in the app delegate
+The namespace value i.e. `ff356b88057340a771e9b072d16278829c67b9a1` in the example above is the namespace UID of the application creatd in the [Back-office manager web interface](https://manager.ubudu.com) of your application. 

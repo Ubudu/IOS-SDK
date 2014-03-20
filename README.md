@@ -44,6 +44,9 @@ Consider the example below which is used in our demo-app which demonstrate 3 dif
 To Start the SDK :
 ```objective-c
 /* AppDelegate.m */
+#import <UbuduIOSSDK/UbuduIOSSDK.h>
+...
+@implementation UDAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -65,25 +68,26 @@ To Start the SDK :
 /**
  *
  */
- (void)initUbuduSDK
+ - (void)initUbuduSDK
 {
-
     NSError *error;
     BOOL deviceSupportsGeofences = [UbuduIOSSDK deviceSupportsGeofences:[UIDevice currentDevice] error:&error];
     BOOL deviceSupportsBeacons = [UbuduIOSSDK deviceSupportsBeacons:[UIDevice currentDevice] error:&error];
     
     if ([[UbuduIOSSDK sharedInstance] isRunning] == NO && deviceSupportsBeacons && deviceSupportsGeofences) {
-        
         NSError *error = nil;
-        [[UbuduIOSSDK sharedInstance] setUseNamespace:@"ff356b88057340a771e9b072d16278829c67b9a1"]; //SDK Demo namespace
-        [[UbuduIOSSDK sharedInstance] setDelegate:self];
-        BOOL started = [[UbuduIOSSDK sharedInstance] start:&error]; // to stop the SDK use the stop method
+        UbuduIOSSDK *sdk = [UbuduIOSSDK sharedInstance];
+        [sdk setUseNamespace:@"ff356b88057340a771e9b072d16278829c67b9a1"];
+        [sdk setApplication:[UIApplication sharedApplication]];
+        [sdk setUser:[[UbuduIOSSDKUser alloc] initWithID:nil withProperties:@{@"ext_id": kUDDefaultClientName}]]; //store in the ext_id id field a specific identifier used by the application to identify user 
+        BOOL started = [[UbuduIOSSDK sharedInstance] start:&error];
         if (!started) {
-            NSLog(@"%@", error);
-            TraceLog(@"UbuduSDK start error: %@", error);
+            NSLog(@"UbuduSDK start error: %@", error);
         }
-    }}
+    }
+}
   ```
 
 The namespace value i.e. `ff356b88057340a771e9b072d16278829c67b9a1` in the example above is the namespace UID of the application creatd in the [Back-office manager web interface](https://manager.ubudu.com) of your application. 
-When you access the Back-office web interface in the details of the application you created you will find an example of integration with the correct UID for your application. 
+When you access the Back-office web interface in the details of the application you created you will find an example of integration with the correct UID for your application.
+The demo application provided in the folder will 

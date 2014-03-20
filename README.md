@@ -28,7 +28,7 @@ For Geofencing
   - CoreGraphics.framework
   - Foundation.framework
 Your framework folder should look like this :
-![Framework list](../__media-files/images/ios_framework_list.jpg) 
+![Framework list](/__media-files/images/ios_framework_list.jpg) 
 
 
 

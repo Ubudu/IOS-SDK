@@ -37,9 +37,9 @@ Your framework folder should look like this :
 5. In your Info.plist add the "location" capability to the "Required background modes" section. In case you plan to use Maps or Passbook in your proximity aware app don't forget also to enable these capabilities. You can do this in the general settings of your project :
 ![Capabilities](/__media-files/images/ios_capabilities.jpg) 
 
-## Starting and hooking to the Ubudu SDK in your AppDelegate
+## Starting and hooking to the Ubudu SDK
 Consider the example below which is used in our demo-app which demonstrate 3 different usages of the SDK in scenarios.
-1. Start the SDK in AppDelegate
+1. Start the SDK in AppDelegate.m of your application
 
 To Start the SDK :
 ```objective-c
@@ -86,3 +86,4 @@ To Start the SDK :
   ```
 
 The namespace value i.e. `ff356b88057340a771e9b072d16278829c67b9a1` in the example above is the namespace UID of the application creatd in the [Back-office manager web interface](https://manager.ubudu.com) of your application. 
+When you access the Back-office web interface in the details of the application you created you will find an example of integration with the correct UID for your application. 

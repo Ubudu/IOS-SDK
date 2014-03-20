@@ -27,7 +27,8 @@ For Geofencing
   - UIKit.framework
   - CoreGraphics.framework
   - Foundation.framework
-Your framework folder should look like this : 
+Your framework folder should look like this :
+![Framework list](__media-files/ios_framework_list.png) 
 
 
 

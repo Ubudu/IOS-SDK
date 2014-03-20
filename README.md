@@ -30,5 +30,7 @@ For Geofencing
 Your framework folder should look like this :
 ![Framework list](/__media-files/images/ios_framework_list.jpg) 
 
+4. Go to Target -> Other Linker Flags and add the following flags: '-ObjC -all_load'
+![Linker flag](/__media-files/images/linker_flags.jpg) 
 
 

@@ -62,21 +62,18 @@ The sample resume call can look like this
     
     // Rest of app init code…
   }
- `
+ ```
 Calling **resume:launchOptions:error** method will not start the SDK if it wasn't expicitly started by **start:** call or it was stoppe by **stop** call.
 
 When you want the SDK to stop working in the background call 
-
+```objective-c
     UbuduIOSSDK *sdk = [UbuduIOSSDK sharedInstance];
   [sdk stop];
-
+``
 Stopping the SDK will stop it from updating location and tracking geofences.
 
 
-Consider the example below which is used in our demo-app which demonstrate 3 different usages of the SDK in scenarios.
-1. Start the SDK in AppDelegate.m of your application
-
-To Start the SDK :
+Full example on how to initialize and start the SDK:
 ```objective-c
 /* AppDelegate.m */
 #import <UbuduIOSSDK/UbuduIOSSDK.h>

@@ -69,7 +69,7 @@ When you want the SDK to stop working in the background call
 ```objective-c
     UbuduIOSSDK *sdk = [UbuduIOSSDK sharedInstance];
   [sdk stop];
-``
+```
 Stopping the SDK will stop it from updating location and tracking geofences.
 
 

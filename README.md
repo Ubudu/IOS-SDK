@@ -150,7 +150,7 @@ Example of implementation of delegate methods in app :
 - (void)ubuduIOSSDK_receivedLocalNotificationRequest:(UILocalNotification *)localNotification triggeredBy:(UbuduIOSSDKTriggerSource)triggeredBy
 {
     NSLog(@"ubuduIOSSDK_receivedLocalNotificationRequest localNotification = %@", localNotification);
-    // Post notification only if it's a new one (avoid spamming the user)
+    // Post notification only if it's a new one (avoid presenting multiple identical notification to the user)
     if ([[UDDemoManager sharedManager] hasLocalNotificationBeenTriggered:localNotification] == NO)
     {
         [[UDDemoManager sharedManager] markLocalNotificationAsTrigerred:localNotification];
@@ -168,27 +168,6 @@ Example of implementation of delegate methods in app :
     if (error != nil) {
         NSLog(@"ubuduIOSSDK_receivedErrorNotification %@", error);
     }
-}
-
-// Beacon related callbacks
-- (void)ubuduIOSSDK_foundNewBeacon:(NSString *)beaconName userInfo:(NSDictionary *)userInfo
-{
-//    NSLog(@"ubuduIOSSDK_foundNewBeacon userInfo = %@", userInfo);
-}
-
-- (void)ubuduIOSSDK_pingReceivedFromBeacon:(NSString *)beaconName userInfo:(NSDictionary *)userInfo
-{
-//    NSLog(@"ubuduIOSSDK_pingReceivedFromBeacon userInfo = %@", userInfo);
-}
-
-- (void)ubuduIOSSDK_updatedBeacon:(NSString *)beaconName userInfo:(NSDictionary *)userInfo
-{
-//    NSLog(@"ubuduIOSSDK_updatedBeacon userInfo = %@", userInfo);
-}
-
-- (void)ubuduIOSSDK_lostBeaconSignal:(NSString *)beaconName userInfo:(NSDictionary *)userInfo
-{
-//    NSLog(@"ubuduIOSSDK_lostBeaconSignal userInfo = %@", userInfo);
 }
 
 // Debug callbacks

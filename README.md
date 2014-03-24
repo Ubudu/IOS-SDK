@@ -40,6 +40,39 @@ Your framework folder should look like this :
 ![Capabilities](/__media-files/images/ios_capabilities.jpg) 
 
 ## Starting and hooking to the Ubudu SDK
+To start the SDK use the following code
+```objective-c
+    NSError *error = nil; 
+    UbuduIOSSDK *sdk = [UbuduIOSSDK sharedInstance];
+  BOOL started = [sdk start:&error];
+    sdk.application = [UIApplication sharedApplication];
+    sdk.delegate = self;
+  if( !started ){
+    //handle error 
+  }
+```
+The delegate is the object which will be receiving all the notifications via callbacks defined in the **UbuduIOSSDKDelegate** protocol. This might be your current UIViewController subclass. 
+The application is passed to the SDK so it can work correctly based on current application state (eg. sending local notifications when the application is in the background). If you don't set this or set it to nil the SDK will still work correctly when the host application is active. To support application's background mode the application reference needs to be passed to the SDK. Additionaly the resume function has to be called in application delegate for the SDK to correctly continue working if the host application was terminated. 
+The sample resume call can look like this
+```objective-c
+  - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+  {
+      NSError *error = nil;
+      [[UbuduIOSSDK sharedInstance] resume:application launchOptions:launchOptions error:&error];
+    
+    // Rest of app init code…
+  }
+ `
+Calling **resume:launchOptions:error** method will not start the SDK if it wasn't expicitly started by **start:** call or it was stoppe by **stop** call.
+
+When you want the SDK to stop working in the background call 
+
+    UbuduIOSSDK *sdk = [UbuduIOSSDK sharedInstance];
+  [sdk stop];
+
+Stopping the SDK will stop it from updating location and tracking geofences.
+
+
 Consider the example below which is used in our demo-app which demonstrate 3 different usages of the SDK in scenarios.
 1. Start the SDK in AppDelegate.m of your application
 
@@ -102,6 +135,31 @@ There are 4 types of actions that can be executed when entering or exiting a zon
 - Open a web-page in a web-view : note that the page can be either online (http or https) or in the application bundle (in this case use the file protocol in the URL)
 ![Back-office configuration open web view notification](/__media-files/images/back_office_action.jpg) 
 - Open a passboook : note that the passbook can be either online (http or https) or in the application bundle (in this case use the file protocol in the URL)
+
+
+### UbuduIOSSDKDelegate Callbacks
+
+
+UbuduIOSSDK provides a couple of callback methods which can be used to override the SDK's default behaviour.
+
+  - (void)ubuduIOSSDK_receivedOpenWebPageRequest:(NSURL *)url;
+  
+The **ubuduIOSSDK_receivedOpenWebPageRequest** is called when the SDK performs an action which should result in opening a web page on top of the current view. If you want to override (or disable) this behaviour implement the **ubuduIOSSDK_receivedOpenWebPageRequest** method in your delegate.
+  
+  - (void)ubuduIOSSDK_reveivedRegionNotification:(NSDictionary *)notificationData;
+
+The **ubuduIOSSDK_reveivedRegionNotification** is called when the SDK performs an action which should only notify the delegate without performing any other actions.  
+  
+  - (void)ubuduIOSSDK_receivedLocalNotificationRequest:(UILocalNotification *)localNotification;
+
+The **ubuduIOSSDK_receivedLocalNotificationRequest** is called when the SDK performs an action which should result in dispatching a local notification. If you want to override (or disable) this behaviour implement the **ubuduIOSSDK_receivedLocalNotificationRequest** method in your delegate.
+
+
+  - (void)ubuduIOSSDK_receivedNewAdView:(UIView *)view;
+
+The **ubuduIOSSDK_receivedNewAdView:** is called when the SDK receives new contents for the ad banner. 
+
+
 
 Example of implementation of delegate methods in app : 
 ```objective-c

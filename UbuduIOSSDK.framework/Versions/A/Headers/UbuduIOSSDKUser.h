@@ -10,9 +10,16 @@
 
 @interface UbuduIOSSDKUser : NSObject
 
-@property (nonatomic, strong) NSDictionary * properties;
+/* User ID.
+ */
 @property (nonatomic, strong) NSString * userID;
 
+/* Custom user properties.
+ */
+@property (nonatomic, strong) NSDictionary * properties;
+
+/* Init the user object with provided ID and properties.
+ */
 - (id)initWithID:(NSString *)userID withProperties:(NSDictionary *)properties;
 
 @end

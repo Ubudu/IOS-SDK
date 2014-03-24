@@ -9,7 +9,6 @@
 #ifndef UbuduSDK_UbuduIOSSDKErrorCodes_h
 #define UbuduSDK_UbuduIOSSDKErrorCodes_h
 
-
 #define kUbuduIOSSDKErrorDomain            @"UbuduIOSSDKErrorDomain"
 
 #define kUbuduIOSSDKErrorInfo_Key_Message  @"message"
@@ -26,6 +25,7 @@ typedef enum UbuduIOSSDKErrorCodes{
     UbuduIOSSDKError_DeviceBluetoothDisabled,
     UbuduIOSSDKError_UserInformationNotSet,
     UbuduIOSSDKError_UseNamespaceNotSet,
+    
     UbuduIOSSDKError_Actions_NoDataFoundForRegionEntered = 100,     //this is an odd one. happens when there is no region data for a region which was registered which means that is was in the data storage before. could've been removed in the meantime
     UbuduIOSSDKError_Actions_DataForRegionNotYetAvailableDueToStartDate,
     UbuduIOSSDKError_Actions_DataForRegionNotAvailableDueToEndDateExpiration,
@@ -63,10 +63,6 @@ typedef enum UbuduIOSSDKErrorCodes{
     UbuduIOSSDKError_Beacon_BatteryLevelUpdateNotAvailableForNotConnectedBeacon = 1120,
     UbuduIOSSDKError_Beacon_ServiceDiscoveryNotAvailableForNotConnectedBeacon,
     UbuduIOSSDKError_Beacon_SleepHoursSettingNotAvailableForNotConnectedBeacon,
-    
-    
-    
 } UbuduIOSSDKErrorCodes;
-
 
 #endif

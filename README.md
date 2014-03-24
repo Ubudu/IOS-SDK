@@ -11,6 +11,8 @@ For Geofencing
 
 ## Adding the Ubudu SDK framework to your project
 
+Starting to use the Ubudu SDK on IOS native app should be a 5 to 10 minutes process. Have a look at the demo app in the directory for a complete example. 
+
 1. Copy UbuduIOSSDK.framework into your project directory and then drag & drop it into the Frameworks folder of your project in XCode
 2. Add the following frameworks to your project :
   - QuartzCore.framework
@@ -92,4 +94,145 @@ To Start the SDK :
 
 The namespace value i.e. `ff356b88057340a771e9b072d16278829c67b9a1` in the example above is the namespace UID of the application creatd in the [Back-office manager web interface](https://manager.ubudu.com) of your application. 
 When you access the Back-office web interface in the details of the application you created you will find an example of integration with the correct UID for your application.
-The demo application provided in the folder will 
+Then still in the App delegate implement the callbacks that you would like to overwrite to handle the actions that have been programmed in the back-office.
+There are 4 types of actions that can be executed when entering or exiting a zone : 
+- Post to a server URL a callback : the server can than "decide" the next action of execute custom code (such as adding entries into a CRM, sending a push  notification or sending a push notification to a client). Note that the SDK will automatically take advantage of some wildcards that you can use to identify the actions in your callback. Example of URL : 'https://yourserver.com/push_event_to_app.json?event=exit&id={id}&udid={udid}'
+- Trigger a local notification : a local notification can contain a message, notification type, a scheduled time and a custom payload see [Apple documentation](https://developer.apple.com/library/ios/documentation/iPhone/Reference/UILocalNotification_Class/Reference/Reference.html#//apple_ref/occ/instp/UILocalNotification/alertAction)
+![Back-office configuration local notification](/__media-files/images/back_office_action_1.jpg) 
+- Open a web-page in a web-view : note that the page can be either online (http or https) or in the application bundle (in this case use the file protocol in the URL)
+![Back-office configuration open web view notification](/__media-files/images/back_office_action.jpg) 
+- Open a passboook : note that the passbook can be either online (http or https) or in the application bundle (in this case use the file protocol in the URL)
+
+Example of implementation of delegate methods in app : 
+```objective-c
+//AppDelegate.m
+
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
+{
+    NSString *notifType = [notification.userInfo valueForKeyPath:@"payload.type"];
+
+    // If the notification contains a custom payload that we want to handle
+    // In this case we display a custom alert view instead of normal notification
+    if ([notifType isEqualToString:@"order"])
+    {
+        [self displayOrderAwaitingAlert];
+    }
+    else
+    {
+        // Send back to the SDK the notification (that may have been received in background)
+        // So it can trigger the right action (passbook or web view for example)
+        [[UbuduIOSSDK sharedInstance] receiveLocalNotification:notification];
+    }
+}
+
+#pragma mark - UbuduIOSSDK Delegate
+
+- (void)ubuduIOSSDK_receivedOpenWebPageRequest:(NSURL *)url triggeredBy:(UbuduIOSSDKTriggerSource)triggeredBy
+{
+    NSLog(@"ubuduIOSSDK_receivedOpenWebPageRequest url = %@", url);
+}
+
+- (void)ubuduIOSSDK_receivedOpenPassbookRequest:(NSURL *)aPassbookUrl triggeredBy:(UbuduIOSSDKTriggerSource)triggeredBy
+{
+    NSLog(@"ubuduIOSSDK_receivedOpenPassbookRequest aPassbookUrl = %@", aPassbookUrl);
+}
+
+- (void)ubuduIOSSDK_receivedRegionNotification:(NSDictionary *)notificationData triggeredBy:(UbuduIOSSDKTriggerSource)triggeredBy
+{
+//    NSLog(@"ubuduIOSSDK_receivedRegionNotification notificationData = %@", notificationData);
+}
+
+- (void)ubuduIOSSDK_receivedSDKNotification:(NSDictionary *)notificationData triggeredBy:(UbuduIOSSDKTriggerSource)triggeredBy
+{
+//    NSLog(@"ubuduIOSSDK_receivedSDKNotification notificationData = %@", notificationData);
+}
+
+- (void)ubuduIOSSDK_receivedLocalNotificationRequest:(UILocalNotification *)localNotification triggeredBy:(UbuduIOSSDKTriggerSource)triggeredBy
+{
+    NSLog(@"ubuduIOSSDK_receivedLocalNotificationRequest localNotification = %@", localNotification);
+    // Post notification only if it's a new one (avoid spamming the user)
+    if ([[UDDemoManager sharedManager] hasLocalNotificationBeenTriggered:localNotification] == NO)
+    {
+        [[UDDemoManager sharedManager] markLocalNotificationAsTrigerred:localNotification];
+        [[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
+    }
+}
+
+- (void)ubuduIOSSDK_receivedNewAdView:(UIView *)view triggeredBy:(UbuduIOSSDKTriggerSource)triggeredBy
+{
+//    NSLog(@"ubuduIOSSDK_receivedNewAdView view = %@", view);
+}
+
+- (void)ubuduIOSSDK_receivedErrorNotification:(NSError *)error
+{
+    if (error != nil) {
+        NSLog(@"ubuduIOSSDK_receivedErrorNotification %@", error);
+    }
+}
+
+// Beacon related callbacks
+- (void)ubuduIOSSDK_foundNewBeacon:(NSString *)beaconName userInfo:(NSDictionary *)userInfo
+{
+//    NSLog(@"ubuduIOSSDK_foundNewBeacon userInfo = %@", userInfo);
+}
+
+- (void)ubuduIOSSDK_pingReceivedFromBeacon:(NSString *)beaconName userInfo:(NSDictionary *)userInfo
+{
+//    NSLog(@"ubuduIOSSDK_pingReceivedFromBeacon userInfo = %@", userInfo);
+}
+
+- (void)ubuduIOSSDK_updatedBeacon:(NSString *)beaconName userInfo:(NSDictionary *)userInfo
+{
+//    NSLog(@"ubuduIOSSDK_updatedBeacon userInfo = %@", userInfo);
+}
+
+- (void)ubuduIOSSDK_lostBeaconSignal:(NSString *)beaconName userInfo:(NSDictionary *)userInfo
+{
+//    NSLog(@"ubuduIOSSDK_lostBeaconSignal userInfo = %@", userInfo);
+}
+
+// Debug callbacks
+- (void)ubuduIOSSDK_receivedLocationChange:(CLLocation *)newLocation
+{
+//    NSLog(@"ubuduIOSSDK_receivedLocationChange newLocation = %@", newLocation);
+}
+
+- (void)ubuduIOSSDK_receivedEnterRegionNotification:(CLRegion *)region
+{
+//    NSLog(@"ubuduIOSSDK_receivedEnterRegionNotification region = %@", region);
+}
+
+- (void)ubuduIOSSDK_receivedExitRegionNotification:(CLRegion *)region
+{
+//    NSLog(@"ubuduIOSSDK_receivedExitRegionNotification region = %@", region);
+}
+
+- (void)ubuduIOSSDK_receivedDebugData:(id)data
+{
+//    NSLog(@"ubuduIOSSDK_receivedDebugData data = %@", data);
+}
+
+#pragma mark - Click & Collect Alert
+
+- (void)displayOrderAwaitingAlert
+{
+    UIAlertView *alert = [[UIAlertView alloc] init];
+    [alert setTitle:@"Your order"];
+    [alert setMessage:@"Do you want to send your order to preparation now?"];
+    [alert setDelegate:self];
+    [alert addButtonWithTitle:@"No, I'll do it later"];
+    [alert addButtonWithTitle:@"Yes"];
+    [alert show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
+        // No. Do nothing.
+    } else if (buttonIndex == 1) {
+        // Yes. Open order summary page.
+        UIViewController * orderSummaryVC = [self.window.rootViewController.storyboard instantiateViewControllerWithIdentifier:@"UDOrderSummaryViewController"];
+        [self.window.rootViewController presentViewController:orderSummaryVC animated:YES completion:nil];
+    }
+}
+```

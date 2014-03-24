@@ -2,10 +2,11 @@ IOS-SDK
 =======
 
 ### System and hardware requirements
-For beacons related features
+For beacons related features:
 - IOS 7.0 or higher for supporting iBeacon features / IOS 7.1 recommended
-- Iphone 4S/ Ipad 3rd generation or more recent
-For Geofencing
+- Iphone 4S / Ipad 3rd generation or more recent
+
+For geofencing:
 - IOS 6.X or higher
 - Iphone 4 or higher
 
@@ -14,7 +15,7 @@ For Geofencing
 Starting to use the Ubudu SDK on IOS native app should be a 5 to 10 minutes process. Have a look at the demo app in the directory for a complete example. 
 
 1. Copy UbuduIOSSDK.framework into your project directory and then drag & drop it into the Frameworks folder of your project in XCode
-2. Add the following frameworks to your project :
+2. Add the following frameworks to your project:
   - QuartzCore.framework
   - CoreLocation.framework
   - CoreData.framework
@@ -29,46 +30,49 @@ Starting to use the Ubudu SDK on IOS native app should be a 5 to 10 minutes proc
   - UIKit.framework
   - CoreGraphics.framework
   - Foundation.framework
-Your framework folder should look like this :
+Your framework folder should look like this:
+
 ![Framework list](/__media-files/images/ios_framework_list.jpg) 
 
 4. Go to Target -> Other Linker Flags and add the following flags:
 `-ObjC -all_load
+
 ![Linker flag](/__media-files/images/ios_linker_flags.jpg) 
 
 5. In your Info.plist add the "location" capability to the "Required background modes" section. In case you plan to use Maps or Passbook in your proximity aware app don't forget also to enable these capabilities. You can do this in the general settings of your project :
+
 ![Capabilities](/__media-files/images/ios_capabilities.jpg) 
 
 ## Starting and hooking to the Ubudu SDK
 To start the SDK use the following code
 ```objective-c
-    NSError *error = nil; 
-    UbuduIOSSDK *sdk = [UbuduIOSSDK sharedInstance];
-  BOOL started = [sdk start:&error];
-    sdk.application = [UIApplication sharedApplication];
-    sdk.delegate = self;
-  if( !started ){
-    //handle error 
-  }
+NSError *error = nil; 
+UbuduIOSSDK *sdk = [UbuduIOSSDK sharedInstance];
+BOOL started = [sdk start:&error];
+sdk.application = [UIApplication sharedApplication];
+sdk.delegate = self;
+if (!started) {
+    // Handle error
+}
 ```
 The delegate is the object which will be receiving all the notifications via callbacks defined in the **UbuduIOSSDKDelegate** protocol. This might be your current UIViewController subclass. 
 The application is passed to the SDK so it can work correctly based on current application state (eg. sending local notifications when the application is in the background). If you don't set this or set it to nil the SDK will still work correctly when the host application is active. To support application's background mode the application reference needs to be passed to the SDK. Additionaly the resume function has to be called in application delegate for the SDK to correctly continue working if the host application was terminated. 
 The sample resume call can look like this
 ```objective-c
-  - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-  {
-      NSError *error = nil;
-      [[UbuduIOSSDK sharedInstance] resume:application launchOptions:launchOptions error:&error];
-    
-    // Rest of app init code…
-  }
- ```
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    NSError *error = nil;
+    [[UbuduIOSSDK sharedInstance] resume:application launchOptions:launchOptions error:&error];
+  
+  // Rest of app init code…
+}
+```
 Calling **resume:launchOptions:error** method will not start the SDK if it wasn't expicitly started by **start:** call or it was stoppe by **stop** call.
 
 When you want the SDK to stop working in the background call 
 ```objective-c
-    UbuduIOSSDK *sdk = [UbuduIOSSDK sharedInstance];
-  [sdk stop];
+UbuduIOSSDK *sdk = [UbuduIOSSDK sharedInstance];
+[sdk stop];
 ```
 Stopping the SDK will stop it from updating location and tracking geofences.
 
@@ -120,7 +124,7 @@ Full example on how to initialize and start the SDK:
         }
     }
 }
-  ```
+```
 
 The namespace value i.e. `634b207ee2f313c109c58675b44324ac2d41e61e` in the example above is the namespace UID of the application creatd in the [Back-office manager web interface](https://manager.ubudu.com) of your application. 
 When you access the Back-office web interface in the details of the application you created you will find an example of integration with the correct UID for your application.

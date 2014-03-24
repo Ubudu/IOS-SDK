@@ -109,7 +109,7 @@ Full example on how to initialize and start the SDK:
     if ([[UbuduIOSSDK sharedInstance] isRunning] == NO && deviceSupportsBeacons && deviceSupportsGeofences) {
         NSError *error = nil;
         UbuduIOSSDK *sdk = [UbuduIOSSDK sharedInstance];
-        [sdk setUseNamespace:@"ff356b88057340a771e9b072d16278829c67b9a1"];
+        [sdk setUseNamespace:@"634b207ee2f313c109c58675b44324ac2d41e61e"];
         [sdk setApplication:[UIApplication sharedApplication]];
         /** optional store in the ext_id id field a specific identifier used by the application to identify user
         [sdk setUser:[[UbuduIOSSDKUser alloc] initWithID:nil withProperties:@{@"ext_id": kUDDefaultClientName}]];
@@ -122,7 +122,7 @@ Full example on how to initialize and start the SDK:
 }
   ```
 
-The namespace value i.e. `ff356b88057340a771e9b072d16278829c67b9a1` in the example above is the namespace UID of the application creatd in the [Back-office manager web interface](https://manager.ubudu.com) of your application. 
+The namespace value i.e. `634b207ee2f313c109c58675b44324ac2d41e61e` in the example above is the namespace UID of the application creatd in the [Back-office manager web interface](https://manager.ubudu.com) of your application. 
 When you access the Back-office web interface in the details of the application you created you will find an example of integration with the correct UID for your application.
 Then still in the App delegate implement the callbacks that you would like to overwrite to handle the actions that have been programmed in the back-office.
 There are 4 types of actions that can be executed when entering or exiting a zone : 

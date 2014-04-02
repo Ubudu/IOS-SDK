@@ -66,8 +66,9 @@
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
 {
     NSString *notifType = [notification.userInfo valueForKeyPath:@"payload.type"];
-
+    
     // If the notification contains a custom payload that we want to handle
+    // In this case we display a custom alert view instead of posting a normal notification
     if ([notifType isEqualToString:@"order"])
     {
         [self displayOrderAwaitingAlert];
@@ -80,7 +81,7 @@
     }
 }
 
-#pragma mark - Ubudu SDK
+#pragma mark - UbuduSDK
 
 - (void)initUbuduSDK
 {
@@ -96,10 +97,10 @@
     
     UbuduSDK *ubuduSDK = [UbuduSDK sharedInstance];
     if ([ubuduSDK isRunning] == NO && deviceSupportsGeofences && deviceSupportsBeacons) {
-        [ubuduSDK setDelegate:self];
-        [ubuduSDK setUseNamespace:@"634b207ee2f313c109c58675b44324ac2d41e61e"];
-        [ubuduSDK setApplication:[UIApplication sharedApplication]];
-        [ubuduSDK setUser:[[UbuduUser alloc] initWithID:nil withProperties:@{@"ext_id": kUDDefaultClientName}]];
+        ubuduSDK.application = [UIApplication sharedApplication];
+        ubuduSDK.useNamespace = @"634b207ee2f313c109c58675b44324ac2d41e61e";
+        ubuduSDK.delegate = self;
+        ubuduSDK.user = [[UbuduUser alloc] initWithID:nil withProperties:@{@"ext_id": kUDDefaultClientName}];
         
         NSError *error = nil;
         BOOL started = [ubuduSDK start:&error];
@@ -109,29 +110,31 @@
     }
 }
 
-#pragma mark - UbuduSDK Delegate
+#pragma mark - UbuduSDKDelegate
+
+// Uncomment the following methods to use a custom implementation of the corresponding action
 
 //- (void)ubudu:(UbuduSDK *)ubuduSDK executeOpenWebPageRequest:(NSURL *)url triggeredBy:(UbuduTriggerSource)triggeredBy
 //{
-//    NSLog(@"executeOpenWebPageRequest url = %@", url);
-//}
-//
-//- (void)ubudu:(UbuduSDK *)ubuduSDK executeOpenPassbookRequest:(NSURL *)passbookUrl triggeredBy:(UbuduTriggerSource)triggeredBy
-//{
-//    NSLog(@"executeOpenPassbookRequest passbookUrl = %@", passbookUrl);
+//    NSLog(@"Ubudu executeOpenWebPageRequest url = %@", url);
 //}
 
-- (void)ubudu:(UbuduSDK *)ubuduSDK didReceiveRegionNotification:(NSDictionary *)notificationData triggeredBy:(UbuduTriggerSource)triggeredBy
-{
-//    NSLog(@"didReceiveRegionNotification notificationData = %@", notificationData);
-}
+//- (void)ubudu:(UbuduSDK *)ubuduSDK executeOpenPassbookRequest:(NSURL *)passbookUrl triggeredBy:(UbuduTriggerSource)triggeredBy
+//{
+//    NSLog(@"Ubudu executeOpenPassbookRequest passbookUrl = %@", passbookUrl);
+//}
+
+//- (void)ubudu:(UbuduSDK *)ubuduSDK didReceiveRegionNotification:(NSDictionary *)notificationData triggeredBy:(UbuduTriggerSource)triggeredBy
+//{
+//    NSLog(@"Ubudu didReceiveRegionNotification notificationData = %@", notificationData);
+//}
 
 - (void)ubudu:(UbuduSDK *)ubuduSDK executeLocalNotificationRequest:(UILocalNotification *)localNotification triggeredBy:(UbuduTriggerSource)triggeredBy
 {
-    NSLog(@"executeLocalNotificationRequest localNotification = %@", localNotification);
+    NSLog(@"Ubudu executeLocalNotificationRequest localNotification = %@", localNotification);
     UDDemoManager *manager = [UDDemoManager sharedManager];
     
-    // Post notification only if it's a new one (avoid spamming the user)
+    // Post notification only if it's a new one (avoid presenting multiple identical notification to the user)
     if ([manager hasLocalNotificationBeenTriggered:localNotification.alertBody] == NO)
     {
         if ([localNotification.alertBody isEqualToString:kUDSecondNotificationName]) {
@@ -156,32 +159,35 @@
     }
 }
 
-- (void)ubudu:(UbuduSDK *)ubuduSDK didReceiveErrorNotification:(NSError *)error
+- (void)ubudu:(UbuduSDK *)ubuduSDK didReceiveNewAdView:(UIView *)view triggeredBy:(UbuduTriggerSource)triggeredBy;
 {
-    if (error != nil) {
-        NSLog(@"UbuduSDK didReceiveErrorNotification: %@", error);
-    }
+    NSLog(@"Ubudu didReceiveNewAdView view = %@", view);
+}
+
+- (void)ubudu:(UbuduSDK *)ubuduSDK didReceiveErrorNotification:(NSError *)error;
+{
+    NSLog(@"Ubudu didReceiveErrorNotification error = %@", error);
 }
 
 // Beacon related callbacks
 - (void)ubudu:(UbuduSDK *)ubuduSDK didFindNewBeacon:(NSString *)beaconName userInfo:(NSDictionary *)userInfo
 {
-//    NSLog(@"didFindNewBeacon userInfo = %@", userInfo);
+//    NSLog(@"Ubudu didFindNewBeacon userInfo = %@", userInfo);
 }
 
 - (void)ubudu:(UbuduSDK *)ubuduSDK didReceivePingFromBeacon:(NSString *)beaconName userInfo:(NSDictionary *)userInfo
 {
-//    NSLog(@"didReceivePingFromBeacon userInfo = %@", userInfo);
+//    NSLog(@"Ubudu didReceivePingFromBeacon userInfo = %@", userInfo);
 }
 
 - (void)ubudu:(UbuduSDK *)ubuduSDK didUpdateBeacon:(NSString *)beaconName userInfo:(NSDictionary *)userInfo
 {
-//    NSLog(@"didUpdateBeacon userInfo = %@", userInfo);
+//    NSLog(@"Ubudu didUpdateBeacon userInfo = %@", userInfo);
 }
 
 - (void)ubudu:(UbuduSDK *)ubuduSDK didLoseBeaconSignal:(NSString *)beaconName userInfo:(NSDictionary *)userInfo
 {
-//    NSLog(@"didLoseBeaconSignal userInfo = %@", userInfo);
+//    NSLog(@"Ubudu didLoseBeaconSignal userInfo = %@", userInfo);
 }
 
 #pragma mark - Click & Collect Alert

@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Ubudu. All rights reserved.
 //
 
-#import <UbuduIOSSDK/UbuduIOSSDK.h>
+#import <UbuduSDK/UbuduSDK.h>
 
 #import "UDVIPWelcomeViewController.h"
 #import "UDDefinitions.h"
@@ -54,8 +54,8 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     NSString *clientName = [[alertView textFieldAtIndex:0] text];
     self.clientNameLabel.text = clientName;
-    [[UbuduIOSSDK sharedInstance] setUser:[[UbuduIOSSDKUser alloc] initWithID:nil withProperties:@{@"ext_id": clientName}]];
-    [[UbuduIOSSDK sharedInstance] updateUserInformation];
+    [[UbuduSDK sharedInstance] setUser:[[UbuduUser alloc] initWithID:nil withProperties:@{@"ext_id": clientName}]];
+    [[UbuduSDK sharedInstance] updateUserInformation];
 }
 
 #pragma mark - UI Touch Events

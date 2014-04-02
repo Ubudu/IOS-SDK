@@ -10,7 +10,7 @@
 #import "UDDefinitions.h"
 
 @implementation UDDemoManager {
-    NSMutableSet *_triggeredNotifications;
+    NSMutableDictionary *_triggeredNotifications;
 }
 
 + (UDDemoManager *)sharedManager
@@ -32,20 +32,25 @@
     return self;
 }
 
-- (void)markLocalNotificationAsTrigerred:(UILocalNotification *)localNotification
+- (void)markLocalNotificationAsTrigerred:(NSString *)localNotification
 {
-    [_triggeredNotifications addObject:localNotification.alertBody];
+    [_triggeredNotifications setObject:[NSDate date] forKey:localNotification];
     [self _saveTriggeredNotifications];
 }
 
-- (BOOL)hasLocalNotificationBeenTriggered:(UILocalNotification *)localNotification
+- (BOOL)hasLocalNotificationBeenTriggered:(NSString *)localNotification
 {
-    return ([_triggeredNotifications member:localNotification.alertBody] != nil);
+    return ([_triggeredNotifications objectForKey:localNotification] != nil);
 }
 
-- (void)clearTriggeredStateForLocalNotification:(UILocalNotification *)localNotification
+- (NSDate *)lastNotificationTriggerDate:(NSString *)localNotification
 {
-    [_triggeredNotifications removeObject:localNotification.alertBody];
+    return [_triggeredNotifications objectForKey:localNotification];
+}
+
+- (void)clearTriggeredStateForLocalNotification:(NSString *)localNotification
+{
+    [_triggeredNotifications removeObjectForKey:localNotification];
     [self _saveTriggeredNotifications];
 }
 
@@ -62,7 +67,7 @@
         _triggeredNotifications = [NSKeyedUnarchiver unarchiveObjectWithData:archivedData];
     }
     if (_triggeredNotifications == nil) {
-        _triggeredNotifications = [[NSMutableSet alloc] init];
+        _triggeredNotifications = [[NSMutableDictionary alloc] init];
     }
 }
 

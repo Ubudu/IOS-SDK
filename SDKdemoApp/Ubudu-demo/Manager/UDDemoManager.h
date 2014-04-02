@@ -14,9 +14,10 @@
 
 #pragma mark - Notifications management
 
-- (void)markLocalNotificationAsTrigerred:(UILocalNotification *)localNotification;
-- (BOOL)hasLocalNotificationBeenTriggered:(UILocalNotification *)localNotification;
-- (void)clearTriggeredStateForLocalNotification:(UILocalNotification *)localNotification;
+- (void)markLocalNotificationAsTrigerred:(NSString *)localNotification;
+- (BOOL)hasLocalNotificationBeenTriggered:(NSString *)localNotification;
+- (NSDate *)lastNotificationTriggerDate:(NSString *)localNotification;
+- (void)clearTriggeredStateForLocalNotification:(NSString *)localNotification;
 - (void)clearTriggeredStateForAllLocalNotifications;
 
 @end

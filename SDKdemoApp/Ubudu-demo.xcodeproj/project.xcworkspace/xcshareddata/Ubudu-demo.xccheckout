@@ -5,36 +5,36 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>9B4737A3-676C-478E-8905-FDCFE352FCF1</string>
+	<string>23AA784E-DFCF-4C24-B25B-09647964C639</string>
 	<key>IDESourceControlProjectName</key>
 	<string>Ubudu-demo</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>777030CF-CADB-4426-86A2-C3426605DF31</key>
-		<string>ssh://github.com/fkruta/UbuduSDKdemoApp.git</string>
+		<key>BE27D88D-7788-44A9-A411-5B2C1175D4DA</key>
+		<string>ssh://github.com/Ubudu/IOS-SDK.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>Ubudu-demo/Ubudu-demo.xcodeproj/project.xcworkspace</string>
+	<string>SDKdemoApp/Ubudu-demo.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>777030CF-CADB-4426-86A2-C3426605DF31</key>
+		<key>BE27D88D-7788-44A9-A411-5B2C1175D4DA</key>
 		<string>../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>ssh://github.com/fkruta/UbuduSDKdemoApp.git</string>
+	<string>ssh://github.com/Ubudu/IOS-SDK.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>777030CF-CADB-4426-86A2-C3426605DF31</string>
+	<string>BE27D88D-7788-44A9-A411-5B2C1175D4DA</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>777030CF-CADB-4426-86A2-C3426605DF31</string>
+			<string>BE27D88D-7788-44A9-A411-5B2C1175D4DA</string>
 			<key>IDESourceControlWCCName</key>
-			<string>UbuduSDKdemoApp</string>
+			<string>IOS-SDK</string>
 		</dict>
 	</array>
 </dict>

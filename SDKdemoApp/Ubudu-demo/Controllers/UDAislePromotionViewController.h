@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <UbuduIOSSDK/UbuduIOSSDKDelegate.h>
 
 @interface UDAislePromotionViewController : UIViewController
 

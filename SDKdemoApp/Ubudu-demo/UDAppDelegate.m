@@ -6,12 +6,16 @@
 //  Copyright (c) 2014 Ubudu. All rights reserved.
 //
 
-#import <UbuduIOSSDK/UbuduIOSSDK.h>
+#import <UbuduSDK/UbuduSDK.h>
 
 #import "UDAppDelegate.h"
 #import "UDDefinitions.h"
 #import "UDDemoManager.h"
 #import "UDOrderSummaryViewController.h"
+
+#define kUDFirstNotificationName @"Discover today exclusive offers at Les Caves Particulières"
+#define kUDSecondNotificationName @"Show this invitation to a Caves Particulieres hostess and enjoy an exclusive Hennessy tasting"
+#define kUDNotificationTriggerThreshold 10.0f
 
 @implementation UDAppDelegate
 
@@ -22,7 +26,7 @@
     [self initUbuduSDK];
     
     NSError * error = nil;
-    BOOL hasResumed = [[UbuduIOSSDK sharedInstance] resume:application launchOptions:launchOptions error:&error];
+    BOOL hasResumed = [[UbuduSDK sharedInstance] resume:application launchOptions:launchOptions error:&error];
     (void)hasResumed;
     if (error != nil) {
         NSLog(@"UbuduSDK resume error: %@", error);
@@ -72,7 +76,7 @@
     {
         // Send back to the SDK the notification (that may have been received in background)
         // So it can trigger the right action (passbook or web view for example)
-        [[UbuduIOSSDK sharedInstance] receiveLocalNotification:notification];
+        [[UbuduSDK sharedInstance] receiveLocalNotification:notification];
     }
 }
 
@@ -81,115 +85,103 @@
 - (void)initUbuduSDK
 {
     NSError *error = nil;
-    BOOL deviceSupportsGeofences = [UbuduIOSSDK deviceSupportsGeofences:[UIDevice currentDevice] error:&error];
+    BOOL deviceSupportsGeofences = [UbuduSDK deviceSupportsGeofences:[UIDevice currentDevice] error:&error];
     if (error != nil)
         NSLog(@"UbuduSDK error with deviceSupportsGeofences: %@", error);
     
     error = nil;
-    BOOL deviceSupportsBeacons = [UbuduIOSSDK deviceSupportsBeacons:[UIDevice currentDevice] error:&error];
+    BOOL deviceSupportsBeacons = [UbuduSDK deviceSupportsBeacons:[UIDevice currentDevice] error:&error];
     if (error != nil)
         NSLog(@"UbuduSDK error with deviceSupportsBeacons: %@", error);
     
-    if ([[UbuduIOSSDK sharedInstance] isRunning] == NO && deviceSupportsGeofences && deviceSupportsBeacons) {
-        UbuduIOSSDK *sdk = [UbuduIOSSDK sharedInstance];
-        [sdk setDelegate:self];
-        [sdk setUseNamespace:@"634b207ee2f313c109c58675b44324ac2d41e61e"];
-        [sdk setApplication:[UIApplication sharedApplication]];
-        [sdk setUser:[[UbuduIOSSDKUser alloc] initWithID:nil withProperties:@{@"ext_id": kUDDefaultClientName}]];
+    UbuduSDK *ubuduSDK = [UbuduSDK sharedInstance];
+    if ([ubuduSDK isRunning] == NO && deviceSupportsGeofences && deviceSupportsBeacons) {
+        [ubuduSDK setDelegate:self];
+        [ubuduSDK setUseNamespace:@"634b207ee2f313c109c58675b44324ac2d41e61e"];
+        [ubuduSDK setApplication:[UIApplication sharedApplication]];
+        [ubuduSDK setUser:[[UbuduUser alloc] initWithID:nil withProperties:@{@"ext_id": kUDDefaultClientName}]];
         
         NSError *error = nil;
-        BOOL started = [[UbuduIOSSDK sharedInstance] start:&error];
+        BOOL started = [ubuduSDK start:&error];
         if (!started) {
             NSLog(@"UbuduSDK start error: %@", error);
         }
     }
 }
 
-#pragma mark - UbuduIOSSDK Delegate
+#pragma mark - UbuduSDK Delegate
 
-- (void)ubuduIOSSDK_receivedOpenWebPageRequest:(NSURL *)url triggeredBy:(UbuduIOSSDKTriggerSource)triggeredBy
+//- (void)ubudu:(UbuduSDK *)ubuduSDK executeOpenWebPageRequest:(NSURL *)url triggeredBy:(UbuduTriggerSource)triggeredBy
+//{
+//    NSLog(@"executeOpenWebPageRequest url = %@", url);
+//}
+//
+//- (void)ubudu:(UbuduSDK *)ubuduSDK executeOpenPassbookRequest:(NSURL *)passbookUrl triggeredBy:(UbuduTriggerSource)triggeredBy
+//{
+//    NSLog(@"executeOpenPassbookRequest passbookUrl = %@", passbookUrl);
+//}
+
+- (void)ubudu:(UbuduSDK *)ubuduSDK didReceiveRegionNotification:(NSDictionary *)notificationData triggeredBy:(UbuduTriggerSource)triggeredBy
 {
-    NSLog(@"ubuduIOSSDK_receivedOpenWebPageRequest url = %@", url);
+//    NSLog(@"didReceiveRegionNotification notificationData = %@", notificationData);
 }
 
-- (void)ubuduIOSSDK_receivedOpenPassbookRequest:(NSURL *)aPassbookUrl triggeredBy:(UbuduIOSSDKTriggerSource)triggeredBy
+- (void)ubudu:(UbuduSDK *)ubuduSDK executeLocalNotificationRequest:(UILocalNotification *)localNotification triggeredBy:(UbuduTriggerSource)triggeredBy
 {
-    NSLog(@"ubuduIOSSDK_receivedOpenPassbookRequest aPassbookUrl = %@", aPassbookUrl);
-}
-
-- (void)ubuduIOSSDK_receivedRegionNotification:(NSDictionary *)notificationData triggeredBy:(UbuduIOSSDKTriggerSource)triggeredBy
-{
-//    NSLog(@"ubuduIOSSDK_receivedRegionNotification notificationData = %@", notificationData);
-}
-
-- (void)ubuduIOSSDK_receivedSDKNotification:(NSDictionary *)notificationData triggeredBy:(UbuduIOSSDKTriggerSource)triggeredBy
-{
-//    NSLog(@"ubuduIOSSDK_receivedSDKNotification notificationData = %@", notificationData);
-}
-
-- (void)ubuduIOSSDK_receivedLocalNotificationRequest:(UILocalNotification *)localNotification triggeredBy:(UbuduIOSSDKTriggerSource)triggeredBy
-{
-    NSLog(@"ubuduIOSSDK_receivedLocalNotificationRequest localNotification = %@", localNotification);
+    NSLog(@"executeLocalNotificationRequest localNotification = %@", localNotification);
+    UDDemoManager *manager = [UDDemoManager sharedManager];
+    
     // Post notification only if it's a new one (avoid spamming the user)
-    if ([[UDDemoManager sharedManager] hasLocalNotificationBeenTriggered:localNotification] == NO)
+    if ([manager hasLocalNotificationBeenTriggered:localNotification.alertBody] == NO)
     {
-        [[UDDemoManager sharedManager] markLocalNotificationAsTrigerred:localNotification];
-        [[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
+        if ([localNotification.alertBody isEqualToString:kUDSecondNotificationName]) {
+            if ([manager hasLocalNotificationBeenTriggered:kUDFirstNotificationName] == YES) {
+                NSDate *triggerDate = [manager lastNotificationTriggerDate:kUDFirstNotificationName];
+                NSDate *currentDate = [NSDate date];
+                NSTimeInterval deltaTime = [currentDate timeIntervalSinceDate:triggerDate];
+                if (deltaTime > kUDNotificationTriggerThreshold) {
+                    NSLog(@"Delta time between outdoor and indoor notifications = %f > threshold (%f) => posting indoor notification", deltaTime, kUDNotificationTriggerThreshold);
+                    [manager markLocalNotificationAsTrigerred:localNotification.alertBody];
+                    [[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
+                } else {
+                    NSLog(@"Delta time %f < threshold (%f) => not posting", deltaTime, kUDNotificationTriggerThreshold);
+                }
+            } else {
+                NSLog(@"Outdoor notification not posted, not posting indoor notification");
+            }
+        } else {
+            [manager markLocalNotificationAsTrigerred:localNotification.alertBody];
+            [[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
+        }
     }
 }
 
-- (void)ubuduIOSSDK_receivedNewAdView:(UIView *)view triggeredBy:(UbuduIOSSDKTriggerSource)triggeredBy
-{
-//    NSLog(@"ubuduIOSSDK_receivedNewAdView view = %@", view);
-}
-
-- (void)ubuduIOSSDK_receivedErrorNotification:(NSError *)error
+- (void)ubudu:(UbuduSDK *)ubuduSDK didReceiveErrorNotification:(NSError *)error
 {
     if (error != nil) {
-        NSLog(@"ubuduIOSSDK_receivedErrorNotification %@", error);
+        NSLog(@"UbuduSDK didReceiveErrorNotification: %@", error);
     }
 }
 
 // Beacon related callbacks
-- (void)ubuduIOSSDK_foundNewBeacon:(NSString *)beaconName userInfo:(NSDictionary *)userInfo
+- (void)ubudu:(UbuduSDK *)ubuduSDK didFindNewBeacon:(NSString *)beaconName userInfo:(NSDictionary *)userInfo
 {
-//    NSLog(@"ubuduIOSSDK_foundNewBeacon userInfo = %@", userInfo);
+//    NSLog(@"didFindNewBeacon userInfo = %@", userInfo);
 }
 
-- (void)ubuduIOSSDK_pingReceivedFromBeacon:(NSString *)beaconName userInfo:(NSDictionary *)userInfo
+- (void)ubudu:(UbuduSDK *)ubuduSDK didReceivePingFromBeacon:(NSString *)beaconName userInfo:(NSDictionary *)userInfo
 {
-//    NSLog(@"ubuduIOSSDK_pingReceivedFromBeacon userInfo = %@", userInfo);
+//    NSLog(@"didReceivePingFromBeacon userInfo = %@", userInfo);
 }
 
-- (void)ubuduIOSSDK_updatedBeacon:(NSString *)beaconName userInfo:(NSDictionary *)userInfo
+- (void)ubudu:(UbuduSDK *)ubuduSDK didUpdateBeacon:(NSString *)beaconName userInfo:(NSDictionary *)userInfo
 {
-//    NSLog(@"ubuduIOSSDK_updatedBeacon userInfo = %@", userInfo);
+//    NSLog(@"didUpdateBeacon userInfo = %@", userInfo);
 }
 
-- (void)ubuduIOSSDK_lostBeaconSignal:(NSString *)beaconName userInfo:(NSDictionary *)userInfo
+- (void)ubudu:(UbuduSDK *)ubuduSDK didLoseBeaconSignal:(NSString *)beaconName userInfo:(NSDictionary *)userInfo
 {
-//    NSLog(@"ubuduIOSSDK_lostBeaconSignal userInfo = %@", userInfo);
-}
-
-// Debug callbacks
-- (void)ubuduIOSSDK_receivedLocationChange:(CLLocation *)newLocation
-{
-//    NSLog(@"ubuduIOSSDK_receivedLocationChange newLocation = %@", newLocation);
-}
-
-- (void)ubuduIOSSDK_receivedEnterRegionNotification:(CLRegion *)region
-{
-//    NSLog(@"ubuduIOSSDK_receivedEnterRegionNotification region = %@", region);
-}
-
-- (void)ubuduIOSSDK_receivedExitRegionNotification:(CLRegion *)region
-{
-//    NSLog(@"ubuduIOSSDK_receivedExitRegionNotification region = %@", region);
-}
-
-- (void)ubuduIOSSDK_receivedDebugData:(id)data
-{
-//    NSLog(@"ubuduIOSSDK_receivedDebugData data = %@", data);
+//    NSLog(@"didLoseBeaconSignal userInfo = %@", userInfo);
 }
 
 #pragma mark - Click & Collect Alert

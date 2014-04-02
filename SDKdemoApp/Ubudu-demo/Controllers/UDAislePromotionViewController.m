@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Ubudu. All rights reserved.
 //
 
-#import <UbuduIOSSDK/UbuduIOSSDK.h>
+#import <UbuduSDK/UbuduSDK.h>
 
 #import "UDAislePromotionViewController.h"
 

@@ -148,22 +148,36 @@ There are 4 types of actions that can be executed when entering or exiting a zon
 
 UbuduSDK provides a couple of callback methods which can be used to override the SDK's default behaviour.
 
+```objective-c
   - (void)ubudu:(UbuduSDK *)ubuduSDK executeOpenWebPageRequest:(NSURL *)url triggeredBy:(UbuduTriggerSource)triggeredBy;
-  
+```
+
 The **ubudu:executeOpenWebPageRequest:triggeredBy:** is called when an action which should result in opening a web page on top of the current view should happen.
 If you want to override the behaviour of this action implement the **ubudu:executeOpenWebPageRequest:triggeredBy:** method in your delegate.
+
+```objective-c
+  - (void)ubudu:(UbuduSDK *)ubuduSDK executeOpenPassbookRequest:(NSURL *)passbookUrl triggeredBy:(UbuduTriggerSource)triggeredBy
+```
+
+The **ubudu:executeOpenPassbookRequest:triggeredBy:** is called when an action which should result in presenting a passbook pass to the user should happen.
+If you want to override the behaviour of this action implement the **ubudu:executeOpenPassbookRequest:triggeredBy:** method in your delegate.
   
+```objective-c
   - (void)ubudu:(UbuduSDK *)ubuduSDK executeLocalNotificationRequest:(UILocalNotification *)localNotification triggeredBy:(UbuduTriggerSource)triggeredBy;
+```
 
 The **ubudu:executeLocalNotificationRequest:triggeredBy:** is called when the SDK performs an action which should result in dispatching a local notification.
 If you want to override this behaviour implement the **ubudu:executeLocalNotificationRequest:triggeredBy:** method in your delegate.
   
+```objective-c
   - (void)ubudu:(UbuduSDK *)ubuduSDK didReceiveRegionNotification:(NSDictionary *)notificationData triggeredBy:(UbuduTriggerSource)triggeredBy;
+```
 
 The **ubudu:didReceiveRegionNotification:triggeredBy:** is called when the SDK performs an action which should only notify the delegate without performing any other actions.
 
-
+```objective-c
   - (void)ubudu:(UbuduSDK *)ubuduSDK didReceiveNewAdView:(UIView *)view triggeredBy:(UbuduTriggerSource)triggeredBy;
+```
 
 The **ubudu:didReceiveNewAdView:triggeredBy:** is called when the SDK receives new contents for the ad banner.
 

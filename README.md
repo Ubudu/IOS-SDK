@@ -14,7 +14,7 @@ For geofencing:
 
 Starting to use the Ubudu SDK on IOS native app should be a 5 to 10 minutes process. Have a look at the demo app in the directory for a complete example. 
 
-1. Copy UbuduSDK.framework into your project directory and then drag & drop it into the Frameworks folder of your project in XCode
+1. Copy UbuduSDK.framework into your project directory and then drag & drop it into the Frameworks folder of your project in XCode.
 2. Add the following frameworks to your project:
   - QuartzCore.framework
   - CoreLocation.framework
@@ -26,7 +26,7 @@ Starting to use the Ubudu SDK on IOS native app should be a 5 to 10 minutes proc
   - PassKit.framework
   - libz.dylib
 
-3. Check that these frameworks are also present
+3. Check that these frameworks are also present:
   - UIKit.framework
   - CoreGraphics.framework
   - Foundation.framework
@@ -35,7 +35,7 @@ Your framework folder should look like this:
 ![Framework list](/__media-files/images/ios_framework_list.jpg) 
 
 4. Go to Target -> Other Linker Flags and add the following flags:
-`-ObjC -all_load
+-ObjC -all_load
 
 ![Linker flag](/__media-files/images/ios_linker_flags.jpg) 
 
@@ -44,15 +44,16 @@ Your framework folder should look like this:
 ![Capabilities](/__media-files/images/ios_capabilities.jpg) 
 
 ## Starting and hooking to the Ubudu SDK
-To start the SDK use the following code
+To start the SDK use the following code:
 ```objective-c
 NSError *error = nil; 
 UbuduSDK *ubuduSDK = [UbuduSDK sharedInstance];
-BOOL started = [ubuduSDK start:&error];
 ubuduSDK.application = [UIApplication sharedApplication];
 ubuduSDK.useNamespace = @"634b207ee2f313c109c58675b44324ac2d41e61e";
 ubuduSDK.delegate = self;
+BOOL started = [ubuduSDK start:&error];
 if (!started) {
+    NSLog(@"UbuduSDK start error: %@", error);
     // Handle error
 }
 ```
@@ -120,7 +121,7 @@ Full example on how to initialize and start the SDK:
         ubuduSDK.useNamespace = @"634b207ee2f313c109c58675b44324ac2d41e61e";
         ubuduSDK.delegate = self;
         /** optional store in the ext_id id field a specific identifier used by the application to identify user
-        ubuduSDK.user = [[UbuduUser alloc] initWithID:nil withProperties:@{@"ext_id": kUDDefaultClientName}];
+        ubuduSDK.user = [[UbuduUser alloc] initWithID:nil withProperties:@{@"ext_id": @"Your client ID"}];
         */        
         NSError *error = nil;
         BOOL started = [ubuduSDK start:&error];
@@ -131,16 +132,16 @@ Full example on how to initialize and start the SDK:
 }
 ```
 
-The namespace value i.e. `634b207ee2f313c109c58675b44324ac2d41e61e` in the example above is the namespace UID of the application creatd in the [Back-office manager web interface](https://manager.ubudu.com) of your application. 
-When you access the Back-office web interface in the details of the application you created you will find an example of integration with the correct UID for your application.
+The namespace value i.e. `634b207ee2f313c109c58675b44324ac2d41e61e` in the example above is the namespace UID of the application creatd in the [back-office manager web interface](https://manager.ubudu.com) of your application. 
+When you access the back-office web interface in the details of the application you created you will find an example of integration with the correct UID for your application.
 Then still in the App delegate implement the callbacks that you would like to overwrite to handle the actions that have been programmed in the back-office.
 There are 4 types of actions that can be executed when entering or exiting a zone : 
-- Post to a server URL a callback : the server can than "decide" the next action of execute custom code (such as adding entries into a CRM, sending a push  notification or sending a push notification to a client). Note that the SDK will automatically take advantage of some wildcards that you can use to identify the actions in your callback. Example of URL : 'https://yourserver.com/push_event_to_app.json?event=exit&id={id}&udid={udid}'
-- Trigger a local notification : a local notification can contain a message, notification type, a scheduled time and a custom payload see [Apple documentation](https://developer.apple.com/library/ios/documentation/iPhone/Reference/UILocalNotification_Class/Reference/Reference.html#//apple_ref/occ/instp/UILocalNotification/alertAction)
+- Post to a server URL a callback : the server can than "decide" the next action of execute custom code (such as adding entries into a CRM, sending a push  notification or sending a push notification to a client). Note that the SDK will automatically take advantage of some wildcards that you can use to identify the actions in your callback. Example of URL : 'https://yourserver.com/push_event_to_app.json?event=exit&id={id}&udid={udid}'.
+- Trigger a local notification : a local notification can contain a message, notification type, a scheduled time and a custom payload see [Apple documentation](https://developer.apple.com/library/ios/documentation/iPhone/Reference/UILocalNotification_Class/Reference/Reference.html#//apple_ref/occ/instp/UILocalNotification/alertAction).
 ![Back-office configuration local notification](/__media-files/images/back_office_action_1.jpg) 
-- Open a web-page in a web-view : note that the page can be either online (http or https) or in the application bundle (in this case use the file protocol in the URL)
+- Open a web-page in a web-view : note that the page can be either online (http or https) or in the application bundle (in this case use the file protocol in the URL).
 ![Back-office configuration open web view notification](/__media-files/images/back_office_action.jpg) 
-- Open a passboook: note that the passbook can be either online (http or https) or in the application bundle (in this case use the file protocol in the URL)
+- Open a passboook: note that the pass can be either online (http or https) or in the application bundle (in this case use the file protocol in the URL).
 
 
 ### UbuduSDKDelegate Callbacks
@@ -156,7 +157,7 @@ The **ubudu:executeOpenWebPageRequest:triggeredBy:** is called when an action wh
 If you want to override the behaviour of this action implement the **ubudu:executeOpenWebPageRequest:triggeredBy:** method in your delegate.
 
 ```objective-c
-  - (void)ubudu:(UbuduSDK *)ubuduSDK executeOpenPassbookRequest:(NSURL *)passbookUrl triggeredBy:(UbuduTriggerSource)triggeredBy
+  - (void)ubudu:(UbuduSDK *)ubuduSDK executeOpenPassbookRequest:(NSURL *)passbookUrl triggeredBy:(UbuduTriggerSource)triggeredBy;
 ```
 
 The **ubudu:executeOpenPassbookRequest:triggeredBy:** is called when an action which should result in presenting a passbook pass to the user should happen.
@@ -186,6 +187,8 @@ The **ubudu:didReceiveNewAdView:triggeredBy:** is called when the SDK receives n
 Example of implementation of delegate methods in app:
 ```objective-c
 //AppDelegate.m
+
+#pragma mark - Local Notifications
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
 {

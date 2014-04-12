@@ -1,5 +1,6 @@
 IOS-SDK
 =======
+Ubudu contextual interactions SDK for IOS
 
 ### System and hardware requirements
 For beacons related features:

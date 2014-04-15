@@ -842,10 +842,10 @@ Please present this receipt at take-away counter.</string>
             </objects>
             <point key="canvasLocation" x="1068" y="-1016"/>
         </scene>
-        <!--Table View Controller - Events-->
+        <!--Scenarios Retail View Controller - Events-->
         <scene sceneID="g3K-ys-e8A">
             <objects>
-                <tableViewController id="yEU-ky-z29" sceneMemberID="viewController">
+                <tableViewController id="yEU-ky-z29" customClass="UDScenariosRetailViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" rowHeight="121" sectionHeaderHeight="22" sectionFooterHeight="22" id="ghg-Yu-Ydw">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

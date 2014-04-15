@@ -43,7 +43,7 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
+    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 }
 
@@ -98,7 +98,7 @@
     UbuduSDK *ubuduSDK = [UbuduSDK sharedInstance];
     if ([ubuduSDK isRunning] == NO && deviceSupportsGeofences && deviceSupportsBeacons) {
         ubuduSDK.application = [UIApplication sharedApplication];
-        ubuduSDK.useNamespace = @"634b207ee2f313c109c58675b44324ac2d41e61e";
+        ubuduSDK.useNamespace = @"ff356b88057340a771e9b072d16278829c67b9a1";
         ubuduSDK.delegate = self;
         ubuduSDK.user = [[UbuduUser alloc] initWithID:nil withProperties:@{@"ext_id": kUDDefaultClientName}];
         
@@ -111,6 +111,27 @@
 }
 
 #pragma mark - UbuduSDKDelegate
+
+- (BOOL)ubudu:(UbuduSDK *)ubuduSDK shouldExecuteLocalNotificationRequest:(UILocalNotification *)localNotification triggeredBy:(UbuduTriggerSource)triggeredBy
+{
+    return YES;
+}
+
+- (BOOL)ubudu:(UbuduSDK *)ubuduSDK shouldExecuteOpenWebPageRequest:(NSURL *)url triggeredBy:(UbuduTriggerSource)triggeredBy
+{
+    UDDemoManager *manager = [UDDemoManager sharedManager];
+    BOOL shouldExecute = ([manager hasLocalNotificationBeenTriggered:[url absoluteString]] == NO);
+    [manager markLocalNotificationAsTrigerred:[url absoluteString]];
+    return shouldExecute;
+}
+
+- (BOOL)ubudu:(UbuduSDK *)ubuduSDK shouldExecuteOpenPassbookRequest:(NSURL *)passbookUrl triggeredBy:(UbuduTriggerSource)triggeredBy
+{
+    UDDemoManager *manager = [UDDemoManager sharedManager];
+    BOOL shouldExecute = ([manager hasLocalNotificationBeenTriggered:[passbookUrl absoluteString]] == NO);
+    [manager markLocalNotificationAsTrigerred:[passbookUrl absoluteString]];
+    return shouldExecute;
+}
 
 // Uncomment the following methods to use a custom implementation of the corresponding action
 
@@ -172,22 +193,22 @@
 // Beacon related callbacks
 - (void)ubudu:(UbuduSDK *)ubuduSDK didFindNewBeacon:(NSString *)beaconName userInfo:(NSDictionary *)userInfo
 {
-//    NSLog(@"Ubudu didFindNewBeacon userInfo = %@", userInfo);
+    //    NSLog(@"Ubudu didFindNewBeacon userInfo = %@", userInfo);
 }
 
 - (void)ubudu:(UbuduSDK *)ubuduSDK didReceivePingFromBeacon:(NSString *)beaconName userInfo:(NSDictionary *)userInfo
 {
-//    NSLog(@"Ubudu didReceivePingFromBeacon userInfo = %@", userInfo);
+    //    NSLog(@"Ubudu didReceivePingFromBeacon userInfo = %@", userInfo);
 }
 
 - (void)ubudu:(UbuduSDK *)ubuduSDK didUpdateBeacon:(NSString *)beaconName userInfo:(NSDictionary *)userInfo
 {
-//    NSLog(@"Ubudu didUpdateBeacon userInfo = %@", userInfo);
+    //    NSLog(@"Ubudu didUpdateBeacon userInfo = %@", userInfo);
 }
 
 - (void)ubudu:(UbuduSDK *)ubuduSDK didLoseBeaconSignal:(NSString *)beaconName userInfo:(NSDictionary *)userInfo
 {
-//    NSLog(@"Ubudu didLoseBeaconSignal userInfo = %@", userInfo);
+    //    NSLog(@"Ubudu didLoseBeaconSignal userInfo = %@", userInfo);
 }
 
 #pragma mark - Click & Collect Alert

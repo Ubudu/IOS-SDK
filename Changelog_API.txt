@@ -1,0 +1,39 @@
+-------------------------------------------------------------------------------
+This document contains a list of changes to the Ubudu SDK API.
+Each Error code, Class, Method, Property, Function, or MACRO will be marked as follows:
+'NEW': API code that was added to the release.
+'CHANGED': API code that has been changed since the last release.
+'REMOVED': API code that has been deleted from the release and can no longer be
+           used.
+'DEPRECATED': API code that has been marked as deprecated.
+
+Each addition should contain a short explanation of what added or changed.
+For more information please refer to the API documentation.
+-------------------------------------------------------------------------------
+
+
+Ubudu SDK API Changes between v1.1 and v1.2
+-------------------------------------------
+
+NEW ERROR_CODE
+UbuduError_GeofencesDisabled
+    Geofence features are currently disabled
+
+NEW ERROR_CODE
+UbuduError_BeaconsDisabled
+    Beacon features are currently disabled
+
+NEW PROPERTY
+UbuduSDK.geofencesEnabled
+	Getter (getGeofencesEnabled) returns wether the geofence features are currently enabled.
+	Setter (setGeofencesEnabled:) permits to enable or disable geofence features.
+
+REMOVED METHOD
+[UbuduSDK setBaseAPIUrl:]
+	This method as been replaced by the UbuduSDK.baseAPIUrl property that provided a setter with the exact same name and parameters.
+	Backward compatibility is ensured.
+
+NEW PROPERTY
+UbuduSDK.baseAPIUrl
+	Getter (getBaseAPIUrl) returns the current base URL used to build HTTP requests to web services.
+	Setter (setBaseAPIUrl:) permits to set the base URL used to build HTTP requests to web services.

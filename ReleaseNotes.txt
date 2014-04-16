@@ -1,0 +1,56 @@
+-----------------------------------
+Ubudu SDK Version 1.2 Release Notes
+-----------------------------------
+
+Platform Support
+----------------
+* General:
+	- iOS 6.x or higher
+	- iPhone 4 or more recent
+* Beacon features:
+	- iOS 7.0 or higher (7.1 recommended)
+	- iPhone 4S / iPad 3rd gen. or more recent
+
+
+Features added in Version 1.2
+-----------------------------
+
+ * Geonfence and beacon features of the SDK can be turned on and off separatly.
+ * SDK automatically detects if the device support beacons, and disables beacon features if not.
+
+
+Issues Addressed in Version 1.2
+-------------------------------
+ * Fixed iOS 6 compatibility.
+ * Fixed simulator support.
+ * Corrected a mistake with web view dissmissing when the application will resign active: the view controller provided by the user was not used.
+ * Improved overall stability of the SDK.
+
+
+Known Issues
+------------
+
+None
+
+
+Compatibility
+-------------
+
+Public API has been greatly modified in Version 1.1, therefore applications written for version 1.0 must be adapted to compile with Ubudu SDK v1.1 and above.
+
+
+Change history
+--------------
+
+Version 1.2
+	- Clean separation between geofence and beacon features.
+	- Auto detection of beacon support.
+	- Bug fixes.
+
+Version 1.1
+	- API refactored to match iOS coding style.
+	- Possible to override action handlers.
+	- Possible to prevent execution of actions.
+
+Version 1.0
+	- First public release of the SDK.

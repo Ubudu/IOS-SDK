@@ -305,7 +305,7 @@ if (started == NO) {
 }
 ```
 
-If you need to update the tags of your user once the SKD has been started, just re-assign the tags property of the user, and the SDK will automatically send the updated data to the back-office.
+If you need to update the tags of your user once the SDK has been started, just re-assign the tags property of the user, and the SDK will automatically send the updated data to the back-office.
 
 ```objective-c
 // Could be called if the user changes his age in the settings for example

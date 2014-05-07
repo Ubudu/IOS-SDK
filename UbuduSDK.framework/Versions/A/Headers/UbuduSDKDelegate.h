@@ -11,7 +11,7 @@
 
 typedef NS_ENUM(NSInteger, UbuduTriggerSource) {
     UbuduTriggerSources_GeofenceTrigger = 1,
-    UbuduTriggerSources_BeaconTrigger,
+    UbuduTriggerSources_BeaconTrigger = 2
 };
 
 @class UbuduSDK;
@@ -23,6 +23,7 @@ typedef NS_ENUM(NSInteger, UbuduTriggerSource) {
 /* Methods used to ask if an action should be executed or not when it has been triggered by an associated rule.
  * Return NO to prevent the execution, YES to proceed.
  * By default the action is executed by the SDK. You can implement the ubudu:executeXXXRequest:triggeredBy methods if you want to customize how the actions should be executed.
+ *
  * NOTE: You should NOT execute the actions in these methods.
  */
 - (BOOL)ubudu:(UbuduSDK *)ubuduSDK shouldExecuteLocalNotificationRequest:(UILocalNotification *)localNotification triggeredBy:(UbuduTriggerSource)triggeredBy;
@@ -105,12 +106,12 @@ typedef NS_ENUM(NSInteger, UbuduTriggerSource) {
 - (void)ubudu:(UbuduSDK *)ubuduSDK didReceiveLocationChange:(CLLocation *)newLocation;
 
 /* Invoked when the device entered a registered geofence.
- * Actions trigerred by this "geofence entry" trigger event will have been executred before this method is invoked.
+ * Actions trigerred by this "geofence entry" event trigger will have been executed before this method is invoked.
  */
 - (void)ubudu:(UbuduSDK *)ubuduSDK didReceiveEnterRegionNotification:(CLRegion *)region;
 
 /* Invoked when the device exited a registered geofence.
- * Actions trigerred by this "geofence exit" trigger event will have been executred before this method is invoked.
+ * Actions trigerred by this "geofence exit" event trigger will have been executred before this method is invoked.
  */
 - (void)ubudu:(UbuduSDK *)ubuduSDK didReceiveExitRegionNotification:(CLRegion *)region;
 

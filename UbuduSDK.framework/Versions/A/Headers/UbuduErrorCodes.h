@@ -6,9 +6,6 @@
 //  Copyright (c) 2013 Ubudu. All rights reserved.
 //
 
-#ifndef UbuduSDK_UbuduErrorCodes_h
-#define UbuduSDK_UbuduErrorCodes_h
-
 /* Error returned as the domain to NSError from Ubudu.
  */
 #define kUbuduErrorDomain           @"UbuduErrorDomain"
@@ -69,5 +66,3 @@ typedef enum UbuduErrorCodes {
     UbuduError_Beacon_ServiceDiscoveryNotAvailableForNotConnectedBeacon,
     UbuduError_Beacon_SleepHoursSettingNotAvailableForNotConnectedBeacon,
 } UbuduErrorCodes;
-
-#endif

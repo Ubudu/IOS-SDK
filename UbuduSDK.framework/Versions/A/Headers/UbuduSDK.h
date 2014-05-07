@@ -114,7 +114,7 @@
 /* Update the information associated to the Ubudu user (provided in the user property).
  * This will force the user data being (re-)sent to the back office.
  */
-- (void)updateUserInformation;
+- (void)updateUserInformationWithSuccess:(void (^)())success failure:(void (^)(NSError *error))failure;
 
 /* Clear all data stored by the SDK.
  */

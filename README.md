@@ -292,7 +292,7 @@ You can define the conditions for a beacon or geofence rule in the back-office, 
 ![Capabilities](/__media-files/images/back_office_target_user_segments.png)
 
 Once you have defined your conditions in the back-office, you need to assign tags to your mobile users using the Ubudu iOS SDK.
-This is fairly simple and is typically done before starting the SDK, as following:
+This is very simple and is done typically before starting the SDK, as following:
 
 ```objective-c
 [UbuduSDK sharedInstance].useNamespace = @"634b207ee2f313c109c58675b44324ac2d41e61e";

@@ -1,6 +1,6 @@
 IOS-SDK
 =======
-Ubudu contextual interactions SDK for IOS
+Ubudu contextual interactions SDK for IOS.
 
 ### System and hardware requirements
 For beacons related features:
@@ -35,17 +35,22 @@ Your framework folder should look like this:
 
 ![Framework list](/__media-files/images/ios_framework_list.jpg) 
 
+
 4. Go to Target -> Other Linker Flags and add the following flags:
 -ObjC -all_load
 
 ![Linker flag](/__media-files/images/ios_linker_flags.jpg) 
 
+
 5. In your Info.plist add the "location" capability to the "Required background modes" section. In case you plan to use Maps or Passbook in your proximity aware app don't forget also to enable these capabilities. You can do this in the general settings of your project :
 
 ![Capabilities](/__media-files/images/ios_capabilities.jpg) 
 
+
 ## Starting and hooking to the Ubudu SDK
+
 To start the SDK use the following code:
+
 ```objective-c
 NSError *error = nil; 
 UbuduSDK *ubuduSDK = [UbuduSDK sharedInstance];
@@ -58,9 +63,11 @@ if (!started) {
     // Handle error
 }
 ```
+
 The delegate is the object which will be receiving all the notifications via callbacks defined in the **UbuduSDKDelegate** protocol. This might be your AppDelegate or your current UIViewController subclass.
 The application is passed to the SDK so it can work correctly based on current application state (eg. sending local notifications when the application is in the background). If you don't set this or set it to nil the SDK will still work correctly when the host application is active. To support application's background mode the application reference needs to be passed to the SDK. Additionaly the resume function has to be called in application delegate for the SDK to correctly continue working if the host application was terminated. 
 The sample resume call can look like this
+
 ```objective-c
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -70,6 +77,7 @@ The sample resume call can look like this
   // Rest of app init code…
 }
 ```
+
 Calling **resume:launchOptions:error** method will not start the SDK if it wasn't expicitly started by **start:** call or it was stopped by **stop** call.
 
 When you want the SDK to stop working in the background call 
@@ -142,7 +150,7 @@ There are 4 types of actions that can be executed when entering or exiting a zon
 ![Back-office configuration local notification](/__media-files/images/back_office_action_1.jpg) 
 - Open a web-page in a web-view : note that the page can be either online (http or https) or in the application bundle (in this case use the file protocol in the URL).
 ![Back-office configuration open web view notification](/__media-files/images/back_office_action.jpg) 
-- Open a passboook: note that the pass can be either online (http or https) or in the application bundle (in this case use the file protocol in the URL).
+- Open a passbook: note that the pass can be either online (http or https) or in the application bundle (in this case use the file protocol in the URL).
 
 
 ### UbuduSDKDelegate Callbacks
@@ -272,4 +280,34 @@ Example of implementation of delegate methods in app:
         [self.window.rootViewController presentViewController:orderSummaryVC animated:YES completion:nil];
     }
 }
+```
+
+### Users segmentation - Tags
+
+If you want to target only a subset of your users, it is possible to associate arbitrary tags to them.
+Then you define the conditions that must or must not be met for your rules and actions to trigger.
+
+You can define the conditions for a beacon or geofence rule in the back-office, from the beacon and geofence edition page.
+
+![Capabilities](/__media-files/images/back_office_target_user_segments.png)
+
+Once you have defined your conditions in the back-office, you need to assign tags to your mobile users using the Ubudu iOS SDK.
+This is fairly simple and is typically done before starting the SDK, as following:
+
+```objective-c
+[UbuduSDK sharedInstance].useNamespace = @"634b207ee2f313c109c58675b44324ac2d41e61e";
+[UbuduSDK sharedInstance].user = [[UbuduUser alloc] initWithID:@"your_user_id" withProperties:@{@"foo_property": @"bar_value"} tags:@[@"female", @"under_40"]];
+
+NSError *error = nil;
+BOOL started = [[UbuduSDK sharedInstance] start:&error];
+if (started == NO) {
+  // Handle error
+}
+```
+
+If you need to update the tags of your user once the SKD has been started, just re-assign the tags property of the user, and the SDK will automatically send the updated data to the back-office.
+
+```objective-c
+// Could be called if the user changes his age in the settings for example
+[UbuduSDK sharedInstance].user.tags = @[@"female", @"under_25"];
 ```

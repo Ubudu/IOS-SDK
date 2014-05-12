@@ -16,6 +16,7 @@ For geofencing:
 Starting to use the Ubudu SDK on IOS native app should be a 5 to 10 minutes process. Have a look at the demo app in the directory for a complete example. 
 
 1. Copy UbuduSDK.framework into your project directory and then drag & drop it into the Frameworks folder of your project in XCode.
+
 2. Add the following frameworks to your project:
   - QuartzCore.framework
   - CoreLocation.framework
@@ -31,20 +32,18 @@ Starting to use the Ubudu SDK on IOS native app should be a 5 to 10 minutes proc
   - UIKit.framework
   - CoreGraphics.framework
   - Foundation.framework
-Your framework folder should look like this:
 
-![Framework list](/__media-files/images/ios_framework_list.jpg) 
+  Your framework folder should look like this:
 
+  ![Framework list](/__media-files/images/ios_framework_list.png) 
 
-4. Go to Target -> Other Linker Flags and add the following flags:
--ObjC -all_load
+4. Go to Target -> Other Linker Flags and add the following flags: *-ObjC -all_load*
 
-![Linker flag](/__media-files/images/ios_linker_flags.jpg) 
+  ![Linker flag](/__media-files/images/ios_linker_flags.png) 
 
+5. In your Info.plist add the "location" capability to the "Required background modes" section. In case you plan to use Maps or Passbook in your proximity aware app don't forget also to enable these capabilities. You can do this in the general settings of your project:
 
-5. In your Info.plist add the "location" capability to the "Required background modes" section. In case you plan to use Maps or Passbook in your proximity aware app don't forget also to enable these capabilities. You can do this in the general settings of your project :
-
-![Capabilities](/__media-files/images/ios_capabilities.jpg) 
+  ![Capabilities](/__media-files/images/ios_capabilities.png) 
 
 
 ## Starting and hooking to the Ubudu SDK

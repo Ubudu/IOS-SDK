@@ -35,7 +35,7 @@ Starting to use the Ubudu SDK on IOS native app should be a 5 to 10 minutes proc
 
   Your framework folder should look like this:
 
-  ![Framework list](/__media-files/images/ios_framework_list.png) 
+  ![Framework list](/__media-files/images/ios_frameworks_list.png) 
 
 4. Go to Target -> Other Linker Flags and add the following flags: *-ObjC -all_load*
 

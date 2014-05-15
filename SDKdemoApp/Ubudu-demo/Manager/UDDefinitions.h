@@ -6,6 +6,6 @@
 //  Copyright (c) 2014 Ubudu. All rights reserved.
 //
 
-#define kUDDefaultClientName @"John Smith"
+#define kUDDefaultClientName @"John"
 
 #define kUDNotificationsFileName @"triggeredNotif"

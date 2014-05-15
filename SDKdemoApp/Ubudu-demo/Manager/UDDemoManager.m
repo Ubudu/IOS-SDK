@@ -62,7 +62,11 @@
 
 - (void)_loadTriggeredNotifications
 {
-    NSData *archivedData = [NSData dataWithContentsOfFile:kUDNotificationsFileName];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *fileName = [NSString stringWithFormat:@"%@/%@", documentsDirectory, kUDNotificationsFileName];
+    
+    NSData *archivedData = [NSData dataWithContentsOfFile:fileName];
     if (archivedData != nil) {
         _triggeredNotifications = [NSKeyedUnarchiver unarchiveObjectWithData:archivedData];
     }
@@ -74,7 +78,13 @@
 - (void)_saveTriggeredNotifications
 {
     NSData *archivedData = [NSKeyedArchiver archivedDataWithRootObject:_triggeredNotifications];
-    [archivedData writeToFile:kUDNotificationsFileName atomically:YES];
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *fileName = [NSString stringWithFormat:@"%@/%@", documentsDirectory, kUDNotificationsFileName];
+    
+    NSError *error = nil;
+    [archivedData writeToFile:fileName options:NSDataWritingAtomic error:&error];
 }
 
 @end

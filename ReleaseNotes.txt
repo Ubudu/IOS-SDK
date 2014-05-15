@@ -13,15 +13,16 @@ Platform Support
 	- iPhone 4S / iPad 3rd gen. or more recent
 
 
-Features added in Version 1.3
------------------------------
-
- * Added support for user tags which permit to define conditionnal actions in the back-office.
-
-
-Issues Addressed in Version 1.3
+Features Added in Version 1.3.1
 -------------------------------
- * Notify server action was not executed if the userID property of UbuduUser was containing a special URL characters (like a space).
+
+ * Added a {namespace} placeholder for notify server actions.
+
+
+Issues Addressed in Version 1.3.1
+---------------------------------
+ 
+ * Updated back-office API URLs
 
 
 Known Issues
@@ -37,9 +38,15 @@ Public API has been greatly modified in Version 1.1, therefore applications writ
 
 A minor API change has been done in release 1.3 on [UbuduSDK updateUserInformation], you may now specify a success and failure callback.
 
+Some URLs of the back-office API have changed in version 1.3.1. It is strongly advised so use this version to access the last version of the back-office API.
+
 
 Change history
 --------------
+
+Version 1.3.1
+	- Fixed simulator 64 bits support.
+	- Optimized framework size.
 
 Version 1.3
 	- Added support for user tags.

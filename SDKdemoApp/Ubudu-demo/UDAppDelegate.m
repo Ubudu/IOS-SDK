@@ -13,10 +13,6 @@
 #import "UDDemoManager.h"
 #import "UDOrderSummaryViewController.h"
 
-#define kUDFirstNotificationName @"Discover today exclusive offers at Les Caves Particulières"
-#define kUDSecondNotificationName @"Show this invitation to a Caves Particulieres hostess and enjoy an exclusive Hennessy tasting"
-#define kUDNotificationTriggerThreshold 10.0f
-
 @implementation UDAppDelegate
 
 #pragma mark - AppDelegate
@@ -32,6 +28,7 @@
         NSLog(@"UbuduSDK resume error: %@", error);
     }
     
+    application.applicationIconBadgeNumber = 0;
     return YES;
 }
 
@@ -55,7 +52,6 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-    application.applicationIconBadgeNumber = 0;
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -71,7 +67,7 @@
     // In this case we display a custom alert view instead of posting a normal notification
     if ([notifType isEqualToString:@"order"])
     {
-        [self displayOrderAwaitingAlert];
+        [self displayOrderAwaitingAlert:@"Do you want to send your order to preparation now?"];
     }
     else
     {
@@ -79,6 +75,10 @@
         // So it can trigger the right action (passbook or web view for example)
         [[UbuduSDK sharedInstance] receiveLocalNotification:notification];
     }
+    
+    // Clear the notification
+    [application cancelLocalNotification:notification];
+    application.applicationIconBadgeNumber--;
 }
 
 #pragma mark - UbuduSDK
@@ -98,9 +98,9 @@
     UbuduSDK *ubuduSDK = [UbuduSDK sharedInstance];
     if ([ubuduSDK isRunning] == NO && deviceSupportsGeofences && deviceSupportsBeacons) {
         ubuduSDK.application = [UIApplication sharedApplication];
-        ubuduSDK.useNamespace = @"ff356b88057340a771e9b072d16278829c67b9a1";
+        ubuduSDK.useNamespace = @"634b207ee2f313c109c58675b44324ac2d41e61e";
         ubuduSDK.delegate = self;
-        ubuduSDK.user = [[UbuduUser alloc] initWithID:nil withProperties:@{@"ext_id": kUDDefaultClientName}];
+        ubuduSDK.user = [[UbuduUser alloc] initWithID:kUDDefaultClientName withProperties:@{@"ext_id": kUDDefaultClientName}];
         
         NSError *error = nil;
         BOOL started = [ubuduSDK start:&error];
@@ -114,7 +114,9 @@
 
 - (BOOL)ubudu:(UbuduSDK *)ubuduSDK shouldExecuteLocalNotificationRequest:(UILocalNotification *)localNotification triggeredBy:(UbuduTriggerSource)triggeredBy
 {
-    return YES;
+    // Post notification only if it's a new one (avoid presenting multiple identical notification to the user)
+    BOOL hasBeenTriggered = [[UDDemoManager sharedManager] hasLocalNotificationBeenTriggered:localNotification.alertBody];
+    return (hasBeenTriggered == NO);
 }
 
 - (BOOL)ubudu:(UbuduSDK *)ubuduSDK shouldExecuteOpenWebPageRequest:(NSURL *)url triggeredBy:(UbuduTriggerSource)triggeredBy
@@ -153,31 +155,8 @@
 - (void)ubudu:(UbuduSDK *)ubuduSDK executeLocalNotificationRequest:(UILocalNotification *)localNotification triggeredBy:(UbuduTriggerSource)triggeredBy
 {
     NSLog(@"Ubudu executeLocalNotificationRequest localNotification = %@", localNotification);
-    UDDemoManager *manager = [UDDemoManager sharedManager];
-    
-    // Post notification only if it's a new one (avoid presenting multiple identical notification to the user)
-    if ([manager hasLocalNotificationBeenTriggered:localNotification.alertBody] == NO)
-    {
-        if ([localNotification.alertBody isEqualToString:kUDSecondNotificationName]) {
-            if ([manager hasLocalNotificationBeenTriggered:kUDFirstNotificationName] == YES) {
-                NSDate *triggerDate = [manager lastNotificationTriggerDate:kUDFirstNotificationName];
-                NSDate *currentDate = [NSDate date];
-                NSTimeInterval deltaTime = [currentDate timeIntervalSinceDate:triggerDate];
-                if (deltaTime > kUDNotificationTriggerThreshold) {
-                    NSLog(@"Delta time between outdoor and indoor notifications = %f > threshold (%f) => posting indoor notification", deltaTime, kUDNotificationTriggerThreshold);
-                    [manager markLocalNotificationAsTrigerred:localNotification.alertBody];
-                    [[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
-                } else {
-                    NSLog(@"Delta time %f < threshold (%f) => not posting", deltaTime, kUDNotificationTriggerThreshold);
-                }
-            } else {
-                NSLog(@"Outdoor notification not posted, not posting indoor notification");
-            }
-        } else {
-            [manager markLocalNotificationAsTrigerred:localNotification.alertBody];
-            [[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
-        }
-    }
+    [[UDDemoManager sharedManager] markLocalNotificationAsTrigerred:localNotification.alertBody];
+    [[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
 }
 
 - (void)ubudu:(UbuduSDK *)ubuduSDK didReceiveNewAdView:(UIView *)view triggeredBy:(UbuduTriggerSource)triggeredBy;
@@ -213,11 +192,11 @@
 
 #pragma mark - Click & Collect Alert
 
-- (void)displayOrderAwaitingAlert
+- (void)displayOrderAwaitingAlert:(NSString *)message
 {
     UIAlertView *alert = [[UIAlertView alloc] init];
     [alert setTitle:@"Your order"];
-    [alert setMessage:@"Do you want to send your order to preparation now?"];
+    [alert setMessage:message];
     [alert setDelegate:self];
     [alert addButtonWithTitle:@"No, I'll do it later"];
     [alert addButtonWithTitle:@"Yes"];

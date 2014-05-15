@@ -54,10 +54,8 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     NSString *clientName = [[alertView textFieldAtIndex:0] text];
     self.clientNameLabel.text = clientName;
-    [[UbuduSDK sharedInstance] setUser:[[UbuduUser alloc] initWithID:nil withProperties:@{@"ext_id": clientName}]];
-    [[UbuduSDK sharedInstance] updateUserInformationWithSuccess:^{
-    } failure:^(NSError *error) {
-    }];
+    [[UbuduSDK sharedInstance] setUser:[[UbuduUser alloc] initWithID:clientName withProperties:@{@"ext_id": clientName}]];
+    [[UbuduSDK sharedInstance] updateUserInformationWithSuccess:^{} failure:^(NSError *error) {}];
 }
 
 #pragma mark - UI Touch Events

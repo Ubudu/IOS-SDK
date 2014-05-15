@@ -520,9 +520,6 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = Ubudu;
 				TargetAttributes = {
-					019C743118C72206006FFB4F = {
-						DevelopmentTeam = 7V494GRC23;
-					};
 					019C745218C72206006FFB4F = {
 						TestTargetID = 019C743118C72206006FFB4F;
 					};

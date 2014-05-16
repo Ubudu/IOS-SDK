@@ -6,6 +6,11 @@
 //  Copyright (c) 2014 Ubudu. All rights reserved.
 //
 
-#define kUDDefaultClientName @"John"
+#pragma mark - General
 
+#define kUDUbuduAppNamespace @"634b207ee2f313c109c58675b44324ac2d41e61e"
 #define kUDNotificationsFileName @"triggeredNotif"
+
+#pragma mark - VIP Welcome Settings
+
+#define kUDDefaultClientName @"Jane Doe"

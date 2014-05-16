@@ -54,7 +54,7 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     NSString *clientName = [[alertView textFieldAtIndex:0] text];
     self.clientNameLabel.text = clientName;
-    [[UbuduSDK sharedInstance] setUser:[[UbuduUser alloc] initWithID:clientName withProperties:@{@"ext_id": clientName}]];
+    [[UbuduSDK sharedInstance] setUser:[[UbuduUser alloc] initWithID:clientName withProperties:nil]];
     [[UbuduSDK sharedInstance] updateUserInformationWithSuccess:^{} failure:^(NSError *error) {}];
 }
 

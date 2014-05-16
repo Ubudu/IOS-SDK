@@ -19,14 +19,15 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [self initUbuduSDK];
-    
-    NSError * error = nil;
-    BOOL hasResumed = [[UbuduSDK sharedInstance] resume:application launchOptions:launchOptions error:&error];
-    (void)hasResumed;
+    // Mandatory in didFinishLaunchingWithOptions, restores the SDK state
+    NSError *error = nil;
+    [[UbuduSDK sharedInstance] resume:application launchOptions:launchOptions error:&error];
     if (error != nil) {
         NSLog(@"UbuduSDK resume error: %@", error);
     }
+    
+    // You can perform this task where you want to start the SDK, but the AppDelegate is a good choice
+    [self initUbuduSDK];
     
     application.applicationIconBadgeNumber = 0;
     return YES;
@@ -68,15 +69,13 @@
     if ([notifType isEqualToString:@"order"])
     {
         [self displayOrderAwaitingAlert:@"Do you want to send your order to preparation now?"];
-    }
-    else
-    {
+    } else {
         // Send back to the SDK the notification (that may have been received in background)
         // So it can trigger the right action (passbook or web view for example)
         [[UbuduSDK sharedInstance] receiveLocalNotification:notification];
     }
     
-    // Clear the notification
+    // Clear the received notification
     [application cancelLocalNotification:notification];
     application.applicationIconBadgeNumber--;
 }
@@ -85,25 +84,13 @@
 
 - (void)initUbuduSDK
 {
-    NSError *error = nil;
-    BOOL deviceSupportsGeofences = [UbuduSDK deviceSupportsGeofences:[UIDevice currentDevice] error:&error];
-    if (error != nil)
-        NSLog(@"UbuduSDK error with deviceSupportsGeofences: %@", error);
-    
-    error = nil;
-    BOOL deviceSupportsBeacons = [UbuduSDK deviceSupportsBeacons:[UIDevice currentDevice] error:&error];
-    if (error != nil)
-        NSLog(@"UbuduSDK error with deviceSupportsBeacons: %@", error);
-    
-    UbuduSDK *ubuduSDK = [UbuduSDK sharedInstance];
-    if ([ubuduSDK isRunning] == NO && deviceSupportsGeofences && deviceSupportsBeacons) {
-        ubuduSDK.application = [UIApplication sharedApplication];
-        ubuduSDK.useNamespace = @"634b207ee2f313c109c58675b44324ac2d41e61e";
-        ubuduSDK.delegate = self;
-        ubuduSDK.user = [[UbuduUser alloc] initWithID:kUDDefaultClientName withProperties:@{@"ext_id": kUDDefaultClientName}];
-        
+    if ([[UbuduSDK sharedInstance] isRunning] == NO) {
         NSError *error = nil;
-        BOOL started = [ubuduSDK start:&error];
+        [UbuduSDK sharedInstance].application = [UIApplication sharedApplication];
+        [UbuduSDK sharedInstance].useNamespace = kUDUbuduAppNamespace;
+        [UbuduSDK sharedInstance].delegate = self;
+        [UbuduSDK sharedInstance].user = [[UbuduUser alloc] initWithID:kUDDefaultClientName withProperties:nil];
+        BOOL started = [[UbuduSDK sharedInstance] start:&error];
         if (!started) {
             NSLog(@"UbuduSDK start error: %@", error);
         }
@@ -135,6 +122,13 @@
     return shouldExecute;
 }
 
+- (void)ubudu:(UbuduSDK *)ubuduSDK executeLocalNotificationRequest:(UILocalNotification *)localNotification triggeredBy:(UbuduTriggerSource)triggeredBy
+{
+    NSLog(@"Ubudu executeLocalNotificationRequest localNotification = %@", localNotification);
+    [[UDDemoManager sharedManager] markLocalNotificationAsTrigerred:localNotification.alertBody];
+    [[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
+}
+
 // Uncomment the following methods to use a custom implementation of the corresponding action
 
 //- (void)ubudu:(UbuduSDK *)ubuduSDK executeOpenWebPageRequest:(NSURL *)url triggeredBy:(UbuduTriggerSource)triggeredBy
@@ -151,13 +145,6 @@
 //{
 //    NSLog(@"Ubudu didReceiveRegionNotification notificationData = %@", notificationData);
 //}
-
-- (void)ubudu:(UbuduSDK *)ubuduSDK executeLocalNotificationRequest:(UILocalNotification *)localNotification triggeredBy:(UbuduTriggerSource)triggeredBy
-{
-    NSLog(@"Ubudu executeLocalNotificationRequest localNotification = %@", localNotification);
-    [[UDDemoManager sharedManager] markLocalNotificationAsTrigerred:localNotification.alertBody];
-    [[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
-}
 
 - (void)ubudu:(UbuduSDK *)ubuduSDK didReceiveNewAdView:(UIView *)view triggeredBy:(UbuduTriggerSource)triggeredBy;
 {
@@ -190,7 +177,7 @@
     //    NSLog(@"Ubudu didLoseBeaconSignal userInfo = %@", userInfo);
 }
 
-#pragma mark - Click & Collect Alert
+#pragma mark - Alerts
 
 - (void)displayOrderAwaitingAlert:(NSString *)message
 {
@@ -209,7 +196,7 @@
         // No. Do nothing.
     } else if (buttonIndex == 1) {
         // Yes. Open order summary page.
-        UIViewController * orderSummaryVC = [self.window.rootViewController.storyboard instantiateViewControllerWithIdentifier:@"UDOrderSummaryViewController"];
+        UIViewController *orderSummaryVC = [self.window.rootViewController.storyboard instantiateViewControllerWithIdentifier:@"UDOrderSummaryViewController"];
         [self.window.rootViewController presentViewController:orderSummaryVC animated:YES completion:nil];
     }
 }

@@ -17,31 +17,23 @@ Starting to use the Ubudu SDK on IOS native app should be a 5 to 10 minutes proc
 
 1. Copy UbuduSDK.framework into your project directory and then drag & drop it into the Frameworks folder of your project in XCode.
 
-2. Add the following frameworks to your project:
-  - QuartzCore.framework
+2. Add the following frameworks to your project if their are not already present:
   - CoreLocation.framework
   - CoreData.framework
-  - CFNetwork.framework
+  - PassKit.framework
   - SystemConfiguration.framework
   - MobileCoreServices.framework
-  - MapKit.framework
-  - PassKit.framework
   - libz.dylib
-
-3. Check that these frameworks are also present:
-  - UIKit.framework
-  - CoreGraphics.framework
-  - Foundation.framework
 
   Your framework folder should look like this:
 
   ![Framework list](/__media-files/images/ios_frameworks_list.png) 
 
-4. Go to Target -> Other Linker Flags and add the following flags: *-ObjC -all_load*
+3. Go to Your Target -> "Build Settings" tab -> "Other Linker Flags" and add the following flags: *-ObjC -all_load*
 
   ![Linker flag](/__media-files/images/ios_linker_flags.png) 
 
-5. In your Info.plist add the "location" capability to the "Required background modes" section. In case you plan to use Maps or Passbook in your proximity aware app don't forget also to enable these capabilities. You can do this in the general settings of your project:
+4. In your Info.plist add the "location" capability to the "Required background modes" section. In case you plan to use Maps or Passbook in your proximity aware app don't forget also to enable these capabilities. You can do this in the general settings of your project:
 
   ![Capabilities](/__media-files/images/ios_capabilities.png) 
 
@@ -51,12 +43,11 @@ Starting to use the Ubudu SDK on IOS native app should be a 5 to 10 minutes proc
 To start the SDK use the following code:
 
 ```objective-c
-NSError *error = nil; 
-UbuduSDK *ubuduSDK = [UbuduSDK sharedInstance];
-ubuduSDK.application = [UIApplication sharedApplication];
-ubuduSDK.useNamespace = @"634b207ee2f313c109c58675b44324ac2d41e61e";
-ubuduSDK.delegate = self;
-BOOL started = [ubuduSDK start:&error];
+NSError *error = nil;
+[UbuduSDK sharedInstance].application = [UIApplication sharedApplication];
+[UbuduSDK sharedInstance].useNamespace = @"634b207ee2f313c109c58675b44324ac2d41e61e";
+[UbuduSDK sharedInstance].delegate = self;
+BOOL started = [[UbuduSDK sharedInstance] start:&error];
 if (!started) {
     NSLog(@"UbuduSDK start error: %@", error);
     // Handle error
@@ -73,7 +64,7 @@ The sample resume call can look like this
     NSError *error = nil;
     [[UbuduSDK sharedInstance] resume:application launchOptions:launchOptions error:&error];
   
-  // Rest of app init code…
+    // Rest of app init code…
 }
 ```
 
@@ -81,8 +72,7 @@ Calling **resume:launchOptions:error** method will not start the SDK if it wasn'
 
 When you want the SDK to stop working in the background call 
 ```objective-c
-UbuduSDK *ubuduSDK = [UbuduSDK sharedInstance];
-[ubuduSDK stop];
+[[UbuduSDK sharedInstance] stop];
 ```
 Stopping the SDK will stop it from updating location and tracking geofences.
 
@@ -91,50 +81,37 @@ Full example on how to initialize and start the SDK:
 ```objective-c
 /* AppDelegate.m */
 #import <UbuduSDK/UbuduSDK.h>
-...
+
 @implementation UDAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  //...start initilializations
+  // Mandatory in didFinishLaunchingWithOptions, restores the SDK state
+  NSError *error = nil;
+  [[UbuduSDK sharedInstance] resume:application launchOptions:launchOptions error:&error];
+  if (error != nil) {
+      NSLog(@"UbuduSDK resume error: %@", error);
+  }
 
-  // You can perform this task where you want to start the SDK 
+  // You can perform this task where you want to start the SDK, but the AppDelegate is a good choice
   [self initUbuduSDK];
 
-  // Mandatory in didFinishLaunchingWithOptions
-  NSError * error = nil;
-  [[UbuduSDK sharedInstance] resume:application launchOptions:launchOptions error:&error];
-
-  //...finish initializations
-
+  //...finish app initialization
 }
-
-#pragma mark - UbuduSDK
 
 - (void)initUbuduSDK
 {
-    NSError *error = nil;
-    BOOL deviceSupportsGeofences = [UbuduSDK deviceSupportsGeofences:[UIDevice currentDevice] error:&error];
-    if (error != nil)
-        NSLog(@"UbuduSDK error with deviceSupportsGeofences: %@", error);
-    
-    error = nil;
-    BOOL deviceSupportsBeacons = [UbuduSDK deviceSupportsBeacons:[UIDevice currentDevice] error:&error];
-    if (error != nil)
-        NSLog(@"UbuduSDK error with deviceSupportsBeacons: %@", error);
-    
-    UbuduSDK *ubuduSDK = [UbuduSDK sharedInstance];
-    if ([ubuduSDK isRunning] == NO && deviceSupportsGeofences && deviceSupportsBeacons) {
-        ubuduSDK.application = [UIApplication sharedApplication];
-        ubuduSDK.useNamespace = @"634b207ee2f313c109c58675b44324ac2d41e61e";
-        ubuduSDK.delegate = self;
-        /** optional store in the ext_id id field a specific identifier used by the application to identify user
-        ubuduSDK.user = [[UbuduUser alloc] initWithID:nil withProperties:@{@"ext_id": @"Your client ID"}];
-        */        
+    if ([[UbuduSDK sharedInstance] isRunning] == NO) {
         NSError *error = nil;
-        BOOL started = [ubuduSDK start:&error];
+        [UbuduSDK sharedInstance].application = [UIApplication sharedApplication];
+        [UbuduSDK sharedInstance].useNamespace = @"634b207ee2f313c109c58675b44324ac2d41e61e";
+        [UbuduSDK sharedInstance].delegate = self;
+        /** optionally, provide the ID of your user so we can link the Ubudu user with the IDs of your information system. */
+        //[UbuduSDK sharedInstance].user = [[UbuduUser alloc] initWithID:@"Your client ID" withProperties:@{@"foo_property":@"bar_value"}];
+        BOOL started = [[UbuduSDK sharedInstance] start:&error];
         if (!started) {
             NSLog(@"UbuduSDK start error: %@", error);
+            // Handle error
         }
     }
 }
@@ -144,7 +121,7 @@ The namespace value i.e. `634b207ee2f313c109c58675b44324ac2d41e61e` in the examp
 When you access the back-office web interface in the details of the application you created you will find an example of integration with the correct UID for your application.
 Then still in the App delegate implement the callbacks that you would like to overwrite to handle the actions that have been programmed in the back-office.
 There are 4 types of actions that can be executed when entering or exiting a zone : 
-- Post to a server URL a callback : the server can than "decide" the next action of execute custom code (such as adding entries into a CRM, sending a push  notification or sending a push notification to a client). Note that the SDK will automatically take advantage of some wildcards that you can use to identify the actions in your callback. Example of URL : 'https://yourserver.com/push_event_to_app.json?event=exit&id={id}&udid={udid}'.
+- Post to a server URL a callback : the server can than "decide" the next action or execute custom code (such as adding entries into a CRM, sending a push notification or sending a push notification to a client). Note that the SDK will automatically take advantage of some wildcards that you can use to identify the actions in your callback. Example of URL : 'https://yourserver.com/push_event_to_app.json?event=exit&id={id}&udid={udid}'.
 - Trigger a local notification : a local notification can contain a message, notification type, a scheduled time and a custom payload see [Apple documentation](https://developer.apple.com/library/ios/documentation/iPhone/Reference/UILocalNotification_Class/Reference/Reference.html#//apple_ref/occ/instp/UILocalNotification/alertAction).
 ![Back-office configuration local notification](/__media-files/images/back_office_action_1.jpg) 
 - Open a web-page in a web-view : note that the page can be either online (http or https) or in the application bundle (in this case use the file protocol in the URL).
@@ -177,12 +154,6 @@ If you want to override the behaviour of this action implement the **ubudu:execu
 
 The **ubudu:executeLocalNotificationRequest:triggeredBy:** is called when the SDK performs an action which should result in dispatching a local notification.
 If you want to override this behaviour implement the **ubudu:executeLocalNotificationRequest:triggeredBy:** method in your delegate.
-  
-```objective-c
-  - (void)ubudu:(UbuduSDK *)ubuduSDK didReceiveRegionNotification:(NSDictionary *)notificationData triggeredBy:(UbuduTriggerSource)triggeredBy;
-```
-
-The **ubudu:didReceiveRegionNotification:triggeredBy:** is called when the SDK performs an action which should only notify the delegate without performing any other actions.
 
 ```objective-c
   - (void)ubudu:(UbuduSDK *)ubuduSDK didReceiveNewAdView:(UIView *)view triggeredBy:(UbuduTriggerSource)triggeredBy;
@@ -192,31 +163,26 @@ The **ubudu:didReceiveNewAdView:triggeredBy:** is called when the SDK receives n
 
 
 
-Example of implementation of delegate methods in app:
+Example of implementation of Ubudu SDK delegate methods:
 ```objective-c
 //AppDelegate.m
 
-#pragma mark - Local Notifications
+#pragma mark - UbuduSDKDelegate
 
-- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
+- (BOOL)ubudu:(UbuduSDK *)ubuduSDK shouldExecuteLocalNotificationRequest:(UILocalNotification *)localNotification triggeredBy:(UbuduTriggerSource)triggeredBy
 {
-    NSString *notifType = [notification.userInfo valueForKeyPath:@"payload.type"];
-
-    // If the notification contains a custom payload that we want to handle
-    // In this case we display a custom alert view instead of posting a normal notification
-    if ([notifType isEqualToString:@"order"])
-    {
-        [self displayOrderAwaitingAlert];
-    }
-    else
-    {
-        // Send back to the SDK the notification (that may have been received in background)
-        // So it can trigger the right action (passbook or web view for example)
-        [[UbuduSDK sharedInstance] receiveLocalNotification:notification];
-    }
+    NSLog(@"Ubudu shouldExecuteLocalNotificationRequest);
+    // Post notification only if it's a new one (avoid presenting multiple identical notification to the user)
+    BOOL hasBeenTriggered = [[Manager sharedManager] hasLocalNotificationBeenTriggered:localNotification.alertBody];
+    return (hasBeenTriggered == NO);
 }
 
-#pragma mark - UbuduSDKDelegate
+- (void)ubudu:(UbuduSDK *)ubuduSDK executeLocalNotificationRequest:(UILocalNotification *)localNotification triggeredBy:(UbuduTriggerSource)triggeredBy
+{
+    NSLog(@"Ubudu executeLocalNotificationRequest localNotification = %@", localNotification);
+    [[Manager sharedManager] markLocalNotificationAsTrigerred:localNotification];
+    [[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
+}
 
 // Uncomment the following methods to use a custom implementation of the corresponding action
 
@@ -230,22 +196,6 @@ Example of implementation of delegate methods in app:
 //    NSLog(@"Ubudu executeOpenPassbookRequest passbookUrl = %@", passbookUrl);
 //}
 
-// - (void)ubudu:(UbuduSDK *)ubuduSDK didReceiveRegionNotification:(NSDictionary *)notificationData triggeredBy:(UbuduTriggerSource)triggeredBy
-// {
-//     NSLog(@"Ubudu didReceiveRegionNotification notificationData = %@", notificationData);
-// }
-
-- (void)ubudu:(UbuduSDK *)ubuduSDK executeLocalNotificationRequest:(UILocalNotification *)localNotification triggeredBy:(UbuduTriggerSource)triggeredBy
-{
-    NSLog(@"Ubudu executeLocalNotificationRequest localNotification = %@", localNotification);
-    // Post notification only if it's a new one (avoid presenting multiple identical notification to the user)
-    if ([[UDDemoManager sharedManager] hasLocalNotificationBeenTriggered:localNotification] == NO)
-    {
-        [[UDDemoManager sharedManager] markLocalNotificationAsTrigerred:localNotification];
-        [[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
-    }
-}
-
 - (void)ubudu:(UbuduSDK *)ubuduSDK didReceiveNewAdView:(UIView *)view triggeredBy:(UbuduTriggerSource)triggeredBy;
 {
     NSLog(@"Ubudu didReceiveNewAdView view = %@", view);
@@ -256,13 +206,31 @@ Example of implementation of delegate methods in app:
     NSLog(@"Ubudu didReceiveErrorNotification error = %@", error);
 }
 
+#pragma mark - Local Notifications
+
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
+{
+    NSString *notifType = [notification.userInfo valueForKeyPath:@"payload.type"];
+
+    // If the notification contains a custom payload that we want to handle
+    if ([notifType isEqualToString:@"order"]) {
+        // In this case we display a custom alert view instead of posting the notification
+        [self displayOrderAwaitingAlert:@"Do you want to send your order to preparation now?"];
+    } else {
+        // Send back to the SDK the notification (that may have been received in background)
+        // So it can trigger the right action (passbook or web view for example)
+        [[UbuduSDK sharedInstance] receiveLocalNotification:notification];
+    }
+}
+
 #pragma mark - Click & Collect Alert
 
-- (void)displayOrderAwaitingAlert
+- (void)displayOrderAwaitingAlert:(NSString *)message
 {
     UIAlertView *alert = [[UIAlertView alloc] init];
+    [alert setTag:kAlertTagClickAndCollect];
     [alert setTitle:@"Your order"];
-    [alert setMessage:@"Do you want to send your order to preparation now?"];
+    [alert setMessage:message];
     [alert setDelegate:self];
     [alert addButtonWithTitle:@"No, I'll do it later"];
     [alert addButtonWithTitle:@"Yes"];
@@ -275,7 +243,7 @@ Example of implementation of delegate methods in app:
         // No. Do nothing.
     } else if (buttonIndex == 1) {
         // Yes. Open order summary page.
-        UIViewController * orderSummaryVC = [self.window.rootViewController.storyboard instantiateViewControllerWithIdentifier:@"UDOrderSummaryViewController"];
+        UIViewController *orderSummaryVC = [self.window.rootViewController.storyboard instantiateViewControllerWithIdentifier:@"UDOrderSummaryViewController"];
         [self.window.rootViewController presentViewController:orderSummaryVC animated:YES completion:nil];
     }
 }

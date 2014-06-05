@@ -1,6 +1,6 @@
 
 -----------------------------------
-Ubudu SDK Version 1.3 Release Notes
+Ubudu SDK Version 1.4 Release Notes
 -----------------------------------
 
 Platform Support
@@ -13,40 +13,53 @@ Platform Support
 	- iPhone 4S / iPad 3rd gen. or more recent
 
 
-Features Added in Version 1.3.1
+Features Added in Version 1.4
+-----------------------------
+
+ * Possibility to reset the internal counters for development purpose.
+
+
+Issues Addressed in Version 1.4
 -------------------------------
-
- * Added a {namespace} placeholder for notify server actions.
-
-
-Issues Addressed in Version 1.3.1
----------------------------------
  
- * Updated back-office API URLs
+ * Respect of the start & end validity dates of the geofences & beacons.
+ * Respect of the activation schedule of the geofences & beacons.
+ * Corrected behavior of min & max trigger events feature.
+ * Respect of group features (min & max trigger events for a group of beacons or geofences).
+ * Corrected support of the latch time feature for beacons.
+ * Better following of Objective-C guidelines and naming conventions in the API.
 
 
 Known Issues
 ------------
 
-None
+ * Latch time feature for beacons rules with "on_exit" trigger does not work.
+ * Latch time feature for geofences rules do not check if the device exited the geofence before executing the actions.
 
 
 Compatibility
 -------------
 
-Public API has been greatly modified in Version 1.1, therefore applications written for version 1.0 must be adapted to compile with Ubudu SDK v1.1 and above.
-
-A minor API change has been done in release 1.3 on [UbuduSDK updateUserInformation], you may now specify a success and failure callback.
+Public API has been greatly modified in version 1.1, therefore applications written for version 1.0 must be adapted to compile with Ubudu SDK v1.1 and above.
 
 Some URLs of the back-office API have changed in version 1.3.1. It is strongly advised so use this version to access the last version of the back-office API.
+
+Changes have been done on the public API in version 1.4 to follow more thoroughly Objective-C coding style and namin recommandations. You may have to proceed to a few adaptations in your code if you were using a previous version.
 
 
 Change history
 --------------
 
+Version 1.4
+	- Possible to reset the internal counters.
+	- Minor API improvements (coding style & naming convention).
+	- Bug fixes.
+
 Version 1.3.1
 	- Fixed simulator 64 bits support.
 	- Optimized framework size.
+	- Added a {namespace} placeholder for notify server actions.
+	- Use new Web Services
 
 Version 1.3
 	- Added support for user tags.

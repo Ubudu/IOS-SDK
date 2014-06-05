@@ -6,63 +6,48 @@
 //  Copyright (c) 2013 Ubudu. All rights reserved.
 //
 
-/* Error returned as the domain to NSError from Ubudu.
- */
-#define kUbuduErrorDomain           @"UbuduErrorDomain"
+#import <Foundation/Foundation.h>
 
-#define kUbuduErrorInfoKeyMessage   @"message"
+// Error returned as the domain to NSError from Ubudu.
+#define kUbuduErrorDomain @"UbuduErrorDomain"
 
-typedef enum UbuduErrorCodes {
+typedef NS_ENUM(NSUInteger, UbuduErrorCodes) {
+    UbuduError_None = 0,
     UbuduError_UnknownError = 1,
-    UbuduError_SDKNotStarted,
-    UbuduError_SDKAlreadyStarted,
-    UbuduError_SDKStartDataInitializationError,
-    UbuduError_DeviceDoesNotSupportRegionMonitoring,
-    UbuduError_DeviceLocationDisabled, // Currently not used
-    UbuduError_ApplicationNotAuthorizedForLocation, // Currently not used
-    UbuduError_DeviceDoesNotSupportBeacons,
-    UbuduError_DeviceBluetoothDisabled, // Currently not used
-    UbuduError_UserInformationNotSet, // Currently not used
-    UbuduError_UseNamespaceNotSet,
-    UbuduError_GeofencesDisabled, // Geofence specific features
-    UbuduError_BeaconsDisabled, // Beacon specific features
+    UbuduError_SDKNotStarted = 2,
+    UbuduError_SDKAlreadyStarted = 3,
+    UbuduError_DataInitializationError = 4,
+    UbuduError_DeviceDoesNotSupportRegionMonitoring = 5,
+    UbuduError_DeviceDoesNotSupportBeacons = 6,
+    UbuduError_NamespaceNotSet = 7,
+    UbuduError_GeofencesDisabled = 8, // Geofence specific features
+    UbuduError_BeaconsDisabled = 9, // Beacon specific features
+
+    UbuduError_Actions_Error = 200,
+    UbuduError_Actions_NoDataFoundForRegionEntered = 201, // Odd error. Happens when there is no data for a region which was registered which means that it was in the data storage before. Could've been removed in the meantime.
+    UbuduError_Actions_DataForRegionNotYetAvailableDueToStartDate = 202,
+    UbuduError_Actions_DataForRegionNotAvailableDueToEndDateExpiration = 203,
+    UbuduError_Actions_DataForRegionNotAvailableDueToSchedule = 204,
     
-    UbuduError_Actions_NoDataFoundForRegionEntered = 100, // This is an odd one. Happens when there is no region data for a region which was registered which means that is was in the data storage before. Could've been removed in the meantime.
-    UbuduError_Actions_DataForRegionNotYetAvailableDueToStartDate,
-    UbuduError_Actions_DataForRegionNotAvailableDueToEndDateExpiration,
+    UbuduError_API_Error = 400,
+    UbuduError_API_ParamError = 401,
+    UbuduError_API_ResponseParsingError = 402,
+    UbuduError_API_SecondGeofencesRequestsLaunched = 403,
+    UbuduError_API_RegionsDownloadResponseCodeNot200 = 404,
+    UbuduError_API_RequestServerBadParam = 405, // Received invalid JSON from HTTP request for notify_server action
     
-    UbuduError_API_ParamError = 200,
-    UbuduError_API_ResponseParsingError,
-    UbuduError_API_SecondGeofencesRequestsLaunched,
-    UbuduError_API_GeofencesDownloadResponseCodeNot200,
-    UbuduError_API_BadSDKVersion,
-    UbuduError_API_RequestServerBadParam,
+    UbuduError_Data_Error = 600,
+    UbuduError_Data_NSPersistentStoreOldVersionMigrationError = 601,
+    UbuduError_Data_NSPersistentStoreOldVersionRemovalError = 602,
+    UbuduError_Data_NSPersistentStoreOpeningError = 603,
+    UbuduError_Data_NSPersistentStoreDirectoryCreationError = 604,
+    UbuduError_Data_NSPredicateParseError = 605,
+    UbuduError_Data_AttemptedToModifyDataWhileAnotherRequestIsPerformed = 606,
+    UbuduError_Data_UnableToAddNilRuleAndAction = 607,
+    UbuduError_Data_UnableToAddNilAction = 608,
+    UbuduError_Data_RemovingLocalDataFailed = 609,
     
-    UbuduError_Data_NSPersistentStoreCreationError = 500, // Currently not used
-    UbuduError_Data_NSPersistentStoreOldVersionMigrationError,
-    UbuduError_Data_NSPersistentStoreOldVersionRemovalError,
-    UbuduError_Data_NSPersistentStoreOpeningError,
-    UbuduError_Data_NSPersistentStoreDirectoryCreationError,
-    UbuduError_Data_NSEntityDescriptionError, // Currently not used
-    UbuduError_Data_NSPredicateParseError,
-    UbuduError_Data_AttemptedToModifyDataWhileAnotherRequestIsPerformed,
-    UbuduError_Data_UnableToSerializeRulesAndActionsToFieldsDataFormat, // Currently not used
-    UbuduError_Data_UnableToAddNilRuleAndAction,
-    UbuduError_Data_UnableToAddNilAction,
-    UbuduError_Data_RemovingLocalDataFailed,
-    
-    UbuduError_Location_LocationUnavailable = 1000,
-    UbuduError_Location_BackgroundLocationUnavailable,
-    UbuduError_Location_RegionMonitoringUnavailable,
-    UbuduError_Location_RegionRangingUnavailable,
-    
-    UbuduError_BLE_StartingFailed = 1100,
-    UbuduError_BLE_ScanStartingFailed,
-    
-    UbuduError_Beacon_ConnectionTimeout = 1110,
-    UbuduError_Beacon_ConnectionNotAllowedBySDK,
-    
-    UbuduError_Beacon_BatteryLevelUpdateNotAvailableForNotConnectedBeacon = 1120,
-    UbuduError_Beacon_ServiceDiscoveryNotAvailableForNotConnectedBeacon,
-    UbuduError_Beacon_SleepHoursSettingNotAvailableForNotConnectedBeacon,
-} UbuduErrorCodes;
+    UbuduError_Location_Error = 800,
+    UbuduError_Location_LocationUnavailable = 801,
+    UbuduError_Location_RegionMonitoringUnavailable = 802,
+};

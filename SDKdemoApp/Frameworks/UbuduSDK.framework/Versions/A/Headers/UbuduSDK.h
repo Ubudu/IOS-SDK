@@ -15,11 +15,6 @@
 
 @interface UbuduSDK : NSObject
 
-/* This property is used to check the application state and request location updates based on that value.
- * You should set this property when you initialize the SDK.
- */
-@property (nonatomic, weak) UIApplication *application;
-
 /* The delegate object that will receive the SDK events.
  * You should set this property rigth when you initialize the SDK so you won't miss any event.
  */
@@ -27,17 +22,17 @@
 
 /* Is the SDK currently running.
  */
-@property (nonatomic, readonly) BOOL isRunning;
+@property (nonatomic, readonly, getter=isRunning) BOOL running;
 
 /* The Ubudu namespace of the application.
  * Should be set to the value provided by the Ubudu manager in order to retrieve the rules you defined for your application.
  * You must set this value before starting the SDK.
  */
-@property (nonatomic, strong) NSString *useNamespace;
+@property (nonatomic, copy) NSString *appNamespace;
 
 /* Enable or disable the advertisements feature of the SDK.
  */
-@property (nonatomic) BOOL locationAdsEnabled;
+@property (nonatomic) BOOL localizedAdsEnabled;
 
 /* Enable or disable the beacons features of the SDK. Enabled by default but only if the device supports beacons.
  */
@@ -60,12 +55,16 @@
 
 /* The minimum delay, in seconds, between two updates of the geofences and beacons data from the back office.
  */
-@property (nonatomic) int refreshInterval;
+@property (nonatomic) NSUInteger refreshInterval;
 
 /* Base URL used to construct the request made against the web services API.
  * This should looks like @"https://example.com"
  */
-@property (nonatomic, strong) NSURL *baseAPIUrl;
+@property (nonatomic, copy) NSURL *baseAPIUrl;
+
+/* Version of the SDK.
+ */
+@property (nonatomic, readonly) NSString *SDKVersion;
 
 
 
@@ -82,10 +81,6 @@
  * (which is the case starting with the iPhone 4S and iPad 3rd generation).
  */
 + (BOOL)deviceSupportsBeacons:(UIDevice *)device error:(NSError **)error;
-
-/* Version of the SDK.
- */
-+ (NSString *)SDKVersion;
 
 
 
@@ -109,12 +104,17 @@
  *
  * Typically you should call this from the application:didReceiveLocalNotification: method of your AppDelegate.
  */
-- (void)receiveLocalNotification:(UILocalNotification *)localNotification;
+- (void)executeLocalNotificationActions:(UILocalNotification *)localNotification;
 
 /* Update the information associated to the Ubudu user (provided in the user property).
- * This will force the user data being (re-)sent to the back office.
+ * This will force the user data being (re-)sent to the back office and the rules to be update to match the new user tags.
  */
-- (void)updateUserInformationWithSuccess:(void (^)())success failure:(void (^)(NSError *error))failure;
+- (void)updateUserInformation;
+
+/* Reset the trigger counters of all rules, for geofences and beacons. The per-rule and per-group counters will be reset.
+ * This is handy for developping and testing purpose. You may not want to call this function when your app is in production because it will mess with the min & max events defined in the back-office.
+ */
+- (BOOL)resetCounters:(NSError **)error;;
 
 /* Clear all data stored by the SDK.
  */
@@ -167,7 +167,6 @@
 - (BOOL)_executeActionsForGeofence:(NSString *)geofenceId error:(NSError **)error;
 
 - (NSArray *)_getAllCurrentBeacons;
-- (NSMutableDictionary *)_getNearbyBeacons;
 
 - (NSArray *)_getStoredSDKLogEvents:(int)startPage perPage:(int)perPage;
 - (NSManagedObjectContext *)getSDKManagedObjectContext;

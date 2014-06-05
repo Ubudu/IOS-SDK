@@ -12,17 +12,106 @@ Each addition should contain a short explanation of what added or changed.
 For more information please refer to the API documentation.
 -------------------------------------------------------------------------------
 
+Ubudu SDK API Changes between v1.3.1 and v1.4
+---------------------------------------------
+
+NEW PROPERTY
+UbuduSDK.SDKVersion
+	Replace the removed method [UbuduSDK SDKVersion]. Old code should still compile since getter name matches method name.
+
+CHANGED PROPERTY (name)
+UbuduSDK.isRunning
+	from: 	@property (nonatomic, readonly) BOOL isRunning;
+	to: 	@property (nonatomic, readonly, getter=isRunning) BOOL running;
+	Note: Old code should still compile since new and old getter names match.
+
+CHANGED PROPERTY (name & attributes)
+UbuduSDK.useNamespace
+	from:	@property (nonatomic, strong) NSString *useNamespace;
+	to:		@property (nonatomic, copy) NSString *appNamespace;
+
+CHANGED PROPERTY (name)
+UbuduSDK.locationAdsEnabled
+	from:	@property (nonatomic) BOOL locationAdsEnabled;
+	to:		@property (nonatomic) BOOL localizedAdsEnabled;
+
+CHANGED PROPERTY (type)
+UbuduSDK.refreshInterval
+	from:	@property (nonatomic) int refreshInterval;
+	to:		@property (nonatomic) NSUInteger refreshInterval;
+	
+CHANGED PROPERTY (attributes)
+UbuduSDK.baseAPIUrl
+	from:	@property (nonatomic, strong) NSURL *baseAPIUrl;
+	to:		@property (nonatomic, copy) NSURL *baseAPIUrl;
+
+REMOVED PROPERTY
+UbuduSDK.application
+	This property was not used by the SDK
+
+
+NEW METHOD
+[UbuduSDK resetCounters:]
+	Permits to reset the trigger events counters (per rule and per group) of beacons and geofences.
+
+CHANGED METHOD (name)
+[UbuduSDK receiveLocalNotification:]
+	from:	- (void)receiveLocalNotification:(UILocalNotification *)localNotification;
+	to:		- (void)executeLocalNotificationActions:(UILocalNotification *)localNotification;
+
+REMOVED METHOD
+[UbuduSDK SDKVersion]
+	This method as been replaced by the UbuduSDK.baseAPIUrl property that provided a setter with the exact same name and parameters.
+	Backward compatibility is ensured.
+
+REMOVED METHOD
+[UbuduSDKDelegate ubudu:didReceiveRegionNotification:triggeredBy:]
+	Note: This callback was never called by the SDK.
+
+NEW ERROR_CODE
+UbuduError_Actions_Error
+UbuduError_Actions_DataForRegionNotAvailableDueToSchedule
+UbuduError_API_Error
+UbuduError_Data_Error
+UbuduError_Location_Error
+
+CHANGED ERROR_CORE
+UbuduError_UseNamespaceNotSet => UbuduError_NamespaceNotSet
+UbuduError_API_GeofencesDownloadResponseCodeNot200 => UbuduError_API_RegionsDownloadResponseCodeNot200
+
+REMOVED ERROR_CODE
+UbuduError_DeviceLocationDisabled
+UbuduError_ApplicationNotAuthorizedForLocation
+UbuduError_DeviceBluetoothDisabled
+UbuduError_UserInformationNotSet
+UbuduError_API_BadSDKVersion
+UbuduError_Data_NSPersistentStoreCreationError
+UbuduError_Data_NSEntityDescriptionError
+UbuduError_Data_UnableToSerializeRulesAndActionsToFieldsDataFormat
+UbuduError_Location_BackgroundLocationUnavailable
+UbuduError_Location_RegionRangingUnavailable
+UbuduError_BLE_StartingFailed
+UbuduError_BLE_ScanStartingFailed
+UbuduError_Beacon_ConnectionTimeout
+UbuduError_Beacon_ConnectionNotAllowedBySDK
+UbuduError_Beacon_BatteryLevelUpdateNotAvailableForNotConnectedBeacon
+UbuduError_Beacon_ServiceDiscoveryNotAvailableForNotConnectedBeacon
+UbuduError_Beacon_SleepHoursSettingNotAvailableForNotConnectedBeacon
+
+
+
 Ubudu SDK API Changes between v1.3 and v1.3.1
--------------------------------------------
+---------------------------------------------
 
 None
+
 
 
 Ubudu SDK API Changes between v1.2 and v1.3
 -------------------------------------------
 
 NEW PROPERTY
-UbuduUser tags
+UbuduUser.tags
 	Getter (getTags) returns the tags associated to the user.
 	Setter (setTags:) permits to set the tag of the user.
 
@@ -30,9 +119,11 @@ NEW METHOD
 [UbuduUser initWithID:withProperties:tags:]
 	Permit to initialize a UbuduUser object by specifying its ID, properties and tags at once.
 
-CHANGED METHOD
-[UbuduSDK updateUserInformation] => [UbuduSDK updateUserInformationWithSuccess:failure:]
-	The method now takes 2 blockparameters which are callback for success and failure.
+CHANGED METHOD (parameters)
+	from:	[UbuduSDK updateUserInformation]
+	to:		[UbuduSDK updateUserInformationWithSuccess:failure:]
+	The method now takes 2 block parameters which are callbacks for success and failure.
+
 
 
 Ubudu SDK API Changes between v1.1 and v1.2
@@ -47,7 +138,7 @@ UbuduError_BeaconsDisabled
     Beacon features are currently disabled.
 
 NEW PROPERTY
-UbuduSDK geofencesEnabled
+UbuduSDK.geofencesEnabled
 	Getter (getGeofencesEnabled) returns wether the geofence features are currently enabled.
 	Setter (setGeofencesEnabled:) permits to enable or disable geofence features.
 
@@ -57,6 +148,6 @@ REMOVED METHOD
 	Backward compatibility is ensured.
 
 NEW PROPERTY
-UbuduSDK baseAPIUrl
+UbuduSDK.baseAPIUrl
 	Getter (getBaseAPIUrl) returns the current base URL used to build HTTP requests to web services.
 	Setter (setBaseAPIUrl:) permits to set the base URL used to build HTTP requests to web services.

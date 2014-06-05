@@ -72,7 +72,7 @@
     } else {
         // Send back to the SDK the notification (that may have been received in background)
         // So it can trigger the right action (passbook or web view for example)
-        [[UbuduSDK sharedInstance] receiveLocalNotification:notification];
+        [[UbuduSDK sharedInstance] executeLocalNotificationActions:notification];
     }
     
     // Clear the received notification
@@ -86,8 +86,7 @@
 {
     if ([[UbuduSDK sharedInstance] isRunning] == NO) {
         NSError *error = nil;
-        [UbuduSDK sharedInstance].application = [UIApplication sharedApplication];
-        [UbuduSDK sharedInstance].useNamespace = kUDUbuduAppNamespace;
+        [UbuduSDK sharedInstance].appNamespace = kUDUbuduAppNamespace;
         [UbuduSDK sharedInstance].delegate = self;
         [UbuduSDK sharedInstance].user = [[UbuduUser alloc] initWithID:kUDDefaultClientName withProperties:nil];
         BOOL started = [[UbuduSDK sharedInstance] start:&error];

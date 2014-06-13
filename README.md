@@ -8,7 +8,7 @@ For beacons related features:
 - Iphone 4S / Ipad 3rd generation or more recent
 
 For geofencing:
-- IOS 6.X or higher
+- IOS 6.0 or higher
 - Iphone 4 or higher
 
 ## Adding the Ubudu SDK framework to your project
@@ -44,8 +44,7 @@ To start the SDK use the following code:
 
 ```objective-c
 NSError *error = nil;
-[UbuduSDK sharedInstance].application = [UIApplication sharedApplication];
-[UbuduSDK sharedInstance].useNamespace = @"634b207ee2f313c109c58675b44324ac2d41e61e";
+[UbuduSDK sharedInstance].appNamespace = @"634b207ee2f313c109c58675b44324ac2d41e61e";
 [UbuduSDK sharedInstance].delegate = self;
 BOOL started = [[UbuduSDK sharedInstance] start:&error];
 if (!started) {
@@ -103,8 +102,7 @@ Full example on how to initialize and start the SDK:
 {
     if ([[UbuduSDK sharedInstance] isRunning] == NO) {
         NSError *error = nil;
-        [UbuduSDK sharedInstance].application = [UIApplication sharedApplication];
-        [UbuduSDK sharedInstance].useNamespace = @"634b207ee2f313c109c58675b44324ac2d41e61e";
+        [UbuduSDK sharedInstance].appNamespace = @"634b207ee2f313c109c58675b44324ac2d41e61e";
         [UbuduSDK sharedInstance].delegate = self;
         /** optionally, provide the ID of your user so we can link the Ubudu user with the IDs of your information system. */
         //[UbuduSDK sharedInstance].user = [[UbuduUser alloc] initWithID:@"Your client ID" withProperties:@{@"foo_property":@"bar_value"}];
@@ -121,7 +119,7 @@ The namespace value i.e. `634b207ee2f313c109c58675b44324ac2d41e61e` in the examp
 When you access the back-office web interface in the details of the application you created you will find an example of integration with the correct UID for your application.
 Then still in the App delegate implement the callbacks that you would like to overwrite to handle the actions that have been programmed in the back-office.
 There are 4 types of actions that can be executed when entering or exiting a zone : 
-- Post to a server URL a callback : the server can than "decide" the next action or execute custom code (such as adding entries into a CRM, sending a push notification or sending a push notification to a client). Note that the SDK will automatically take advantage of some wildcards that you can use to identify the actions in your callback. Example of URL : 'https://yourserver.com/push_event_to_app.json?event=exit&id={id}&udid={udid}'.
+- Post to a server URL a callback : the server can than "decide" the next action or execute custom code (such as adding entries into a CRM, sending a push notification or sending a push notification to a client). Note that the SDK will automatically take advantage of some wildcards that you can use to identify the actions in your callback. Example of URL : 'https://yourserver.com/push_event_to_app.json?event=exit&udid={udid}'.
 - Trigger a local notification : a local notification can contain a message, notification type, a scheduled time and a custom payload see [Apple documentation](https://developer.apple.com/library/ios/documentation/iPhone/Reference/UILocalNotification_Class/Reference/Reference.html#//apple_ref/occ/instp/UILocalNotification/alertAction).
 ![Back-office configuration local notification](/__media-files/images/back_office_action_1.jpg) 
 - Open a web-page in a web-view : note that the page can be either online (http or https) or in the application bundle (in this case use the file protocol in the URL).
@@ -262,7 +260,8 @@ Once you have defined your conditions in the back-office, you need to assign tag
 This is very simple and is done typically before starting the SDK, as following:
 
 ```objective-c
-[UbuduSDK sharedInstance].useNamespace = @"634b207ee2f313c109c58675b44324ac2d41e61e";
+[UbuduSDK sharedInstance].appNamespace = @"634b207ee2f313c109c58675b44324ac2d41e61e";
+[UbuduSDK sharedInstance].delegate = self;
 [UbuduSDK sharedInstance].user = [[UbuduUser alloc] initWithID:@"your_user_id" withProperties:@{@"foo_property": @"bar_value"} tags:@[@"female", @"under_40"]];
 
 NSError *error = nil;

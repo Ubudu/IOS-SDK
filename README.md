@@ -5,19 +5,19 @@ Ubudu contextual interactions SDK for IOS.
 ### System and hardware requirements
 For beacons related features:
 - IOS 7.0 or higher for supporting iBeacon features / IOS 7.1 recommended
-- Iphone 4S / Ipad 3rd generation or more recent
+- Iphone 4S / Ipad 3rd generation / iPad mini / iPod touch 5th generation or more recent
 
 For geofencing:
 - IOS 6.0 or higher
-- Iphone 4 or higher
+- Iphone 4 or more recent
 
 ## Adding the Ubudu SDK framework to your project
 
-Starting to use the Ubudu SDK on IOS native app should be a 5 to 10 minutes process. Have a look at the demo app in the directory for a complete example. 
+Starting to use the Ubudu SDK on IOS native app should be a 5 to 10 minutes process. Have a look at the demo app in the directory for a complete example.
 
-1. Copy UbuduSDK.framework into your project directory and then drag & drop it into the Frameworks folder of your project in XCode.
+1. Drag & drop the *UbuduSDK.framework* folder into the Frameworks folder of your project in XCode.
 
-2. Add the following frameworks to your project if their are not already present:
+2. Add the following frameworks to your project if they are not already present:
   - CoreLocation.framework
   - CoreData.framework
   - PassKit.framework
@@ -29,18 +29,21 @@ Starting to use the Ubudu SDK on IOS native app should be a 5 to 10 minutes proc
 
   ![Framework list](/__media-files/images/ios_frameworks_list.png) 
 
-3. Go to Your Target -> "Build Settings" tab -> "Other Linker Flags" and add the following flags: *-ObjC -all_load*
+3. In the project settings, go to `"General" -> "Your Target" -> "Build Settings" -> "Other Linker Flags"` and add the following flags: *-ObjC -all_load*
 
   ![Linker flag](/__media-files/images/ios_linker_flags.png) 
 
-4. In your Info.plist add the "location" capability to the "Required background modes" section. In case you plan to use Maps or Passbook in your proximity aware app don't forget also to enable these capabilities. You can do this in the general settings of your project:
+4. In your *Info.plist* file add the **"location"** capability to the "Required background modes" section. If you plan to use Maps or Passbook in your proximity aware application you should enable the corresponding capabilities as well.
+The simplest way to do that is to go in the project settings and the in `"Capabilities" -> "Background Modes"`
+
 
   ![Capabilities](/__media-files/images/ios_capabilities.png) 
 
 
 ## Starting and hooking to the Ubudu SDK
 
-To start the SDK use the following code:
+To start the SDK use the following code.
+Don't forget to replace the app namespace by the one you got in the back-office.
 
 ```objective-c
 NSError *error = nil;
@@ -54,12 +57,13 @@ if (!started) {
 ```
 
 The delegate is the object which will be receiving all the notifications via callbacks defined in the **UbuduSDKDelegate** protocol. This might be your AppDelegate or your current UIViewController subclass.
-The application is passed to the SDK so it can work correctly based on current application state (eg. sending local notifications when the application is in the background). If you don't set this or set it to nil the SDK will still work correctly when the host application is active. To support application's background mode the application reference needs to be passed to the SDK. Additionaly the resume function has to be called in application delegate for the SDK to correctly continue working if the host application was terminated. 
-The sample resume call can look like this
+Additionaly you should call the **resume:launchOptions:error** method of the SDK in the application:didFinishLaunchingWithOptions: method of your AppDelegate. This will ensure that the SDK properly handles the proximity events if your application was terminated and is then awaken when by a nearby beacon or a geofence event.
 
 ```objective-c
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [UbuduSDK sharedInstance].appNamespace = @"634b207ee2f313c109c58675b44324ac2d41e61e";
+    [UbuduSDK sharedInstance].delegate = self;
     NSError *error = nil;
     [[UbuduSDK sharedInstance] resume:application launchOptions:launchOptions error:&error];
   
@@ -67,25 +71,27 @@ The sample resume call can look like this
 }
 ```
 
-Calling **resume:launchOptions:error** method will not start the SDK if it wasn't expicitly started by **start:** call or it was stopped by **stop** call.
+Calling **resume:launchOptions:error** method will not start the SDK if it wasn't expicitly started by calling **start:** or it was stopped by calling **stop**.
 
-When you want the SDK to stop working in the background call 
+When you want the SDK to stop running call 
 ```objective-c
 [[UbuduSDK sharedInstance] stop];
 ```
-Stopping the SDK will stop it from updating location and tracking geofences.
+Stopping the SDK will stop it from updating location and tracking geofences and beacons. It will also prevent your app from being awaken by the system (you will not have background support after that).
 
 
-Full example on how to initialize and start the SDK:
+Here is a full example on how to initialize and start the SDK:
 ```objective-c
 /* AppDelegate.m */
 #import <UbuduSDK/UbuduSDK.h>
 
-@implementation UDAppDelegate
+@implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   // Mandatory in didFinishLaunchingWithOptions, restores the SDK state
+  [UbuduSDK sharedInstance].appNamespace = @"634b207ee2f313c109c58675b44324ac2d41e61e";
+  [UbuduSDK sharedInstance].delegate = self;
   NSError *error = nil;
   [[UbuduSDK sharedInstance] resume:application launchOptions:launchOptions error:&error];
   if (error != nil) {
@@ -102,8 +108,6 @@ Full example on how to initialize and start the SDK:
 {
     if ([[UbuduSDK sharedInstance] isRunning] == NO) {
         NSError *error = nil;
-        [UbuduSDK sharedInstance].appNamespace = @"634b207ee2f313c109c58675b44324ac2d41e61e";
-        [UbuduSDK sharedInstance].delegate = self;
         /** optionally, provide the ID of your user so we can link the Ubudu user with the IDs of your information system. */
         //[UbuduSDK sharedInstance].user = [[UbuduUser alloc] initWithID:@"Your client ID" withProperties:@{@"foo_property":@"bar_value"}];
         BOOL started = [[UbuduSDK sharedInstance] start:&error];
@@ -117,14 +121,14 @@ Full example on how to initialize and start the SDK:
 
 The namespace value i.e. `634b207ee2f313c109c58675b44324ac2d41e61e` in the example above is the namespace UID of the application creatd in the [back-office manager web interface](https://manager.ubudu.com) of your application. 
 When you access the back-office web interface in the details of the application you created you will find an example of integration with the correct UID for your application.
-Then still in the App delegate implement the callbacks that you would like to overwrite to handle the actions that have been programmed in the back-office.
-There are 4 types of actions that can be executed when entering or exiting a zone : 
-- Post to a server URL a callback : the server can than "decide" the next action or execute custom code (such as adding entries into a CRM, sending a push notification or sending a push notification to a client). Note that the SDK will automatically take advantage of some wildcards that you can use to identify the actions in your callback. Example of URL : 'https://yourserver.com/push_event_to_app.json?event=exit&udid={udid}'.
-- Trigger a local notification : a local notification can contain a message, notification type, a scheduled time and a custom payload see [Apple documentation](https://developer.apple.com/library/ios/documentation/iPhone/Reference/UILocalNotification_Class/Reference/Reference.html#//apple_ref/occ/instp/UILocalNotification/alertAction).
+Then still in the AppDelegate implement the callbacks that you would like to overwrite to handle the actions that have been programmed in the back-office.
+There are 4 types of actions that can be executed when entering or exiting a zone: 
+- Post a callback to a server URL: the server can then "decide" the next action or execute custom code (such as adding entries into a CRM, sending a push notification or sending a push notification to a client). Note that the SDK will automatically take advantage of some wildcards that you can use to identify the actions in your callback. Example of URL: 'https://yourserver.com/push_event_to_app.json?event=exit&udid={udid}'.
+- Post a local notification: a local notification can contain a message and a custom payload see [Apple documentation](https://developer.apple.com/library/ios/documentation/iPhone/Reference/UILocalNotification_Class/Reference/Reference.html#//apple_ref/occ/instp/UILocalNotification/alertAction).
 ![Back-office configuration local notification](/__media-files/images/back_office_action_1.jpg) 
-- Open a web-page in a web-view : note that the page can be either online (http or https) or in the application bundle (in this case use the file protocol in the URL).
+- Open a web-page in a web-view: note that the page can be either online (http:// or https://) or in the application bundle (in this case use the file:// protocol in the URL).
 ![Back-office configuration open web view notification](/__media-files/images/back_office_action.jpg) 
-- Open a passbook: note that the pass can be either online (http or https) or in the application bundle (in this case use the file protocol in the URL).
+- Open a passbook: note that the pass can be either online (http:// or https://) or in the application bundle (in this case use the file:// protocol in the URL).
 
 
 ### UbuduSDKDelegate Callbacks
@@ -137,27 +141,27 @@ UbuduSDK provides a couple of callback methods which can be used to override the
 ```
 
 The **ubudu:executeOpenWebPageRequest:triggeredBy:** is called when an action which should result in opening a web page on top of the current view should happen.
-If you want to override the behaviour of this action implement the **ubudu:executeOpenWebPageRequest:triggeredBy:** method in your delegate.
+If you want to override the behavior of this action implement the **ubudu:executeOpenWebPageRequest:triggeredBy:** method in your delegate.
 
 ```objective-c
   - (void)ubudu:(UbuduSDK *)ubuduSDK executeOpenPassbookRequest:(NSURL *)passbookUrl triggeredBy:(UbuduTriggerSource)triggeredBy;
 ```
 
 The **ubudu:executeOpenPassbookRequest:triggeredBy:** is called when an action which should result in presenting a passbook pass to the user should happen.
-If you want to override the behaviour of this action implement the **ubudu:executeOpenPassbookRequest:triggeredBy:** method in your delegate.
+If you want to override the behavior of this action implement the **ubudu:executeOpenPassbookRequest:triggeredBy:** method in your delegate.
   
 ```objective-c
   - (void)ubudu:(UbuduSDK *)ubuduSDK executeLocalNotificationRequest:(UILocalNotification *)localNotification triggeredBy:(UbuduTriggerSource)triggeredBy;
 ```
 
 The **ubudu:executeLocalNotificationRequest:triggeredBy:** is called when the SDK performs an action which should result in dispatching a local notification.
-If you want to override this behaviour implement the **ubudu:executeLocalNotificationRequest:triggeredBy:** method in your delegate.
+If you want to override this behavior implement the **ubudu:executeLocalNotificationRequest:triggeredBy:** method in your delegate.
 
 ```objective-c
   - (void)ubudu:(UbuduSDK *)ubuduSDK didReceiveNewAdView:(UIView *)view triggeredBy:(UbuduTriggerSource)triggeredBy;
 ```
 
-The **ubudu:didReceiveNewAdView:triggeredBy:** is called when the SDK receives new contents for the ad banner.
+The **ubudu:didReceiveNewAdView:triggeredBy:** is called when the SDK receives new contents for the ad banner. Implement it to override the default SDK behavior.
 
 
 
@@ -194,10 +198,10 @@ Example of implementation of Ubudu SDK delegate methods:
 //    NSLog(@"Ubudu executeOpenPassbookRequest passbookUrl = %@", passbookUrl);
 //}
 
-- (void)ubudu:(UbuduSDK *)ubuduSDK didReceiveNewAdView:(UIView *)view triggeredBy:(UbuduTriggerSource)triggeredBy;
-{
-    NSLog(@"Ubudu didReceiveNewAdView view = %@", view);
-}
+//- (void)ubudu:(UbuduSDK *)ubuduSDK didReceiveNewAdView:(UIView *)view triggeredBy:(UbuduTriggerSource)triggeredBy;
+//{
+//    NSLog(@"Ubudu didReceiveNewAdView view = %@", view);
+//}
 
 - (void)ubudu:(UbuduSDK *)ubuduSDK didReceiveErrorNotification:(NSError *)error;
 {
@@ -217,7 +221,7 @@ Example of implementation of Ubudu SDK delegate methods:
     } else {
         // Send back to the SDK the notification (that may have been received in background)
         // So it can trigger the right action (passbook or web view for example)
-        [[UbuduSDK sharedInstance] receiveLocalNotification:notification];
+        [[UbuduSDK sharedInstance] executeLocalNotificationActions:notification];
     }
 }
 

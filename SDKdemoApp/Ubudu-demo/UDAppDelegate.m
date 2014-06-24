@@ -19,15 +19,16 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Mandatory in didFinishLaunchingWithOptions, restores the SDK state
-    NSError *error = nil;
-    [[UbuduSDK sharedInstance] resume:application launchOptions:launchOptions error:&error];
-    if (error != nil) {
-        NSLog(@"UbuduSDK resume error: %@", error);
+    if ([[UbuduSDK sharedInstance] isRunning] == NO) {
+        NSError *error = nil;
+        [UbuduSDK sharedInstance].appNamespace = kUDUbuduAppNamespace;
+        [UbuduSDK sharedInstance].delegate = self;
+        [UbuduSDK sharedInstance].user = [[UbuduUser alloc] initWithID:kUDDefaultClientName withProperties:nil];
+        BOOL started = [[UbuduSDK sharedInstance] start:&error];
+        if (!started) {
+            NSLog(@"UbuduSDK start error: %@", error);
+        }
     }
-    
-    // You can perform this task where you want to start the SDK, but the AppDelegate is a good choice
-    [self initUbuduSDK];
     
     application.applicationIconBadgeNumber = 0;
     return YES;
@@ -70,6 +71,9 @@
     {
         [self displayOrderAwaitingAlert:@"Do you want to send your order to preparation now?"];
     } else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Notification" message:notification.alertBody delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+        
         // Send back to the SDK the notification (that may have been received in background)
         // So it can trigger the right action (passbook or web view for example)
         [[UbuduSDK sharedInstance] executeLocalNotificationActions:notification];
@@ -78,22 +82,6 @@
     // Clear the received notification
     [application cancelLocalNotification:notification];
     application.applicationIconBadgeNumber--;
-}
-
-#pragma mark - UbuduSDK
-
-- (void)initUbuduSDK
-{
-    if ([[UbuduSDK sharedInstance] isRunning] == NO) {
-        NSError *error = nil;
-        [UbuduSDK sharedInstance].appNamespace = kUDUbuduAppNamespace;
-        [UbuduSDK sharedInstance].delegate = self;
-        [UbuduSDK sharedInstance].user = [[UbuduUser alloc] initWithID:kUDDefaultClientName withProperties:nil];
-        BOOL started = [[UbuduSDK sharedInstance] start:&error];
-        if (!started) {
-            NSLog(@"UbuduSDK start error: %@", error);
-        }
-    }
 }
 
 #pragma mark - UbuduSDKDelegate

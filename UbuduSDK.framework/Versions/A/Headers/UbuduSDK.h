@@ -122,11 +122,6 @@
 
 
 
-/* Set the UUID of the beacons you want to monitor.
- */
-- (BOOL)setBeaconProximityUUID:(NSString *)proximityUUID identifier:(NSString *)identifier error:(NSError **)error;
-
-
 
 /* Update the location.
  * Geofences must be enabled.

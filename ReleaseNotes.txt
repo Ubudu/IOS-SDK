@@ -1,6 +1,6 @@
 
 -----------------------------------
-Ubudu SDK Version 1.4 Release Notes
+Ubudu SDK Version 1.5 Release Notes
 -----------------------------------
 
 Platform Support
@@ -13,21 +13,18 @@ Platform Support
 	- iPhone 4S / iPad 3rd gen. or more recent
 
 
-Features Added in Version 1.4
+Features Added in Version 1.5
 -----------------------------
 
- * Possibility to reset the internal counters for development purpose.
+ * Added support of uBeacon secure mode (advertisement values changing over time).
+ * Added support of uBeacon low battery advertisement detection and reporting to the API.
+ * UUIDs and security mode are retrieved from the API at first SDK initialization.
 
 
-Issues Addressed in Version 1.4
+Issues Addressed in Version 1.5
 -------------------------------
  
- * Respect of the start & end validity dates of the geofences & beacons.
- * Respect of the activation schedule of the geofences & beacons.
- * Corrected behavior of min & max trigger events feature.
- * Respect of group features (min & max trigger events for a group of beacons or geofences).
- * Corrected support of the latch time feature for beacons.
- * Better following of Objective-C guidelines and naming conventions in the API.
+ None
 
 
 Known Issues
@@ -49,6 +46,11 @@ Changes have been done on the public API in version 1.4 to follow more thoroughl
 
 Change history
 --------------
+
+Version 1.5
+	- Support of uBeacon secure mode (advertisement values changing over time).
+	- Support of uBeacon low battery advertisement detection and reporting to the API.
+	- UUIDs and security mode retrieved from API at first initialization.
 
 Version 1.4
 	- Possible to reset the internal counters.

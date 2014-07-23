@@ -12,6 +12,21 @@ Each addition should contain a short explanation of what added or changed.
 For more information please refer to the API documentation.
 -------------------------------------------------------------------------------
 
+
+
+Ubudu SDK API Changes between v1.4 and v1.5
+-------------------------------------------
+
+REMOVED METHOD
+[UbuduSDK setBeaconProximityUUID:identifier:error:]
+
+NEW ERROR_CODE
+UbuduError_Beacon_Error
+UbuduError_Beacon_AlreadyStarted
+UbuduError_Beacon_NotStarted
+
+
+
 Ubudu SDK API Changes between v1.3.1 and v1.4
 ---------------------------------------------
 
@@ -48,7 +63,6 @@ UbuduSDK.baseAPIUrl
 REMOVED PROPERTY
 UbuduSDK.application
 	This property was not used by the SDK
-
 
 NEW METHOD
 [UbuduSDK resetCounters:]

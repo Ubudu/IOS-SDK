@@ -13,6 +13,23 @@ For more information please refer to the API documentation.
 -------------------------------------------------------------------------------
 
 
+Ubudu SDK API Changes between v1.5 and v1.6
+-------------------------------------------
+
+NEW PROPERTY
+UbuduSDK.fileLogEnabled
+	Enables the writting of debug logs to an internal file if set to YES.
+
+
+NEW METHOD
+[UbuduSDK getDebugFileContent]
+	Return the content of the internal debug log file. Data will be empty if no log have been written since last file reset.
+
+NEW METHOD
+[UbuduSDK clearDebugFile]
+	Clear the content of the internal debug log file.
+
+
 
 Ubudu SDK API Changes between v1.4 and v1.5
 -------------------------------------------
@@ -66,7 +83,7 @@ UbuduSDK.application
 
 NEW METHOD
 [UbuduSDK resetCounters:]
-	Permits to reset the trigger events counters (per rule and per group) of beacons and geofences.
+	Allows to reset the trigger events counters (per rule and per group) of beacons and geofences.
 
 CHANGED METHOD (name)
 [UbuduSDK receiveLocalNotification:]
@@ -127,11 +144,11 @@ Ubudu SDK API Changes between v1.2 and v1.3
 NEW PROPERTY
 UbuduUser.tags
 	Getter (getTags) returns the tags associated to the user.
-	Setter (setTags:) permits to set the tag of the user.
+	Setter (setTags:) allows to set the tag of the user.
 
 NEW METHOD
 [UbuduUser initWithID:withProperties:tags:]
-	Permit to initialize a UbuduUser object by specifying its ID, properties and tags at once.
+	Allows to initialize a UbuduUser object by specifying its ID, properties and tags at once.
 
 CHANGED METHOD (parameters)
 	from:	[UbuduSDK updateUserInformation]
@@ -154,7 +171,7 @@ UbuduError_BeaconsDisabled
 NEW PROPERTY
 UbuduSDK.geofencesEnabled
 	Getter (getGeofencesEnabled) returns wether the geofence features are currently enabled.
-	Setter (setGeofencesEnabled:) permits to enable or disable geofence features.
+	Setter (setGeofencesEnabled:) allows to enable or disable geofence features.
 
 REMOVED METHOD
 [UbuduSDK setBaseAPIUrl:]
@@ -164,4 +181,4 @@ REMOVED METHOD
 NEW PROPERTY
 UbuduSDK.baseAPIUrl
 	Getter (getBaseAPIUrl) returns the current base URL used to build HTTP requests to web services.
-	Setter (setBaseAPIUrl:) permits to set the base URL used to build HTTP requests to web services.
+	Setter (setBaseAPIUrl:) allows to set the base URL used to build HTTP requests to web services.

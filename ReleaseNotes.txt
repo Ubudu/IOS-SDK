@@ -13,12 +13,10 @@ Platform Support
 	- iPhone 4S / iPad 3rd gen. or more recent
 
 
-Features Added in Version 1.5
+Features Added in Version 1.6
 -----------------------------
 
- * Added support of uBeacon secure mode (advertisement values changing over time).
- * Added support of uBeacon low battery advertisement detection and reporting to the API.
- * UUIDs and security mode are retrieved from the API at first SDK initialization.
+ * Added file logging feature. Debug logs are written in a file whose content can be retrieved.
 
 
 Issues Addressed in Version 1.5
@@ -46,6 +44,9 @@ Changes have been done on the public API in version 1.4 to follow more thoroughl
 
 Change history
 --------------
+
+Version 1.6
+	- Added file logging feature.
 
 Version 1.5
 	- Support of uBeacon secure mode (advertisement values changing over time).

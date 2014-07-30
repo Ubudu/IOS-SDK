@@ -90,9 +90,11 @@ Here is a full example on how to initialize and start the SDK:
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     if ([[UbuduSDK sharedInstance] isRunning] == NO) {
-        NSError *error = nil;
+        [UbuduSDK sharedInstance].appNamespace = @"634b207ee2f313c109c58675b44324ac2d41e61e";
+        [UbuduSDK sharedInstance].delegate = self;
         /** optionally, provide the ID of your user so we can link the Ubudu user with the IDs of your information system. */
         //[UbuduSDK sharedInstance].user = [[UbuduUser alloc] initWithID:@"Your client ID" withProperties:@{@"foo_property":@"bar_value"}];
+        NSError *error = nil;
         BOOL started = [[UbuduSDK sharedInstance] start:&error];
         if (!started) {
             NSLog(@"UbuduSDK start error: %@", error);

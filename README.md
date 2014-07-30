@@ -4,7 +4,7 @@ Ubudu contextual interactions SDK for IOS.
 
 ### System and hardware requirements
 For beacons related features:
-- IOS 7.0 or higher for supporting iBeacon features / IOS 7.1 recommended
+- IOS 7.0 or higher for supporting iBeacon features / IOS 7.1.2 recommended
 - Iphone 4S / Ipad 3rd generation / iPad mini / iPod touch 5th generation or more recent
 
 For geofencing:
@@ -16,20 +16,21 @@ For geofencing:
 Starting to use the Ubudu SDK on IOS native app should be a 5 to 10 minutes process. Have a look at the demo app in the directory for a complete example.
 
 1. Drag & drop the *UbuduSDK.framework* folder into the Frameworks folder of your project in XCode.
+Check the **"Copy items into destination group's folder (if needed)"** option.
 
-2. Add the following frameworks to your project if they are not already present:
-  - CoreLocation.framework
-  - CoreData.framework
-  - PassKit.framework
-  - SystemConfiguration.framework
-  - MobileCoreServices.framework
-  - libz.dylib
+2. Add the following frameworks and libraries to your project if they are not already present:
+ - CoreLocation.framework
+ - CoreData.framework
+ - PassKit.framework
+ - SystemConfiguration.framework
+ - MobileCoreServices.framework
+ - libz.dylib
 
   Your framework folder should look like this:
 
   ![Framework list](/__media-files/images/ios_frameworks_list.png) 
 
-3. In the project settings, go to `"General" -> "Your Target" -> "Build Settings" -> "Other Linker Flags"` and add the following flags: *-ObjC -all_load*
+3. In the project settings, go to `"General" -> "Your Target" -> "Build Settings" -> "Other Linker Flags"` and add the following flags: **-ObjC -all_load**
 
   ![Linker flag](/__media-files/images/ios_linker_flags.png) 
 
@@ -42,13 +43,15 @@ The simplest way to do that is to go in the project settings and the in `"Capabi
 
 ## Starting and hooking to the Ubudu SDK
 
-To start the SDK use the following code.
-Don't forget to replace the app namespace by the one you got in the back-office.
+1. In your *AppDelegate.m* file add the following statement:
+`#import <UbuduSDK/UbuduSDK.h>`
 
-```objective-c
-NSError *error = nil;
+2. Add this to you `didFinishLaunchingWithOptions:` method
+You need to replace the app namespace by the one you created in the [back-office.](https://manager.ubudu.com)
+```
 [UbuduSDK sharedInstance].appNamespace = @"634b207ee2f313c109c58675b44324ac2d41e61e";
 [UbuduSDK sharedInstance].delegate = self;
+NSError *error = nil;
 BOOL started = [[UbuduSDK sharedInstance] start:&error];
 if (!started) {
     NSLog(@"UbuduSDK start error: %@", error);
@@ -56,29 +59,26 @@ if (!started) {
 }
 ```
 
-The delegate is the object which will be receiving all the notifications via callbacks defined in the **UbuduSDKDelegate** protocol. This might be your AppDelegate or your current UIViewController subclass.
-Additionaly you should call the **resume:launchOptions:error** method of the SDK in the application:didFinishLaunchingWithOptions: method of your AppDelegate. This will ensure that the SDK properly handles the proximity events if your application was terminated and is then awaken when by a nearby beacon or a geofence event.
+3. To allow to the SDK to work as expected with background support you need to implement the UIKit callback `application:didReceiveLocalNotification:` like this:
 
-```objective-c
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+```
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
 {
-    [UbuduSDK sharedInstance].appNamespace = @"634b207ee2f313c109c58675b44324ac2d41e61e";
-    [UbuduSDK sharedInstance].delegate = self;
-    NSError *error = nil;
-    [[UbuduSDK sharedInstance] resume:application launchOptions:launchOptions error:&error];
-  
-    // Rest of app init code…
+    [[UbuduSDK sharedInstance] executeLocalNotificationActions:notification];
 }
 ```
 
-Calling **resume:launchOptions:error** method will not start the SDK if it wasn't expicitly started by calling **start:** or it was stopped by calling **stop**.
+The delegate is the object which will be receiving all the notifications via callbacks defined in the **UbuduSDKDelegate** protocol. This might be your AppDelegate for example.
 
-When you want the SDK to stop running call 
+### Stop the SDK
+
+If you want the SDK to stop running then call:
 ```objective-c
 [[UbuduSDK sharedInstance] stop];
 ```
 Stopping the SDK will stop it from updating location and tracking geofences and beacons. It will also prevent your app from being awaken by the system (you will not have background support after that).
 
+### Full code example
 
 Here is a full example on how to initialize and start the SDK:
 ```objective-c
@@ -88,23 +88,6 @@ Here is a full example on how to initialize and start the SDK:
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
-  // Mandatory in didFinishLaunchingWithOptions, restores the SDK state
-  [UbuduSDK sharedInstance].appNamespace = @"634b207ee2f313c109c58675b44324ac2d41e61e";
-  [UbuduSDK sharedInstance].delegate = self;
-  NSError *error = nil;
-  [[UbuduSDK sharedInstance] resume:application launchOptions:launchOptions error:&error];
-  if (error != nil) {
-      NSLog(@"UbuduSDK resume error: %@", error);
-  }
-
-  // You can perform this task where you want to start the SDK, but the AppDelegate is a good choice
-  [self initUbuduSDK];
-
-  //...finish app initialization
-}
-
-- (void)initUbuduSDK
 {
     if ([[UbuduSDK sharedInstance] isRunning] == NO) {
         NSError *error = nil;
@@ -116,6 +99,11 @@ Here is a full example on how to initialize and start the SDK:
             // Handle error
         }
     }
+}
+
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
+{
+    [[UbuduSDK sharedInstance] executeLocalNotificationActions:notification];
 }
 ```
 

@@ -2,7 +2,6 @@
 //  UbuduSDK.h
 //  UbuduSDK
 //
-//  Created by Piotr Barszczewski on 6/20/13.
 //  Copyright (c) 2013 Ubudu. All rights reserved.
 //
 
@@ -55,16 +54,20 @@
 
 /* The minimum delay, in seconds, between two updates of the geofences and beacons data from the back office.
  */
-@property (nonatomic) NSUInteger refreshInterval;
+@property (nonatomic) NSUInteger refreshInterval; // Deprecated, will be removed with next release. Do not use.
 
 /* Base URL used to construct the request made against the web services API.
  * This should looks like @"https://example.com"
  */
-@property (nonatomic, copy) NSURL *baseAPIUrl;
+@property (nonatomic, copy) NSURL *baseAPIUrl; // Deprecated, will be removed with next release. Do not use.
 
 /* Version of the SDK.
  */
 @property (nonatomic, readonly) NSString *SDKVersion;
+
+/* Enable the generation
+ */
+@property (nonatomic, getter=isFileLogEnabled) BOOL fileLogEnabled;
 
 
 
@@ -114,17 +117,20 @@
 /* Reset the trigger counters of all rules, for geofences and beacons. The per-rule and per-group counters will be reset.
  * This is handy for developping and testing purpose. You may not want to call this function when your app is in production because it will mess with the min & max events defined in the back-office.
  */
-- (BOOL)resetCounters:(NSError **)error;;
+- (BOOL)resetCounters:(NSError **)error;
 
 /* Clear all data stored by the SDK.
  */
 - (BOOL)removeAllData:(NSError **)error;
 
 
-
-/* Set the UUID of the beacons you want to monitor.
+/* Returns the whole content of the debug log file.
  */
-- (BOOL)setBeaconProximityUUID:(NSString *)proximityUUID identifier:(NSString *)identifier error:(NSError **)error;
+- (NSData *)getDebugFileContent;
+
+/* Clear the debug log file.
+ */
+- (void)clearDebugFile;
 
 
 

@@ -2,7 +2,6 @@
 //  UbuduUser.h
 //  UbuduSDK
 //
-//  Created by Kevin Bessiere on 28/01/14.
 //  Copyright (c) 2014 Ubudu. All rights reserved.
 //
 
@@ -35,10 +34,10 @@
 /* Init the user with the provided ID and properties.
  * Tags will be set to nil.
  */
-- (id)initWithID:(NSString *)userID withProperties:(NSDictionary *)properties;
+- (instancetype)initWithID:(NSString *)userID withProperties:(NSDictionary *)properties;
 
 /* Init the user with the provided ID, properties and tags.
  */
-- (id)initWithID:(NSString *)userID withProperties:(NSDictionary *)properties tags:(NSArray *)tags;
+- (instancetype)initWithID:(NSString *)userID withProperties:(NSDictionary *)properties tags:(NSArray *)tags;
 
 @end

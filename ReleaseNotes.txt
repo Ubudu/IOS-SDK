@@ -1,6 +1,6 @@
 
 -----------------------------------
-Ubudu SDK Version 1.5 Release Notes
+Ubudu SDK Version 1.7 Release Notes
 -----------------------------------
 
 Platform Support
@@ -13,16 +13,19 @@ Platform Support
 	- iPhone 4S / iPad 3rd gen. or more recent
 
 
-Features Added in Version 1.6
+Features Added in Version 1.7
 -----------------------------
 
- * Added file logging feature. Debug logs are written in a file whose content can be retrieved.
+ * Support of iOS 8 beta.
+ * Support of iOS 8 custom notifications. (http://blog.ubudu.com/post/93437942197/ios-8-new-lock-screen-notification-actions-we-are)
 
 
-Issues Addressed in Version 1.5
+Issues Addressed in Version 1.7
 -------------------------------
  
- None
+* For secure beacons mode, corrected handling of shared secrets shorter than 6 characters.
+* Minor internal bugs.
+
 
 
 Known Issues
@@ -39,11 +42,18 @@ Public API has been greatly modified in version 1.1, therefore applications writ
 
 Some URLs of the back-office API have changed in version 1.3.1. It is strongly advised so use this version to access the last version of the back-office API.
 
-Changes have been done on the public API in version 1.4 to follow more thoroughly Objective-C coding style and namin recommandations. You may have to proceed to a few adaptations in your code if you were using a previous version.
+Changes have been done on the public API in version 1.4 to follow more thoroughly Objective-C coding style and naming recommandations. You may have to proceed to a few adaptations in your code if you were using a previous version.
+
+Support for iOS 8 has been introduced in version 1.7. The SDK still compiles fine against the iOS SDK
 
 
 Change history
 --------------
+
+Version 1.7
+	- Support of iOS 8 beta.
+	- Support of iOS 8 custom notifications.
+	- Bug fixes.
 
 Version 1.6
 	- Added file logging feature.

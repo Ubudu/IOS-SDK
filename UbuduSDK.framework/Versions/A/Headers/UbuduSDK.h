@@ -2,7 +2,6 @@
 //  UbuduSDK.h
 //  UbuduSDK
 //
-//  Created by Piotr Barszczewski on 6/20/13.
 //  Copyright (c) 2013 Ubudu. All rights reserved.
 //
 

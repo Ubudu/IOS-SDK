@@ -775,7 +775,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Ubudu-demo/Ubudu-demo-Prefix.pch";
 				INFOPLIST_FILE = "Ubudu-demo/Ubudu-demo-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_LDFLAGS = (
 					"-objC",
 					"-all_load",
@@ -803,7 +803,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Ubudu-demo/Ubudu-demo-Prefix.pch";
 				INFOPLIST_FILE = "Ubudu-demo/Ubudu-demo-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_LDFLAGS = (
 					"-objC",
 					"-all_load",

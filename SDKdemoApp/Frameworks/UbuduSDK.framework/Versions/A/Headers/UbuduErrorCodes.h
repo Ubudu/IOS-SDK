@@ -2,7 +2,6 @@
 //  UbuduErrorCodes.h
 //  UbuduSDK
 //
-//  Created by Piotr Barszczewski on 6/20/13.
 //  Copyright (c) 2013 Ubudu. All rights reserved.
 //
 
@@ -20,8 +19,8 @@ typedef NS_ENUM(NSUInteger, UbuduErrorCodes) {
     UbuduError_DeviceDoesNotSupportRegionMonitoring = 5,
     UbuduError_DeviceDoesNotSupportBeacons = 6,
     UbuduError_NamespaceNotSet = 7,
-    UbuduError_GeofencesDisabled = 8, // Geofence specific features
-    UbuduError_BeaconsDisabled = 9, // Beacon specific features
+    UbuduError_GeofencesDisabled = 8,
+    UbuduError_BeaconsDisabled = 9,
 
     UbuduError_Actions_Error = 200,
     UbuduError_Actions_NoDataFoundForRegionEntered = 201, // Odd error. Happens when there is no data for a region which was registered which means that it was in the data storage before. Could've been removed in the meantime.
@@ -50,4 +49,8 @@ typedef NS_ENUM(NSUInteger, UbuduErrorCodes) {
     UbuduError_Location_Error = 800,
     UbuduError_Location_LocationUnavailable = 801,
     UbuduError_Location_RegionMonitoringUnavailable = 802,
+    
+    UbuduError_Beacon_Error = 1000,
+    UbuduError_Beacon_AlreadyStarted = 1001,
+    UbuduError_Beacon_NotStarted = 1002
 };

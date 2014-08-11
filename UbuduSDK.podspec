@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
   s.social_media_url = "https://twitter.com/Ubudu"
 
   s.platform     = :ios, "6.0"
-  s.source       = { :git => "https://github.com/Ubudu/IOS-SDK.git", :tag => "v1.7" }
+  s.source       = { :git => "https://github.com/Ubudu/IOS-SDK.git", :tag => "v1.7.0" }
   s.vendored_frameworks = "UbuduSDK.framework"
   s.frameworks = "Foundation", "CoreGraphics", "UIKit", "SystemConfiguration", "MobileCoreServices", "CoreData", "CoreLocation", "PassKit"
   s.libraries = "z"

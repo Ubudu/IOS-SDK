@@ -16,6 +16,21 @@ For geofencing:
 
 Starting to use the Ubudu SDK on IOS native app should be a 5 to 10 minutes process. Have a look at the demo app in the directory for a complete example.
 
+### Using CocoaPods
+
+This is the prefered and simplest way to get started. Just add the following line to your Podfile:
+
+```
+pod "UbuduSDK"
+```
+
+then execute `pod update`.
+If you are not already using CocoaPods for your project you can get started by reading the [CocoaPods documentation](http://cocoapods.org).
+
+### Manually
+
+If you don't want to use CocoaPods you can install the SDK manually by following the instructions bellow.
+
 1. Drag & drop the *UbuduSDK.framework* folder into the Frameworks folder of your project in XCode.
 Check the **"Copy items into destination group's folder (if needed)"** option.
 
@@ -27,6 +42,8 @@ Check the **"Copy items into destination group's folder (if needed)"** option.
  - MobileCoreServices.framework
  - libz.dylib
 
+  If you don't know how to add an Apple framework to your project [follow these instructions.](https://developer.apple.com/library/ios/recipes/xcode_help-project_editor/Articles/AddingaLibrarytoaTarget.html#//apple_ref/doc/uid/TP40010155-CH17)
+
   Your framework folder should look like this:
 
   ![Framework list](/__media-files/images/ios_frameworks_list.png) 
@@ -35,7 +52,9 @@ Check the **"Copy items into destination group's folder (if needed)"** option.
 
   ![Linker flag](/__media-files/images/ios_linker_flags.png) 
 
-4. In your *Info.plist* file add the **"location"** capability to the "Required background modes" section. If you plan to use Maps or Passbook in your proximity aware application you should enable the corresponding capabilities as well.
+## Background Location Capability
+
+In your *Info.plist* file add the **"location"** capability to the "Required background modes" section. If you plan to use Maps or Passbook in your proximity aware application you should enable the corresponding capabilities as well.
 The simplest way to do that is to go in the project settings and the in `"Capabilities" -> "Background Modes"`
 
 

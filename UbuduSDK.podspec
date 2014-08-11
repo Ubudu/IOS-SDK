@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name         = "UbuduSDK"
-  s.version      = "1.7"
-  s.summary      = "Add support of cloud-managed geofences and beacons proximity triggered interactions to IOS 7+ applications. Works with any BLE device iBeacon compatible. Handles: geofencing, beacon proximity, content management."
+  s.version      = "1.7.0"
+  s.summary      = "Add support of cloud-managed geofence and beacon proximity triggered interactions to IOS 7+ applications. Works with any iBeacon device."
   s.homepage     = "https://github.com/Ubudu/IOS-SDK"
   s.license      = { :type => "BSD", :file => "LICENSE" }
   s.author       = { "Ubudu SAS" => "cocoapods@ubudu.com" }

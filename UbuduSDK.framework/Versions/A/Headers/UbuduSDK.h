@@ -74,15 +74,6 @@
  */
 @property (nonatomic, strong) UbuduUser *user;
 
-/* The minimum delay, in seconds, between two updates of the geofences and beacons data from the back office.
- */
-@property (nonatomic) NSUInteger refreshInterval; // Deprecated, will be removed with next release. Do not use.
-
-/* Base URL used to construct the request made against the web services API.
- * This should looks like @"https://example.com"
- */
-@property (nonatomic, copy) NSURL *baseAPIUrl; // Deprecated, will be removed with next release. Do not use.
-
 /* Version of the SDK.
  */
 @property (nonatomic, readonly) NSString *SDKVersion;

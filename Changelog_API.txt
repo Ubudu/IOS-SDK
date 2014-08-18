@@ -12,6 +12,29 @@ Each addition should contain a short explanation of what added or changed.
 For more information please refer to the API documentation.
 -------------------------------------------------------------------------------
 
+Ubudu SDK API Changes between v1.7.1 and v1.8
+---------------------------------------------
+
+NEW METHOD
+[UbuduSDKDelegate ubudu:shouldExecuteServerNotificationRequest:triggeredBy:]
+	Allows to prevent the SDK from executing a "server notification" action.
+
+NEW METHOD
+[UbuduSDKDelegate ubudu:shouldExecuteOpenDeepLinkRequest:triggeredBy:]
+	Allows to prevent the SDK from executing an "open deep link" action.
+
+NEW METHOD
+[UbuduSDKDelegate ubudu:executeServerNotificationRequest:triggeredBy:]
+	Implement this method to execute the "server notification" actions yourself, instead of relying on the default execution of the SDK.
+
+NEW METHOD
+[UbuduSDKDelegate ubudu:executeOpenDeepLinkRequest:triggeredBy:]
+	Implement this method to execute the "server notification" actions yourself, instead of relying on the default execution of the SDK.
+
+REMOVED PROPERTY
+	UbuduSDK.refreshInterval
+
+
 
 Ubudu SDK API Changes between v1.7 and v1.7.1
 ---------------------------------------------

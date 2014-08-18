@@ -1,6 +1,6 @@
 
 -------------------------------------
-Ubudu SDK Version 1.7.1 Release Notes
+Ubudu SDK Version 1.8 Release Notes
 -------------------------------------
 
 Platform Support
@@ -13,17 +13,20 @@ Platform Support
 	- iPhone 4S / iPad 3rd gen. or more recent
 
 
-Features Added in Version 1.7.1
+Features Added in Version 1.8
+-----------------------------
+
+ * Added support of "deep link" actions (open an app on a specific view).
+ * Added possibility to customize local notification options from the cloud.
+ * Added possibility to control and customize the execution of a server notification action.
+
+
+
+Issues Addressed in Version 1.8
 -------------------------------
-
- * Support of CocoaPods.
-
-
-Issues Addressed in Version 1.7.1
----------------------------------
  
-None
-
+* Fixed execution of "open passbook" action in response to a server notification (was interpreted as a open web page action).
+* Fixed a minor mistake in the generation of local notifications.
 
 
 Known Issues
@@ -31,6 +34,7 @@ Known Issues
 
  * Latch time feature for beacons rules with "on_exit" trigger does not work.
  * Latch time feature for geofences rules do not check if the device exited the geofence before executing the actions.
+ * When a rule contains a local notification action + at least 2 other actions (except server notification) then only the first action is executed when the user clicks of the local notification (problem arises only when the app is in background).
 
 
 Compatibility
@@ -47,6 +51,10 @@ Support for iOS 8 has been introduced in version 1.7. The SDK still compiles fin
 
 Change history
 --------------
+
+Version 1.8
+	- Added support of "deep link" actions.
+	- Added possibility to customize local notification from the cloud.
 
 Version 1.7.1
 	- Support of CocoaPods.

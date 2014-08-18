@@ -47,9 +47,19 @@ typedef NS_ENUM(NSUInteger, UbuduTriggerSource) {
  *
  * NOTE: You should NOT execute the actions in these methods otherwise your statistics may become biased.
  */
+- (BOOL)ubudu:(UbuduSDK *)ubuduSDK shouldExecuteServerNotificationRequest:(NSURL *)url triggeredBy:(UbuduTriggerSource)triggeredBy;
 - (BOOL)ubudu:(UbuduSDK *)ubuduSDK shouldExecuteLocalNotificationRequest:(UILocalNotification *)localNotification triggeredBy:(UbuduTriggerSource)triggeredBy;
 - (BOOL)ubudu:(UbuduSDK *)ubuduSDK shouldExecuteOpenWebPageRequest:(NSURL *)url triggeredBy:(UbuduTriggerSource)triggeredBy;
-- (BOOL)ubudu:(UbuduSDK *)ubuduSDK shouldExecuteOpenPassbookRequest:(NSURL *)passbookUrl triggeredBy:(UbuduTriggerSource)triggeredBy;
+- (BOOL)ubudu:(UbuduSDK *)ubuduSDK shouldExecuteOpenPassbookRequest:(NSURL *)passUrl triggeredBy:(UbuduTriggerSource)triggeredBy;
+- (BOOL)ubudu:(UbuduSDK *)ubuduSDK shouldExecuteOpenDeepLinkRequest:(NSURL *)url triggeredBy:(UbuduTriggerSource)triggeredBy;
+
+/* Invoked when an action of type "server notification" should be executed.
+ * If you don't implement this method, then the SDK automatically perform the HTTP request to the specified URL.
+ * If you implement this method then it is your responsability to perform the HTTP request and parse the response.
+ * You also need to call the success or failure handler to let the SDK know when the action is done. If you don't call
+ */
+- (void)ubudu:(UbuduSDK *)ubuduSDK executeServerNotificationRequest:(NSURL *)url triggeredBy:(UbuduTriggerSource)triggeredBy
+      success:(void (^)())successHandler failure:(void (^)(NSError* error))failureHandler;
 
 /* Invoked when an action of type "local notification" should be executed.
  * If you don't implement this method, then the SDK automatically presents the UILocalNotification to the user
@@ -73,9 +83,14 @@ typedef NS_ENUM(NSUInteger, UbuduTriggerSource) {
  * The PKAddPassesViewController is not presented if any of these criteria is true:
  *   - the PKPassLibrary is not available on the system.
  *   - the pass data can't be downloaded (network unreachable, invalid pass URL...).
- *   - the pass in already present in the passbook of the user.
+ *   - the pass is already present in the passbook of the user.
  */
 - (void)ubudu:(UbuduSDK *)ubuduSDK executeOpenPassbookRequest:(NSURL *)passbookUrl triggeredBy:(UbuduTriggerSource)triggeredBy;
+
+/* Invoked when an action of type "open deep link" should be executed.
+ * If you don't implement this method, then the SDK automatically executes the action.
+ */
+- (void)ubudu:(UbuduSDK *)ubuduSDK executeOpenDeepLinkRequest:(NSURL *)url triggeredBy:(UbuduTriggerSource)triggeredBy;
 
 /* Invoked when a new "ad view" is received.
  * If you implement this method it is your responsability to present (or not) the ad to the user in a convenient way.

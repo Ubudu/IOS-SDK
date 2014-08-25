@@ -1,6 +1,6 @@
 
 -------------------------------------
-Ubudu SDK Version 1.8 Release Notes
+Ubudu SDK Version 1.8.1 Release Notes
 -------------------------------------
 
 Platform Support
@@ -13,20 +13,17 @@ Platform Support
 	- iPhone 4S / iPad 3rd gen. or more recent
 
 
-Features Added in Version 1.8
------------------------------
-
- * Added support of "deep link" actions (open an app on a specific view).
- * Added possibility to customize local notification options from the cloud.
- * Added possibility to control and customize the execution of a server notification action.
-
-
-
-Issues Addressed in Version 1.8
+Features Added in Version 1.8.1
 -------------------------------
+
+None
+
+
+
+Issues Addressed in Version 1.8.1
+---------------------------------
  
-* Fixed execution of "open passbook" action in response to a server notification (was interpreted as a open web page action).
-* Fixed a minor mistake in the generation of local notifications.
+* Corrected missing architecture in fat library (armv7s).
 
 
 Known Issues
@@ -51,6 +48,9 @@ Support for iOS 8 has been introduced in version 1.7. The SDK still compiles fin
 
 Change history
 --------------
+
+Version 1.8.1
+	- Corrected missing architecture library (armv7s).
 
 Version 1.8
 	- Added support of "deep link" actions.

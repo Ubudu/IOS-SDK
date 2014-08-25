@@ -1,7 +1,7 @@
 IOS-SDK
 =======
 Ubudu contextual interactions SDK for IOS.
-For information on pricing, features, examples and our fantastic i-beacon compatible beacons please check our web-site [http://www.ubudu.com](http://www.ubudu.com). It is totally free to develop with Ubudu SDKs and we only charge usage. 
+For information on pricing, features, examples and our fantastic i-beacon compatible beacons please check our web-site [http://www.ubudu.com](http://www.ubudu.com). It is totally free to develop with Ubudu SDKs and we only charge active users above certain thresholds. 
 
 ### System and hardware requirements
 For beacons related features:
@@ -12,7 +12,7 @@ For geofencing:
 - IOS 6.0 or higher
 - Iphone 4 or more recent
 
-## Adding the Ubudu SDK framework to your project
+## I. Adding the Ubudu SDK framework to your project
 
 Starting to use the Ubudu SDK on IOS native app should be a 5 to 10 minutes process. Have a look at the demo app in the directory for a complete example.
 
@@ -52,7 +52,7 @@ Check the **"Copy items into destination group's folder (if needed)"** option.
 
   ![Linker flag](/__media-files/images/ios_linker_flags.png) 
 
-## Background Location Capability
+## II. Background Location Capability
 
 In your *Info.plist* file add the **"location"** capability to the "Required background modes" section. If you plan to use Maps or Passbook in your proximity aware application you should enable the corresponding capabilities as well.
 The simplest way to do that is to go in the project settings and the in `"Capabilities" -> "Background Modes"`
@@ -61,7 +61,7 @@ The simplest way to do that is to go in the project settings and the in `"Capabi
   ![Capabilities](/__media-files/images/ios_capabilities.png) 
 
 
-## Starting and hooking to the Ubudu SDK
+## III. Starting and hooking to the Ubudu SDK
 
 1. In your *AppDelegate.m* file add the following statement:
 `#import <UbuduSDK/UbuduSDK.h>`

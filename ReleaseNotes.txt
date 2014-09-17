@@ -1,7 +1,7 @@
 
--------------------------------------
-Ubudu SDK Version 1.8.1 Release Notes
--------------------------------------
+-----------------------------------
+Ubudu SDK Version 1.9 Release Notes
+-----------------------------------
 
 Platform Support
 ----------------
@@ -13,17 +13,17 @@ Platform Support
 	- iPhone 4S / iPad 3rd gen. or more recent
 
 
-Features Added in Version 1.8.1
+Features Added in Version 1.9
+-----------------------------
+
+* Support of multiple, contiguous, proximities as the trigger for a rule.
+
+
+
+Issues Addressed in Version 1.9
 -------------------------------
-
-None
-
-
-
-Issues Addressed in Version 1.8.1
----------------------------------
  
-* Corrected missing architecture in fat library (armv7s).
+None
 
 
 Known Issues
@@ -48,6 +48,9 @@ Support for iOS 8 has been introduced in version 1.7. The SDK still compiles fin
 
 Change history
 --------------
+
+Version 1.9
+	- Support of multiple, contiguous, proximities as the trigger for a rule.
 
 Version 1.8.1
 	- Corrected missing architecture library (armv7s).

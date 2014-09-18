@@ -51,6 +51,11 @@
  */
 @property (nonatomic, copy) NSString *appNamespace;
 
+/* The URL to use to access the API.
+ * This feature is restricted to servers explicitly allowed by Ubudu. Contact us for more information.
+ */
+@property (nonatomic, copy) NSString *baseURL;
+
 /* Enable or disable the advertisements feature of the SDK.
  */
 @property (nonatomic) BOOL localizedAdsEnabled;

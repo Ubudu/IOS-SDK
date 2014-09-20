@@ -5,7 +5,7 @@ For information on pricing, features, examples and our fantastic i-beacon compat
 
 ### System and hardware requirements
 For beacons related features:
-- IOS 7.0 or higher for supporting iBeacon features / IOS 7.1.2 recommended
+- IOS 7.0 or higher for supporting iBeacon features / IOS 7.1.2 and IOS 8.0 recommended
 - Iphone 4S / Ipad 3rd generation / iPad mini / iPod touch 5th generation or more recent
 
 For geofencing:
@@ -60,6 +60,8 @@ The simplest way to do that is to go in the project settings and the in `"Capabi
 
   ![Capabilities](/__media-files/images/ios_capabilities.png) 
 
+
+Since IOS 8.0 it is also required to add an entry in **Info.plist** to indicate wich location access method is required (always or when in use - region monitoring requires always) `NSLocationAlwaysUsageDescription` or `NSLocationWhenInUseUsageDescription` with a string message to be used in the prompt. If these keys are not added the prompt is not presented to the user. 
 
 ## III. Starting and hooking to the Ubudu SDK
 

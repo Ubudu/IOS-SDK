@@ -96,7 +96,7 @@ The delegate is the object which will be receiving all the notifications via cal
 
 ### Starting and hooking to the Ubudu SDK in an Swift project (XCode 6.0)
 
-Once the framework or pod has been installed you need to add a bridging  bridging header, which Xcode automatically creates when you want to add the first Objective-C file to a Swift project.
+Once the framework or pod has been installed you need to add a bridging header, which Xcode automatically creates when you want to add the first Objective-C file to a Swift project.
 So in an empty project we just add a file called “dummy”. This file can be deleted later.
 
 ![BridgingFile_add](http://happy-coding.org/wp-content/uploads/2014/06/Screen-Shot-2014-06-04-at-23.17.13.png)

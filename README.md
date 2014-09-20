@@ -65,6 +65,8 @@ Since IOS 8.0 it is also required to add an entry in **Info.plist** to indicate 
 
 ## III. Starting and hooking to the Ubudu SDK
 
+### Starting and hooking to the Ubudu SDK in an Objective C project
+
 1. In your *AppDelegate.m* file add the following statement:
 `#import <UbuduSDK/UbuduSDK.h>`
 
@@ -92,6 +94,54 @@ if (!started) {
 
 The delegate is the object which will be receiving all the notifications via callbacks defined in the **UbuduSDKDelegate** protocol. This might be your AppDelegate for example.
 
+### Starting and hooking to the Ubudu SDK in an Swift project (XCode 6.0)
+
+Once the framework or pod has been installed you need to add a bridging  bridging header, which Xcode automatically creates when you want to add the first Objective-C file to a Swift project.
+So in an empty project we just add a file called “dummy”. This file can be deleted later.
+
+![BridgingFile_add](http://happy-coding.org/wp-content/uploads/2014/06/Screen-Shot-2014-06-04-at-23.17.13.png)
+
+Then Xcode will ask
+
+![dialog_x_code](http://happy-coding.org/wp-content/uploads/2014/06/Screen-Shot-2014-06-04-at-23.18.09.png)
+
+This auto-generation will also add the corresponding path to this header file into your Build Settings.
+
+![build_settings](http://happy-coding.org/wp-content/uploads/2014/06/Screen-Shot-2014-06-04-at-23.18.31.png)
+
+Into this header file *cocoapods-test-Bridging-Header.h* you can then add the required header
+`#import <UbuduSDK/UbuduSDK.h>`
+
+Then in the *AppDelegate.swift* add the protocol `UbuduSDKDelegate`, the initialization of the UbuduSDK and the minimal callbacks functions. For instance :
+```swift
+@UIApplicationMain
+class AppDelegate: UIResponder, UIApplicationDelegate, UbuduSDKDelegate {
+
+    var window: UIWindow?
+
+
+    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        // Override point for customization after application launch.
+        var ubuduSDK = UbuduSDK.sharedInstance() as UbuduSDK
+        let namespace : NSString = "634b207ee2f313c109c58675b44324ac2d41e61e"
+        ubuduSDK.appNamespace=namespace
+        ubuduSDK.delegate = self
+        var error: NSError?
+        ubuduSDK.start(&error)
+        if error != nil {
+            println("Error in starting the Ubudu SDK")
+        }
+        return true
+    }
+    
+    func application(application: UIApplication!, didReceiveLocalNotification notification: UILocalNotification!) {
+        // let it handle by default by the Ubudu SDK
+        UbuduSDK.sharedInstance().executeLocalNotificationActions(notification)
+        
+    }
+...
+}
+```
 ### Stop the SDK
 
 If you want the SDK to stop running then call:

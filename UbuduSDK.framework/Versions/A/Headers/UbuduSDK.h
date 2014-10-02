@@ -138,6 +138,7 @@
 - (BOOL)resetCounters:(NSError **)error;
 
 /* Clear all data stored by the SDK.
+ * If the SDK is started, it will be first stopped, then the data will be cleared and the SDK will be restarted.
  */
 - (BOOL)removeAllData:(NSError **)error;
 

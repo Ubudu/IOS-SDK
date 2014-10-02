@@ -1,7 +1,7 @@
 
------------------------------------
-Ubudu SDK Version 1.9 Release Notes
------------------------------------
+-------------------------------------
+Ubudu SDK Version 1.9.1 Release Notes
+-------------------------------------
 
 Platform Support
 ----------------
@@ -13,17 +13,18 @@ Platform Support
 	- iPhone 4S / iPad 3rd gen. or more recent
 
 
-Features Added in Version 1.9
------------------------------
-
-* Support of multiple, contiguous, proximities as the trigger for a rule.
-
-
-
-Issues Addressed in Version 1.9
+Features Added in Version 1.9.1
 -------------------------------
- 
+
 None
+
+
+
+Issues Addressed in Version 1.9.1
+---------------------------------
+ 
+* Fixed a bug with acquisition of rights for iOS 8 notifications.
+* More logs are generated when the file log feature is enabled.
 
 
 Known Issues
@@ -48,6 +49,10 @@ Support for iOS 8 has been introduced in version 1.7. The SDK still compiles fin
 
 Change history
 --------------
+
+Version 1.9.1
+	- Fixed a bug with rights for iOS 8 notifications.
+	- More logs generated when the file log feature is enabled.
 
 Version 1.9
 	- Support of multiple, contiguous, proximities as the trigger for a rule.

@@ -125,6 +125,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UbuduSDKDelegate {
         var ubuduSDK = UbuduSDK.sharedInstance() as UbuduSDK
         let namespace : NSString = "634b207ee2f313c109c58675b44324ac2d41e61e"
         ubuduSDK.appNamespace=namespace
+        
+        //Optional profiling step: if user as enabled advertising, we add the idfa as the external id of the user in order to  allow cross-application advertsing targeting. We could also add tags which can be used to target interactions;
+        var idfa_mgr = ASIdentifierManager.sharedManager() as ASIdentifierManager
+        var idfa_s : NSString?
+        if idfa_mgr.advertisingTrackingEnabled {
+            var idfa = idfa_mgr.advertisingIdentifier as NSUUID
+            idfa_s = idfa.UUIDString
+        }
+        ubuduSDK.user = UbuduUser(ID: idfa_s, withProperties: nil, tags: nil)
+        //end of optional profiling step
+        
         ubuduSDK.delegate = self
         var error: NSError?
         ubuduSDK.start(&error)

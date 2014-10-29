@@ -114,6 +114,9 @@ Into this header file *cocoapods-test-Bridging-Header.h* you can then add the re
 
 Then in the *AppDelegate.swift* add the protocol `UbuduSDKDelegate`, the initialization of the UbuduSDK and the minimal callbacks functions. For instance :
 ```swift
+//add AdSupport for optional profiling step
+import AdSupport
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UbuduSDKDelegate {
 
@@ -125,6 +128,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UbuduSDKDelegate {
         var ubuduSDK = UbuduSDK.sharedInstance() as UbuduSDK
         let namespace : NSString = "634b207ee2f313c109c58675b44324ac2d41e61e"
         ubuduSDK.appNamespace=namespace
+        
+        //Optional profiling step: if user as enabled advertising, we add the idfa as the external id of the user
+        //in order to  allow cross-application advertsing targeting. The id used by the hosting application could be used as well
+        //We could also add tags which can be used to target interactions;
+        var idfa_mgr = ASIdentifierManager.sharedManager() as ASIdentifierManager
+        var idfa_s : NSString?
+        if idfa_mgr.advertisingTrackingEnabled {
+            var idfa = idfa_mgr.advertisingIdentifier as NSUUID
+            idfa_s = idfa.UUIDString
+        }
+        ubuduSDK.user = UbuduUser(ID: idfa_s, withProperties: nil, tags: nil)
+        //end of optional profiling step
+        
         ubuduSDK.delegate = self
         var error: NSError?
         ubuduSDK.start(&error)

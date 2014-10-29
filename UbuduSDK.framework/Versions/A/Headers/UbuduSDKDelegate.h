@@ -110,6 +110,14 @@ typedef NS_ENUM(NSUInteger, UbuduTriggerSource) {
  * Beacons related callbacks
  ****************************/
 
+/* Invoked when the device enters the monitored beacon region.
+ */
+- (void)ubudu:(UbuduSDK *)ubuduSDK didEnterBeaconRegion:(NSString *)regionUUID userInfo:(NSDictionary *)userInfo;
+
+/* Invoked when the device exits the monitored beacon region.
+ */
+- (void)ubudu:(UbuduSDK *)ubuduSDK didExitBeaconRegion:(NSString *)regionUUID userInfo:(NSDictionary *)userInfo;
+
 /* Invoked when a new beacon is detected nearby the device.
  */
 - (void)ubudu:(UbuduSDK *)ubuduSDK didFindNewBeacon:(NSString *)beaconName userInfo:(NSDictionary *)userInfo;

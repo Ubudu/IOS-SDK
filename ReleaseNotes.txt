@@ -1,6 +1,6 @@
 
 -------------------------------------
-Ubudu SDK Version 1.9.1 Release Notes
+Ubudu SDK Version 1.10 Release Notes
 -------------------------------------
 
 Platform Support
@@ -9,22 +9,23 @@ Platform Support
 	- iOS 6.x or higher
 	- iPhone 4 or more recent
 * Beacon features:
-	- iOS 7.0 or higher (7.1.2 recommended)
-	- iPhone 4S / iPad 3rd gen. or more recent
+	- iOS 7.0 or higher (iOS 7.1.2 or iOS 8.x recommended)
+	- iPhone 4S / iPad 3rd gen. / iPod 5th gen. or more recent
 
 
-Features Added in Version 1.9.1
--------------------------------
+Features Added in Version 1.10
+------------------------------
 
-None
+ * Added an authorization management module (helps managing the status of iOS services needed to optimally detect beacons).
+ * Added beacon region enter & exit events to the SDK API.
+ * Retry a few times server notifications that fail before considering them as a real failure.
 
 
-
-Issues Addressed in Version 1.9.1
----------------------------------
+Issues Addressed in Version 1.10
+--------------------------------
  
-* Fixed a bug with acquisition of rights for iOS 8 notifications.
-* More logs are generated when the file log feature is enabled.
+ * The isRunning property of UbuduSDK is now KVO compliant.
+ * Improved background support for network requests of the SDK to the Ubudu API.
 
 
 Known Issues
@@ -32,7 +33,7 @@ Known Issues
 
  * Latch time feature for beacons rules with "on_exit" trigger does not work.
  * Latch time feature for geofences rules do not check if the device exited the geofence before executing the actions.
- * When a rule contains a local notification action + at least 2 other actions (except server notification) then only the first action is executed when the user clicks of the local notification (problem arises only when the app is in background).
+ * When a rule contains a local notification action + at least 2 other actions (except server notification) then only the first action is executed when the user clicks on the local notification (problem arises only when the app is in background).
 
 
 Compatibility
@@ -49,6 +50,12 @@ Support for iOS 8 has been introduced in version 1.7. The SDK still compiles fin
 
 Change history
 --------------
+
+Version 1.10
+	- Added an authorization management module (helps managing the status of iOS services needed to optimally detect beacons).
+	- Added beacon region enter & exit events to the SDK API.
+	- Retry mechanism for server notifications that fail.
+	- Backgroud support & network improvements.
 
 Version 1.9.1
 	- Fixed a bug with rights for iOS 8 notifications.

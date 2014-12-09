@@ -83,7 +83,7 @@
  */
 @property (nonatomic, readonly) NSString *SDKVersion;
 
-/* Enable the generation
+/* Enable the generation of a local file that will contain debug information about what the SDK does.
  */
 @property (nonatomic, getter=isFileLogEnabled) BOOL fileLogEnabled;
 

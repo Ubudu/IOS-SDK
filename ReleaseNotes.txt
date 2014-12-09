@@ -1,6 +1,6 @@
 
 --------------------------------------
-Ubudu SDK Version 1.10.1 Release Notes
+Ubudu SDK Version 1.11 Release Notes
 --------------------------------------
 
 Platform Support
@@ -13,16 +13,24 @@ Platform Support
 	- iPhone 4S / iPad 3rd gen. / iPod 5th gen. or more recent
 
 
-Features Added in Version 1.10.1
---------------------------------
+Features Added in Version 1.11
+------------------------------
 
- * None
+ * SDK can trigger rules for region monitoring events (on enter & on exit).
 
 
-Issues Addressed in Version 1.10.1
+Improvements Done in Version 1.11
 ----------------------------------
+
+ * Better automatic selection of the UIViewController used to present web view and passbook view controllers.
+ * A background tasks is started by the SDK if beacons feature is enabled in order to get more background ranging time.
+ * Unknown proximity for beacons is no longer a valid proximity to trigger rules.
+
+
+Issues Addressed in Version 1.11
+--------------------------------
  
- * Important fix: Update of the contextual rules has been broken in prevous release (v1.10).
+ * User info are uploaded when UbuduSDK.user property is assigned after SDK has been started.
 
 
 Known Issues
@@ -48,6 +56,11 @@ Support for iOS 8 has been introduced in version 1.7. The SDK still compiles fin
 Change history
 --------------
 
+Version 1.11
+	- SDK can trigger rules for beacon region monitoring events (on enter & on exit).
+	- Better automatic selection the UIViewController to use for default web view / passbook actions.
+	- A background tasks is started by the SDK if beacons feature is enabled to get more background ranging time.
+
 Version 1.10.1
 	- Important bug fix.
 
@@ -55,7 +68,7 @@ Version 1.10
 	- Added an authorization management module (helps managing the status of iOS services needed to optimally detect beacons).
 	- Added beacon region enter & exit events to the SDK API.
 	- Retry mechanism for server notifications that fail.
-	- Backgroud support & network improvements.
+	- Background support & network improvements.
 
 Version 1.9.1
 	- Fixed a bug with rights for iOS 8 notifications.

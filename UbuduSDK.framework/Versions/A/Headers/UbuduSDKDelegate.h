@@ -57,6 +57,7 @@ typedef NS_ENUM(NSUInteger, UbuduTriggerSource) {
  * If you don't implement this method, then the SDK automatically perform the HTTP request to the specified URL.
  * If you implement this method then it is your responsability to perform the HTTP request and parse the response.
  * You also need to call the success or failure handler to let the SDK know when the action is done. If you don't call
+ * it then your action won't appear in the statistics.
  */
 - (void)ubudu:(UbuduSDK *)ubuduSDK executeServerNotificationRequest:(NSURL *)url triggeredBy:(UbuduTriggerSource)triggeredBy
       success:(void (^)())successHandler failure:(void (^)(NSError* error))failureHandler;

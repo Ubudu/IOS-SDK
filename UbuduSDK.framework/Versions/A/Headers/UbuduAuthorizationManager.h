@@ -34,16 +34,24 @@
 
 @interface UbuduAuthorizationManager : NSObject
 
-@property (nonatomic, readonly, getter = isUbuduBeaconsServiceEnabled) BOOL ubuduBeaconsServiceEnabled;
-@property (nonatomic, readonly, getter = isUbuduGeofencesServiceEnabled) BOOL ubuduGeofencesServiceEnabled;
-@property (nonatomic, readonly, getter = isLocationServiceEnabled) BOOL locationServiceEnabled;
+@property (nonatomic, readonly, getter = isUbuduBeaconsServiceEnabled) BOOL ubuduBeaconsServiceEnabled; // YES if UbuduSDK.beaconsEnabled is set to YES and UbuduSDK is currently running.
+@property (nonatomic, readonly, getter = isUbuduGeofencesServiceEnabled) BOOL ubuduGeofencesServiceEnabled; // YES if UbuduSDK.geofencesEnabled is set to YES and UbuduSDK is currently running.
+@property (nonatomic, readonly, getter = isLocationServiceEnabled) BOOL locationServiceEnabled; // YES if both global and app-specific location services are enabled.
 @property (nonatomic, readonly, getter = isBluetoothEnabled) BOOL bluetoothEnabled;
 @property (nonatomic, readonly, getter = isBackgroundRefreshEnabled) BOOL backgroundRefreshEnabled;
 
+/* Delegate to receive notifications when the value of one of the above properties changes. */
 @property (nonatomic, weak) id<UbuduAuthorizationDelegate> authorizationDelegate;
 
+/* Shows an alert with a button that redirects to Settings app, directly on Bluetooth view. */
 - (void)showEnableBluetoothAlert;
+
+/* Opens app settings on iOS 8, shows an alert with instructions to enable location service on iOS 7 and below.
+ */
 - (void)showEnableLocationServiceUI;
+
+/* Opens app settings on iOS 8, shows an alert with instructions to enable background refresh on iOS 7 and below.
+ */
 - (void)showEnableBackgroundRefreshUI;
 
 @end

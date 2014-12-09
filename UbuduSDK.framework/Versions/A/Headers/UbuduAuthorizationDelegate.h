@@ -33,9 +33,16 @@
 
 @optional
 
-- (void)ubuduBeaconsServiceStatusDidChange:(BOOL)isEnabled;
-- (void)ubuduGeofencesServiceStatusDidChange:(BOOL)isEnabled;
-- (void)locationServiceStatusDidChange:(BOOL)isEnabled;
+/*
+ * Methods used to inform you that the status of one of the feature of the UbuduSDK changed.
+ */
+- (void)ubuduBeaconsServiceStatusDidChange:(BOOL)isEnabled; // Beacons service is enabled if UbuduSDK.beaconsEnabled is YES and that UbuduSDK is currently running.
+- (void)ubuduGeofencesServiceStatusDidChange:(BOOL)isEnabled; // Geofences service is enabled if UbuduSDK.geofencesEnabled is YES and that UbuduSDK is currently running.
+
+/*
+ * Methods used to inform you that the status of a service used by the UbuduSDK has changed.
+ */
+- (void)locationServiceStatusDidChange:(BOOL)isEnabled; // Global or app-specific location service status changed.
 - (void)bluetoothStatusDidChange:(BOOL)isEnabled;
 - (void)backgroundRefreshStatusDidChange:(BOOL)isEnabled;
 

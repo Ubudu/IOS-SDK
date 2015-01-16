@@ -1,6 +1,6 @@
 
 --------------------------------------
-Ubudu SDK Version 1.12 Release Notes
+Ubudu SDK Version 1.13.1 Release Notes
 --------------------------------------
 
 Platform Support
@@ -13,22 +13,22 @@ Platform Support
 	- iPhone 4S / iPad 3rd gen. / iPod 5th gen. or more recent
 
 
-Features Added in Version 1.12
-------------------------------
-
- * Min & max events (for single rule and for group) can apply to a customizable moving time window.
- * A global limit on the number of interactions to present to the user can be defined for the whole app. This limit can apply to a customizable moving time window.
-
-
-Improvements Done in Version 1.12
-----------------------------------
+Features Added in Version 1.13.1
+--------------------------------
 
 None
 
-Issues Addressed in Version 1.12
---------------------------------
+
+Improvements Done in Version 1.13.1
+-----------------------------------
+
+None
+
+Issues Addressed in Version 1.13.1
+----------------------------------
  
- * Counter & history of trigger events stop incrementing when the max events limit is reached.
+* Fixed a crash when using a server notification within a beacon region rule.
+* Fixed event ubudu:didEnterBeaconRegion:userInfo: sometimes being fired twice in a row.
 
 
 Known Issues
@@ -53,6 +53,12 @@ Support for iOS 8 has been introduced in version 1.7. The SDK still compiles fin
 
 Change history
 --------------
+
+Version 1.13.1
+	- Bug fixes.
+
+Version 1.13
+	- More events log sent to the server.
 
 Version 1.12
 	- Min & max events (for rules and groups) can apply to a customizable moving time window.

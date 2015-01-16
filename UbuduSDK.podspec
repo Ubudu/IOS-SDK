@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "UbuduSDK"
-  s.version      = "1.12"
+  s.version      = "1.13.1"
   s.summary      = "Add support of cloud-managed geofence and beacon proximity triggered interactions to IOS 7+ applications. Works with any iBeacon device."
   s.homepage     = "https://github.com/Ubudu/IOS-SDK"
   s.license      = { :type => "BSD", :file => "LICENSE" }
@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
   s.social_media_url = "https://twitter.com/Ubudu"
 
   s.platform     = :ios, "6.0"
-  s.source       = { :git => "https://github.com/Ubudu/IOS-SDK.git", :tag => "v1.12" }
+  s.source       = { :git => "https://github.com/Ubudu/IOS-SDK.git", :tag => "v1.13.1" }
   s.vendored_frameworks = "UbuduSDK.framework"
   s.frameworks = "Foundation", "CoreGraphics", "UIKit", "SystemConfiguration", "MobileCoreServices", "CoreData", "CoreLocation", "CoreBluetooth", "PassKit"
   s.libraries = "z"

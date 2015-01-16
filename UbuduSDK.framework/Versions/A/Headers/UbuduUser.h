@@ -32,7 +32,7 @@
 @interface UbuduUser : NSObject
 
 /* Custom User ID.
- * Typically you use this property to establish a link between the Ubudu users managed bu the SDK and the back-office
+ * Typically you use this property to establish a link between the Ubudu users managed by the SDK and the back-office
  * and your users that exist within you information system.
  * When you set this property after the SDK has been started, a request is made to the back-office to update the user information.
  */

@@ -2,7 +2,7 @@
 //  UbuduSDK.h
 //  UbuduSDK
 //
-// Copyright (c) 2011-2014, UBUDU SAS
+// Copyright (c) 2011-2015, UBUDU SAS
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -41,13 +41,13 @@
  */
 @property (nonatomic, weak) id<UbuduSDKDelegate> delegate;
 
-/* Is the SDK currently running.
+/* Is the SDK started.
  */
 @property (nonatomic, readonly, getter=isRunning) BOOL running;
 
 /* The Ubudu namespace of the application.
- * Should be set to the value provided by the Ubudu manager in order to retrieve the rules you defined for your application.
- * You must set this value before starting the SDK.
+ * Should be set to the value provided on the Ubudu manager website in order to retrieve the rules you defined for your application.
+ * You MUST set this value before starting the SDK.
  */
 @property (nonatomic, copy) NSString *appNamespace;
 
@@ -68,24 +68,25 @@
  */
 @property (nonatomic) BOOL geofencesEnabled;
 
-/* View controller used to modally display the view controllers for PassBook and Web Page actions.
- * If not set the SDK tries to use the current window's root view controller,
- * but it may already be presenting a view controller, in which case the SDK won't be able to present the action view controller.
+/* View controller used to modally present the view controllers for PassBook and Web Page actions.
+ * If not set the SDK tries to use the currently visible view controller (view controller "on top" of the current window stack).
+ * The SDK may fail to retrieve such view controller, particularly if your app uses custom container view controllers
+ * for which the SDK doesn't know how to traverse children view controllers.
  */
 @property (nonatomic, weak) UIViewController *presentationViewController;
 
-/* An extention point that permits to link business data about your users to the Ubudu users that the SDK and back office use.
- * These data are automatically uploaded on the Ubudu back office.
+/* An extention point that permits to link business data about your users to the Ubudu users that the SDK and Ubudu manager website use.
+ * These data are automatically uploaded to the Ubudu cloud every time you assign this property or change one of its properties.
  */
 @property (nonatomic, strong) UbuduUser *user;
-
-/* Version of the SDK.
- */
-@property (nonatomic, readonly) NSString *SDKVersion;
 
 /* Enable the generation of a local file that will contain debug information about what the SDK does.
  */
 @property (nonatomic, getter=isFileLogEnabled) BOOL fileLogEnabled;
+
+/* Version of the SDK.
+ */
+@property (nonatomic, readonly) NSString *SDKVersion;
 
 
 
@@ -143,11 +144,11 @@
 - (BOOL)removeAllData:(NSError **)error;
 
 
-/* Returns the whole content of the debug log file.
+/* Returns the content of the debug log file.
  */
 - (NSData *)getDebugFileContent;
 
-/* Clear the debug log file.
+/* Erase the debug log file.
  */
 - (void)clearDebugFile;
 
@@ -184,7 +185,7 @@
 
 /***************************************************************
  * DO NOT USE: Methods made public for development purpose only
-****************************************************************/
+ ****************************************************************/
 - (NSArray *)_getAllStoredGeofencesAsCLRegions;
 - (NSArray *)_getAllStoredGeofencesAsNSDictionaries;
 - (BOOL)_geofenceIsMonitored:(NSString *)geofenceId;

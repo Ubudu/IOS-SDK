@@ -1,6 +1,6 @@
 
 --------------------------------------
-Ubudu SDK Version 1.13.1 Release Notes
+Ubudu SDK Version 1.13.2 Release Notes
 --------------------------------------
 
 Platform Support
@@ -13,22 +13,21 @@ Platform Support
 	- iPhone 4S / iPad 3rd gen. / iPod 5th gen. or more recent
 
 
-Features Added in Version 1.13.1
+Features Added in Version 1.13.2
 --------------------------------
 
 None
 
 
-Improvements Done in Version 1.13.1
+Improvements Done in Version 1.13.2
 -----------------------------------
 
 None
 
-Issues Addressed in Version 1.13.1
+Issues Addressed in Version 1.13.2
 ----------------------------------
  
-* Fixed a crash when using a server notification within a beacon region rule.
-* Fixed event ubudu:didEnterBeaconRegion:userInfo: sometimes being fired twice in a row.
+* Fixed a bug with latch time conditions, sometimes those rules couldn't be executed.
 
 
 Known Issues
@@ -53,6 +52,9 @@ Support for iOS 8 has been introduced in version 1.7. The SDK still compiles fin
 
 Change history
 --------------
+
+Version 1.13.2
+	- Bug fixes (latch time).
 
 Version 1.13.1
 	- Bug fixes.

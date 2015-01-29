@@ -24,8 +24,8 @@ This is the prefered and simplest way to get started. Just add the following lin
 pod "UbuduSDK"
 ```
 
-then execute `pod update`.
-If you are not already using CocoaPods for your project you can get started by reading the [CocoaPods documentation](http://cocoapods.org).
+then execute `pod install`.
+If you are not already using CocoaPods for your project you can get started by reading the [CocoaPods documentation](http://guides.cocoapods.org/).
 
 ### Manually
 
@@ -36,10 +36,14 @@ Check the **"Copy items into destination group's folder (if needed)"** option.
 
 2. Add the following frameworks and libraries to your project if they are not already present:
  - CoreLocation.framework
+ - CoreBluetooth.framework
  - CoreData.framework
  - PassKit.framework
  - SystemConfiguration.framework
  - MobileCoreServices.framework
+ - UIKit.framework
+ - CoreGraphics.framework
+ - Foundation.framework
  - libz.dylib
 
   If you don't know how to add an Apple framework to your project [follow these instructions.](https://developer.apple.com/library/ios/recipes/xcode_help-project_editor/Articles/AddingaLibrarytoaTarget.html#//apple_ref/doc/uid/TP40010155-CH17)
@@ -54,7 +58,7 @@ Check the **"Copy items into destination group's folder (if needed)"** option.
 
 ## II. Background Location Capability
 
-In your *Info.plist* file add the **"location"** capability to the "Required background modes" section. If you plan to use Maps or Passbook in your proximity aware application you should enable the corresponding capabilities as well.
+* In your *Info.plist* file add the **"location"** capability to the "Required background modes" section. If you plan to use Maps or Passbook in your proximity aware application you should enable the corresponding capabilities as well.
 The simplest way to do that is to go in the project settings and the in `"Capabilities" -> "Background Modes"`
 
 

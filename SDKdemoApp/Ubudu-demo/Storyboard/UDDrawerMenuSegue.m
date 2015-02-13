@@ -14,7 +14,7 @@
 
 @implementation UDDrawerMenuSegue
 
--(void)perform
+- (void)perform
 {    
     MMDrawerController * drawerController = ((UIViewController*)self.sourceViewController).mm_drawerController;
     [drawerController setCenterViewController:self.destinationViewController withFullCloseAnimation:YES completion:nil];

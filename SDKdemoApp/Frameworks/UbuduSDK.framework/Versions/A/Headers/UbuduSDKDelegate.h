@@ -2,7 +2,7 @@
 //  UbuduSDKDelegate.h
 //  UbuduSDK
 //
-// Copyright (c) 2011-2014, UBUDU SAS
+// Copyright (c) 2011-2015, UBUDU SAS
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -42,48 +42,57 @@ typedef NS_ENUM(NSUInteger, UbuduTriggerSource) {
 @optional
 
 /* Methods used to ask if an action should be executed or not when it has been triggered by an associated rule.
- * Return NO to prevent the execution, YES to proceed.
- * By default the action is executed by the SDK. You can implement the ubudu:executeXXXRequest:triggeredBy methods if you want to customize how the actions should be executed.
+ * Return NO to prevent the execution, YES to proceed. By default the action is executed by the SDK.
  *
  * NOTE: You should NOT execute the actions in these methods otherwise your statistics may become biased.
+ * Implement the ubudu:executeXXXRequest:triggeredBy methods if you want to customize how the actions are executed.
  */
-- (BOOL)ubudu:(UbuduSDK *)ubuduSDK shouldExecuteLocalNotificationRequest:(UILocalNotification *)localNotification triggeredBy:(UbuduTriggerSource)triggeredBy;
-- (BOOL)ubudu:(UbuduSDK *)ubuduSDK shouldExecuteOpenWebPageRequest:(NSURL *)url triggeredBy:(UbuduTriggerSource)triggeredBy;
-- (BOOL)ubudu:(UbuduSDK *)ubuduSDK shouldExecuteOpenPassbookRequest:(NSURL *)passbookUrl triggeredBy:(UbuduTriggerSource)triggeredBy;
+- (BOOL)ubudu:(UbuduSDK *)ubuduSDK shouldExecuteServerNotificationRequest:(NSURL *)url triggeredBy:(UbuduTriggerSource)trigger;
+- (BOOL)ubudu:(UbuduSDK *)ubuduSDK shouldExecuteLocalNotificationRequest:(UILocalNotification *)localNotification triggeredBy:(UbuduTriggerSource)trigger;
+- (BOOL)ubudu:(UbuduSDK *)ubuduSDK shouldExecuteOpenWebPageRequest:(NSURL *)url triggeredBy:(UbuduTriggerSource)trigger;
+- (BOOL)ubudu:(UbuduSDK *)ubuduSDK shouldExecuteOpenPassbookRequest:(NSURL *)passUrl triggeredBy:(UbuduTriggerSource)trigger;
+- (BOOL)ubudu:(UbuduSDK *)ubuduSDK shouldExecuteOpenDeepLinkRequest:(NSURL *)url triggeredBy:(UbuduTriggerSource)trigger;
+
+
+/* Invoked when an action of type "server notification" should be executed.
+ * If you don't implement this method, then the SDK automatically perform the HTTP request to the specified URL.
+ * If you implement this method then it is your responsability to perform the HTTP request and parse the response.
+ * You also need to call the success or failure handler to let the SDK know when the action is done. If you don't call
+ * it then your action won't appear in the statistics.
+ */
+- (void)ubudu:(UbuduSDK *)ubuduSDK executeServerNotificationRequest:(NSURL *)url triggeredBy:(UbuduTriggerSource)trigger
+      success:(void (^)())successHandler failure:(void (^)(NSError* error))failureHandler;
 
 /* Invoked when an action of type "local notification" should be executed.
  * If you don't implement this method, then the SDK automatically presents the UILocalNotification to the user
  * by calling the presentLocalNotificationNow: method on the [UIApplication sharedApplication] object.
- * If you implement this method then it is your responsability to present the UILocalNotification to the user
- * in a convenient way that depends on the current context of your app.
+ * If you implement this method then it is your responsability to present the UILocalNotification to the user.
  */
-- (void)ubudu:(UbuduSDK *)ubuduSDK executeLocalNotificationRequest:(UILocalNotification *)localNotification triggeredBy:(UbuduTriggerSource)triggeredBy;
+- (void)ubudu:(UbuduSDK *)ubuduSDK executeLocalNotificationRequest:(UILocalNotification *)localNotification triggeredBy:(UbuduTriggerSource)trigger;
 
 /* Invoked when an action of type "open web page" should be executed.
- * If you don't implement this method, then the SDK automatically executes the action by presenting a modal web view on the root view controller of the UIWindow.
- * If you implement this method then it is your responsability to present the web page to the user
- * in a convenient way that depends on the current context of your app.
- * The ViewController is not presented if any of these is true:
- *   - the root ViewController of the UIApplication's window is already presenting a modal view controller.
+ * If you don't implement this method, then the SDK automatically executes the action by presenting a modal web view on the currently on "top" view controller.
+ * If you implement this method then it is your responsability to present the web page to the user.
  */
-- (void)ubudu:(UbuduSDK *)ubuduSDK executeOpenWebPageRequest:(NSURL *)url triggeredBy:(UbuduTriggerSource)triggeredBy;
+- (void)ubudu:(UbuduSDK *)ubuduSDK executeOpenWebPageRequest:(NSURL *)url triggeredBy:(UbuduTriggerSource)trigger;
 
 /* Invoked when an action of type "open passbook pass" should be executed.
  * If you don't implement this method, then the SDK automatically executes the action presenting a modal PKAddPassesViewController on the root view controller of the UIWindow.
  * The PKAddPassesViewController is not presented if any of these criteria is true:
  *   - the PKPassLibrary is not available on the system.
  *   - the pass data can't be downloaded (network unreachable, invalid pass URL...).
- *   - the pass in already present in the passbook of the user.
+ *   - the pass is already present in the passbook of the user.
  */
-- (void)ubudu:(UbuduSDK *)ubuduSDK executeOpenPassbookRequest:(NSURL *)passbookUrl triggeredBy:(UbuduTriggerSource)triggeredBy;
+- (void)ubudu:(UbuduSDK *)ubuduSDK executeOpenPassbookRequest:(NSURL *)passbookUrl triggeredBy:(UbuduTriggerSource)trigger;
 
-/* Invoked when a new "ad view" is received.
- * If you implement this method it is your responsability to present (or not) the ad to the user in a convenient way.
- * Iy you don't implement this method the SDK will present the ad for you if the following criteria are met:
- *   - the application state [UIApplication sharedApplication].applicationState is equal to UIApplicationStateActive.
- *   - you have set the adPlaceholder property of the SDK to a UIView in which you want to display the ads.
+/* Invoked when an action of type "open deep link" should be executed.
+ * If you don't implement this method, then the SDK automatically executes the action.
  */
-- (void)ubudu:(UbuduSDK *)ubuduSDK didReceiveNewAdView:(UIView *)view triggeredBy:(UbuduTriggerSource)triggeredBy;
+- (void)ubudu:(UbuduSDK *)ubuduSDK executeOpenDeepLinkRequest:(NSURL *)url triggeredBy:(UbuduTriggerSource)trigger;
+
+/* Invoyed when an event that will be sent to the Ubudu cloud platform is generated by the SDK.
+ */
+- (void)ubudu:(UbuduSDK *)ubuduSDK didLogEvent:(NSDictionary *)event atTime:(NSDate *)eventDate;
 
 /* Called when an error occurs in the SDK.
  * The error object will contain information on the error that occured.
@@ -94,6 +103,14 @@ typedef NS_ENUM(NSUInteger, UbuduTriggerSource) {
 /****************************
  * Beacons related callbacks
  ****************************/
+
+/* Invoked when the device enters the monitored beacon region.
+ */
+- (void)ubudu:(UbuduSDK *)ubuduSDK didEnterBeaconRegion:(NSString *)regionUUID userInfo:(NSDictionary *)userInfo;
+
+/* Invoked when the device exits the monitored beacon region.
+ */
+- (void)ubudu:(UbuduSDK *)ubuduSDK didExitBeaconRegion:(NSString *)regionUUID userInfo:(NSDictionary *)userInfo;
 
 /* Invoked when a new beacon is detected nearby the device.
  */
@@ -111,10 +128,9 @@ typedef NS_ENUM(NSUInteger, UbuduTriggerSource) {
  */
 - (void)ubudu:(UbuduSDK *)ubuduSDK didLoseBeaconSignal:(NSString *)beaconName userInfo:(NSDictionary *)userInfo;
 
-
-/*******************
- * Debug callbacks
- *******************/
+/******************************
+ * Geofences related callbacks
+ ******************************/
 
 /* Invoked when new geo location information are available.
  */
@@ -129,10 +145,5 @@ typedef NS_ENUM(NSUInteger, UbuduTriggerSource) {
  * Actions trigerred by this "geofence exit" event trigger will have been executred before this method is invoked.
  */
 - (void)ubudu:(UbuduSDK *)ubuduSDK didReceiveExitRegionNotification:(CLRegion *)region;
-
-/* Invoked when internal debug data are sent to the public API for debugging and testing purpose.
- * You should not need to implement this method.
- */
-- (void)ubudu:(UbuduSDK *)ubuduSDK didReceiveDebugData:(id)data;
 
 @end

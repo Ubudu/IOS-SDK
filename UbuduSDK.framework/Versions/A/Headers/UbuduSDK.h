@@ -33,6 +33,7 @@
 #import "UbuduSDKDelegate.h"
 #import "UbuduErrorCodes.h"
 #import "UbuduUser.h"
+#import "UbuduAuthorizationManager.h"
 
 @interface UbuduSDK : NSObject
 
@@ -55,10 +56,6 @@
  * This feature is restricted to servers explicitly allowed by Ubudu. Contact us for more information.
  */
 @property (nonatomic, copy) NSString *baseURL;
-
-/* Enable or disable the advertisements feature of the SDK.
- */
-@property (nonatomic) BOOL localizedAdsEnabled;
 
 /* Enable or disable the beacons features of the SDK. Enabled by default but only if the device supports beacons.
  */
@@ -134,12 +131,12 @@
 - (void)updateUserInformation;
 
 /* Reset the trigger counters of all rules, for geofences and beacons. The per-rule and per-group counters will be reset.
- * This is handy for developping and testing purpose. You may not want to call this function when your app is in production because it will mess with the min & max events defined in the back-office.
+ * This is handy for developping and testing purpose. You should not call this method when your app is in production because it will mess with the min & max event limits set in the back-office.
  */
 - (BOOL)resetCounters:(NSError **)error;
 
 /* Clear all data stored by the SDK.
- * If the SDK is started, it will be first stopped, then the data will be cleared and the SDK will be restarted.
+ * If the SDK is started, it will be stopped, the data will be cleared, then the SDK will be restarted.
  */
 - (BOOL)removeAllData:(NSError **)error;
 
@@ -151,7 +148,6 @@
 /* Erase the debug log file.
  */
 - (void)clearDebugFile;
-
 
 
 /* Update the location.
@@ -168,36 +164,5 @@
  * Geofences must be enabled.
  */
 - (double)getCurrentLongitude;
-
-
-
-/* Set the UIView placeholder you want to use to automatically display the received advertisements.
- * If you want to manually handle the display of the advertisements, you should implement the ubudu:didReceiveNewAdView:triggeredBy:
- * method of the UbuduSDKDelegate, in which case the view specifid with this setter will not be used.
- */
-- (void)setAdViewPlaceholder:(UIView *)adPlaceholder;
-
-/* Return the ad UIView with currently loaded contents.
- */
-- (UIView *)getAdView;
-
-
-
-/***************************************************************
- * DO NOT USE: Methods made public for development purpose only
- ****************************************************************/
-- (NSArray *)_getAllStoredGeofencesAsCLRegions;
-- (NSArray *)_getAllStoredGeofencesAsNSDictionaries;
-- (BOOL)_geofenceIsMonitored:(NSString *)geofenceId;
-- (BOOL)_geofenceIsCurrent:(NSString *)geofenceId;
-- (BOOL)_executeActionsForGeofence:(NSString *)geofenceId error:(NSError **)error;
-
-- (NSArray *)_getAllCurrentBeacons;
-
-- (NSArray *)_getStoredSDKLogEvents:(int)startPage perPage:(int)perPage;
-- (NSManagedObjectContext *)getSDKManagedObjectContext;
-/*****************
- * DO NOT USE END
- *****************/
 
 @end

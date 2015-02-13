@@ -10,8 +10,11 @@
 
 #import "UDAppDelegate.h"
 #import "UDDefinitions.h"
-#import "UDDemoManager.h"
 #import "UDOrderSummaryViewController.h"
+
+@interface UDAppDelegate () <UbuduSDKDelegate>
+
+@end
 
 @implementation UDAppDelegate
 
@@ -19,18 +22,14 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    if ([[UbuduSDK sharedInstance] isRunning] == NO) {
-        NSError *error = nil;
-        [UbuduSDK sharedInstance].appNamespace = kUDUbuduAppNamespace;
-        [UbuduSDK sharedInstance].delegate = self;
-        [UbuduSDK sharedInstance].user = [[UbuduUser alloc] initWithID:kUDDefaultClientName withProperties:nil];
-        BOOL started = [[UbuduSDK sharedInstance] start:&error];
-        if (!started) {
-            NSLog(@"UbuduSDK start error: %@", error);
-        }
+    NSError *error = nil;
+    [UbuduSDK sharedInstance].appNamespace = kUDUbuduAppNamespace;
+    [UbuduSDK sharedInstance].delegate = self;
+    [UbuduSDK sharedInstance].user = [[UbuduUser alloc] initWithID:kUDDefaultClientName];
+    BOOL started = [[UbuduSDK sharedInstance] start:&error];
+    if (!started) {
+        NSLog(@"UbuduSDK start error: %@", error);
     }
-    
-    application.applicationIconBadgeNumber = 0;
     return YES;
 }
 
@@ -54,6 +53,9 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    
+    // Reset app icon badge when the app becomes foreground
+    application.applicationIconBadgeNumber = 0;
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -67,18 +69,17 @@
     
     // If the notification contains a custom payload that we want to handle
     // In this case we display a custom alert view instead of posting a normal notification
-    if ([notifType isEqualToString:@"order"])
-    {
+    if ([notifType isEqualToString:@"order"]) {
         [self displayOrderAwaitingAlert:@"Do you want to send your order to preparation now?"];
     } else {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Notification" message:notification.alertBody delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
-        
-        // Send back to the SDK the notification (that may have been received in background)
-        // So it can trigger the right action (passbook or web view for example)
-        [[UbuduSDK sharedInstance] executeLocalNotificationActions:notification];
     }
     
+    // Send back to the SDK the notification (that may have been received in background)
+    // So it can trigger the right action (passbook or web view for example)
+    [[UbuduSDK sharedInstance] executeLocalNotificationActions:notification];
+
     // Clear the received notification
     [application cancelLocalNotification:notification];
     application.applicationIconBadgeNumber--;
@@ -86,82 +87,68 @@
 
 #pragma mark - UbuduSDKDelegate
 
-- (BOOL)ubudu:(UbuduSDK *)ubuduSDK shouldExecuteLocalNotificationRequest:(UILocalNotification *)localNotification triggeredBy:(UbuduTriggerSource)triggeredBy
-{
-    // Post notification only if it's a new one (avoid presenting multiple identical notification to the user)
-    BOOL hasBeenTriggered = [[UDDemoManager sharedManager] hasLocalNotificationBeenTriggered:localNotification.alertBody];
-    return (hasBeenTriggered == NO);
-}
+// Uncommented and implement any of the methods below if you want to programatically control the execution of the actions.
+// Please check on the manager platform if the feature you want to implement to control the triggering of the rules is not already built-in, as it would be less work for you.
 
-- (BOOL)ubudu:(UbuduSDK *)ubuduSDK shouldExecuteOpenWebPageRequest:(NSURL *)url triggeredBy:(UbuduTriggerSource)triggeredBy
-{
-    UDDemoManager *manager = [UDDemoManager sharedManager];
-    BOOL shouldExecute = ([manager hasLocalNotificationBeenTriggered:[url absoluteString]] == NO);
-    [manager markLocalNotificationAsTrigerred:[url absoluteString]];
-    return shouldExecute;
-}
+//- (BOOL)ubudu:(UbuduSDK *)ubuduSDK shouldExecuteServerNotificationRequest:(NSURL *)url triggeredBy:(UbuduTriggerSource)trigger {}
+//- (BOOL)ubudu:(UbuduSDK *)ubuduSDK shouldExecuteLocalNotificationRequest:(UILocalNotification *)localNotification triggeredBy:(UbuduTriggerSource)trigger {}
+//- (BOOL)ubudu:(UbuduSDK *)ubuduSDK shouldExecuteOpenWebPageRequest:(NSURL *)url triggeredBy:(UbuduTriggerSource)trigger {}
+//- (BOOL)ubudu:(UbuduSDK *)ubuduSDK shouldExecuteOpenPassbookRequest:(NSURL *)passUrl triggeredBy:(UbuduTriggerSource)trigger {}
+//- (BOOL)ubudu:(UbuduSDK *)ubuduSDK shouldExecuteOpenDeepLinkRequest:(NSURL *)url triggeredBy:(UbuduTriggerSource)trigger {}
 
-- (BOOL)ubudu:(UbuduSDK *)ubuduSDK shouldExecuteOpenPassbookRequest:(NSURL *)passbookUrl triggeredBy:(UbuduTriggerSource)triggeredBy
-{
-    UDDemoManager *manager = [UDDemoManager sharedManager];
-    BOOL shouldExecute = ([manager hasLocalNotificationBeenTriggered:[passbookUrl absoluteString]] == NO);
-    [manager markLocalNotificationAsTrigerred:[passbookUrl absoluteString]];
-    return shouldExecute;
-}
 
-- (void)ubudu:(UbuduSDK *)ubuduSDK executeLocalNotificationRequest:(UILocalNotification *)localNotification triggeredBy:(UbuduTriggerSource)triggeredBy
-{
-    NSLog(@"Ubudu executeLocalNotificationRequest localNotification = %@", localNotification);
-    [[UDDemoManager sharedManager] markLocalNotificationAsTrigerred:localNotification.alertBody];
-    [[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
-}
+// Uncomment and implement any of the methods below to customize the execution of any type of action.
 
-// Uncomment the following methods to use a custom implementation of the corresponding action
+//- (void)ubudu:(UbuduSDK *)ubuduSDK executeServerNotificationRequest:(NSURL *)url triggeredBy:(UbuduTriggerSource)trigger
+//      success:(void (^)())successHandler failure:(void (^)(NSError* error))failureHandler {}
 
-//- (void)ubudu:(UbuduSDK *)ubuduSDK executeOpenWebPageRequest:(NSURL *)url triggeredBy:(UbuduTriggerSource)triggeredBy
+//- (void)ubudu:(UbuduSDK *)ubuduSDK executeLocalNotificationRequest:(UILocalNotification *)localNotification triggeredBy:(UbuduTriggerSource)triggeredBy
 //{
-//    NSLog(@"Ubudu executeOpenWebPageRequest url = %@", url);
+//    // That is what the SDK does by default
+//    [[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
 //}
 
-//- (void)ubudu:(UbuduSDK *)ubuduSDK executeOpenPassbookRequest:(NSURL *)passbookUrl triggeredBy:(UbuduTriggerSource)triggeredBy
-//{
-//    NSLog(@"Ubudu executeOpenPassbookRequest passbookUrl = %@", passbookUrl);
-//}
+//- (void)ubudu:(UbuduSDK *)ubuduSDK executeOpenWebPageRequest:(NSURL *)url triggeredBy:(UbuduTriggerSource)trigger {}
 
-//- (void)ubudu:(UbuduSDK *)ubuduSDK didReceiveRegionNotification:(NSDictionary *)notificationData triggeredBy:(UbuduTriggerSource)triggeredBy
-//{
-//    NSLog(@"Ubudu didReceiveRegionNotification notificationData = %@", notificationData);
-//}
+//- (void)ubudu:(UbuduSDK *)ubuduSDK executeOpenPassbookRequest:(NSURL *)passbookUrl triggeredBy:(UbuduTriggerSource)trigger {}
 
-- (void)ubudu:(UbuduSDK *)ubuduSDK didReceiveNewAdView:(UIView *)view triggeredBy:(UbuduTriggerSource)triggeredBy;
-{
-    NSLog(@"Ubudu didReceiveNewAdView view = %@", view);
-}
+//- (void)ubudu:(UbuduSDK *)ubuduSDK executeOpenDeepLinkRequest:(NSURL *)url triggeredBy:(UbuduTriggerSource)trigger {}
 
 - (void)ubudu:(UbuduSDK *)ubuduSDK didReceiveErrorNotification:(NSError *)error;
 {
-    NSLog(@"Ubudu didReceiveErrorNotification error = %@", error);
+    NSLog(@"UBUDU SDK ERROR: %@", error);
 }
 
-// Beacon related callbacks
+// Beacons related callbacks
+
+- (void)ubudu:(UbuduSDK *)ubuduSDK didEnterBeaconRegion:(NSString *)regionUUID userInfo:(NSDictionary *)userInfo
+{
+//    NSLog(@"Ubudu didEnterBeaconRegion userInfo = %@", userInfo);
+}
+
+- (void)ubudu:(UbuduSDK *)ubuduSDK didExitBeaconRegion:(NSString *)regionUUID userInfo:(NSDictionary *)userInfo
+{
+//    NSLog(@"Ubudu didExitBeaconRegion userInfo = %@", userInfo);
+}
+
 - (void)ubudu:(UbuduSDK *)ubuduSDK didFindNewBeacon:(NSString *)beaconName userInfo:(NSDictionary *)userInfo
 {
-    //    NSLog(@"Ubudu didFindNewBeacon userInfo = %@", userInfo);
+//    NSLog(@"Ubudu didFindNewBeacon userInfo = %@", userInfo);
 }
 
 - (void)ubudu:(UbuduSDK *)ubuduSDK didReceivePingFromBeacon:(NSString *)beaconName userInfo:(NSDictionary *)userInfo
 {
-    //    NSLog(@"Ubudu didReceivePingFromBeacon userInfo = %@", userInfo);
+//    NSLog(@"Ubudu didReceivePingFromBeacon userInfo = %@", userInfo);
 }
 
 - (void)ubudu:(UbuduSDK *)ubuduSDK didUpdateBeacon:(NSString *)beaconName userInfo:(NSDictionary *)userInfo
 {
-    //    NSLog(@"Ubudu didUpdateBeacon userInfo = %@", userInfo);
+//    NSLog(@"Ubudu didUpdateBeacon userInfo = %@", userInfo);
 }
 
 - (void)ubudu:(UbuduSDK *)ubuduSDK didLoseBeaconSignal:(NSString *)beaconName userInfo:(NSDictionary *)userInfo
 {
-    //    NSLog(@"Ubudu didLoseBeaconSignal userInfo = %@", userInfo);
+//    NSLog(@"Ubudu didLoseBeaconSignal userInfo = %@", userInfo);
 }
 
 #pragma mark - Alerts

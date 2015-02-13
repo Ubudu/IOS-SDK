@@ -39,6 +39,8 @@
 @property (nonatomic, readonly, getter = isLocationServiceEnabled) BOOL locationServiceEnabled; // YES if both global and app-specific location services are enabled.
 @property (nonatomic, readonly, getter = isBluetoothEnabled) BOOL bluetoothEnabled;
 @property (nonatomic, readonly, getter = isBackgroundRefreshEnabled) BOOL backgroundRefreshEnabled;
+@property (nonatomic, readonly, getter = areAllNotificationRightsGranted) BOOL allNotificationRightsGranted; // YES if user has accepted notifications and not turned off any of the rights (banner, sound & badge)
+@property (nonatomic, readonly, getter = isBannerNotificationRightGranted) BOOL bannerNotificationRightGranted; // You are most likely interested in this specific right (banner, which means display a message to the user. Details on how the message is precisely presented depends on user settings, can't know them programatically)
 
 /* Delegate to receive notifications when the value of one of the above properties changes. */
 @property (nonatomic, weak) id<UbuduAuthorizationDelegate> authorizationDelegate;

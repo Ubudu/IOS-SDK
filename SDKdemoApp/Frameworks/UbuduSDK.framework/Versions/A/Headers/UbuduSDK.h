@@ -2,7 +2,7 @@
 //  UbuduSDK.h
 //  UbuduSDK
 //
-// Copyright (c) 2011-2014, UBUDU SAS
+// Copyright (c) 2011-2015, UBUDU SAS
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -33,6 +33,7 @@
 #import "UbuduSDKDelegate.h"
 #import "UbuduErrorCodes.h"
 #import "UbuduUser.h"
+#import "UbuduAuthorizationManager.h"
 
 @interface UbuduSDK : NSObject
 
@@ -41,19 +42,20 @@
  */
 @property (nonatomic, weak) id<UbuduSDKDelegate> delegate;
 
-/* Is the SDK currently running.
+/* Is the SDK started.
  */
 @property (nonatomic, readonly, getter=isRunning) BOOL running;
 
 /* The Ubudu namespace of the application.
- * Should be set to the value provided by the Ubudu manager in order to retrieve the rules you defined for your application.
- * You must set this value before starting the SDK.
+ * Should be set to the value provided on the Ubudu manager website in order to retrieve the rules you defined for your application.
+ * You MUST set this value before starting the SDK.
  */
 @property (nonatomic, copy) NSString *appNamespace;
 
-/* Enable or disable the advertisements feature of the SDK.
+/* The URL to use to access the API.
+ * This feature is restricted to servers explicitly allowed by Ubudu. Contact us for more information.
  */
-@property (nonatomic) BOOL localizedAdsEnabled;
+@property (nonatomic, copy) NSString *baseURL;
 
 /* Enable or disable the beacons features of the SDK. Enabled by default but only if the device supports beacons.
  */
@@ -63,33 +65,25 @@
  */
 @property (nonatomic) BOOL geofencesEnabled;
 
-/* View controller used to modally display the view controllers for PassBook and Web Page actions.
- * If not set the SDK tries to use the current window's root view controller,
- * but it may already be presenting a view controller, in which case the SDK won't be able to present the action view controller.
+/* View controller used to modally present the view controllers for PassBook and Web Page actions.
+ * If not set the SDK tries to use the currently visible view controller (view controller "on top" of the current window stack).
+ * The SDK may fail to retrieve such view controller, particularly if your app uses custom container view controllers
+ * for which the SDK doesn't know how to traverse children view controllers.
  */
 @property (nonatomic, weak) UIViewController *presentationViewController;
 
-/* An extention point that permits to link business data about your users to the Ubudu users that the SDK and back office use.
- * These data are automatically uploaded on the Ubudu back office.
+/* An extention point that permits to link business data about your users to the Ubudu users that the SDK and Ubudu manager website use.
+ * These data are automatically uploaded to the Ubudu cloud every time you assign this property or change one of its properties.
  */
 @property (nonatomic, strong) UbuduUser *user;
 
-/* The minimum delay, in seconds, between two updates of the geofences and beacons data from the back office.
+/* Enable the generation of a local file that will contain debug information about what the SDK does.
  */
-@property (nonatomic) NSUInteger refreshInterval; // Deprecated, will be removed with next release. Do not use.
-
-/* Base URL used to construct the request made against the web services API.
- * This should looks like @"https://example.com"
- */
-@property (nonatomic, copy) NSURL *baseAPIUrl; // Deprecated, will be removed with next release. Do not use.
+@property (nonatomic, getter=isFileLogEnabled) BOOL fileLogEnabled;
 
 /* Version of the SDK.
  */
 @property (nonatomic, readonly) NSString *SDKVersion;
-
-/* Enable the generation
- */
-@property (nonatomic, getter=isFileLogEnabled) BOOL fileLogEnabled;
 
 
 
@@ -137,23 +131,23 @@
 - (void)updateUserInformation;
 
 /* Reset the trigger counters of all rules, for geofences and beacons. The per-rule and per-group counters will be reset.
- * This is handy for developping and testing purpose. You may not want to call this function when your app is in production because it will mess with the min & max events defined in the back-office.
+ * This is handy for developping and testing purpose. You should not call this method when your app is in production because it will mess with the min & max event limits set in the back-office.
  */
 - (BOOL)resetCounters:(NSError **)error;
 
 /* Clear all data stored by the SDK.
+ * If the SDK is started, it will be stopped, the data will be cleared, then the SDK will be restarted.
  */
 - (BOOL)removeAllData:(NSError **)error;
 
 
-/* Returns the whole content of the debug log file.
+/* Returns the content of the debug log file.
  */
 - (NSData *)getDebugFileContent;
 
-/* Clear the debug log file.
+/* Erase the debug log file.
  */
 - (void)clearDebugFile;
-
 
 
 /* Update the location.
@@ -170,36 +164,5 @@
  * Geofences must be enabled.
  */
 - (double)getCurrentLongitude;
-
-
-
-/* Set the UIView placeholder you want to use to automatically display the received advertisements.
- * If you want to manually handle the display of the advertisements, you should implement the ubudu:didReceiveNewAdView:triggeredBy:
- * method of the UbuduSDKDelegate, in which case the view specifid with this setter will not be used.
- */
-- (void)setAdViewPlaceholder:(UIView *)adPlaceholder;
-
-/* Return the ad UIView with currently loaded contents.
- */
-- (UIView *)getAdView;
-
-
-
-/***************************************************************
- * DO NOT USE: Methods made public for development purpose only
-****************************************************************/
-- (NSArray *)_getAllStoredGeofencesAsCLRegions;
-- (NSArray *)_getAllStoredGeofencesAsNSDictionaries;
-- (BOOL)_geofenceIsMonitored:(NSString *)geofenceId;
-- (BOOL)_geofenceIsCurrent:(NSString *)geofenceId;
-- (BOOL)_executeActionsForGeofence:(NSString *)geofenceId error:(NSError **)error;
-
-- (NSArray *)_getAllCurrentBeacons;
-
-- (NSArray *)_getStoredSDKLogEvents:(int)startPage perPage:(int)perPage;
-- (NSManagedObjectContext *)getSDKManagedObjectContext;
-/*****************
- * DO NOT USE END
- *****************/
 
 @end

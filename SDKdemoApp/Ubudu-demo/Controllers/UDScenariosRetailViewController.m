@@ -6,9 +6,10 @@
 //  Copyright (c) 2014 Ubudu. All rights reserved.
 //
 
+#import <UbuduSDK/UbuduSDK.h>
+
 #import "UIViewController+MMDrawerController.h"
 
-#import "UDDemoManager.h"
 #import "UDScenariosRetailViewController.h"
 #import "UDClickAndCollectViewController.h"
 
@@ -62,7 +63,8 @@
 #pragma mark - UI Touch Events
 
 - (IBAction)resetButtonTouched:(id)sender {
-    [[UDDemoManager sharedManager] clearTriggeredStateForAllLocalNotifications];
+    NSError *error = nil;
+    [[UbuduSDK sharedInstance] resetCounters:&error];
 }
 
 - (IBAction)leftDrawerButtonTouched:(id)sender

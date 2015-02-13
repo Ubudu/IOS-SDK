@@ -7,9 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <UbuduSDK/UbuduSDKDelegate.h>
 
-@interface UDAppDelegate : UIResponder <UIApplicationDelegate, UbuduSDKDelegate>
+@interface UDAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 

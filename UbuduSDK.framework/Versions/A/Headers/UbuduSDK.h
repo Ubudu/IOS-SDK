@@ -104,7 +104,7 @@
 
 
 /* Start the SDK.
- * This will start the location and/or beacons monitoring and actions will be triggered when necessary.
+ * This will start the location and/or beacons monitoring. Rules will trigger when matching conditions are met and linked actions will be executed.
  */
 - (BOOL)start:(NSError **)error;
 
@@ -114,7 +114,8 @@
 - (BOOL)resume:(UIApplication *)application launchOptions:(NSDictionary *)launchOptions error:(NSError **)error;
 
 /* Stop the SDK.
- * Location and beacons will not be monitored anymore and no action will be triggered.
+ * Geofences and beacons will not be monitored anymore and no more action will be triggered until you call again the start method.
+ * Your app will not be waken up anymore.
  */
 - (void)stop;
 

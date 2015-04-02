@@ -1,7 +1,7 @@
 
-------------------------------------
-Ubudu SDK Version 1.15 Release Notes
-------------------------------------
+--------------------------------------
+Ubudu SDK Version 1.15.1 Release Notes
+--------------------------------------
 
 Platform Support
 ----------------
@@ -13,20 +13,22 @@ Platform Support
 	- iPhone 4S / iPad 3rd gen. / iPod 5th gen. or more recent
 
 
-Features Added in Version 1.15
-------------------------------
-
-* Added support of new proximities which split the Far proximity in two parts: MediumFar and HighFar.
-
-
-Improvements Done in Version 1.15
----------------------------------
-
-
-Issues Addressed in Version 1.15
+Features Added in Version 1.15.1
 --------------------------------
- 
-* Fixed a crash that occured rarely when using server notification actions.
+
+None
+
+Improvements Done in Version 1.15.1
+-----------------------------------
+
+* Improved support of beacons ranging while in background.
+* Possible for the SDK to request "when in use" location services authorization instead of "always" (still the default).
+
+
+Issues Addressed in Version 1.15.1
+----------------------------------
+
+None
 
 
 Known Issues
@@ -53,6 +55,10 @@ Methods related to 'localized ads' feature have been removed in version 1.14. If
 
 Change history
 --------------
+
+Version 1.15.1
+	- Improved support of beacons ranging while in background.
+	- Possible for the SDK to request "when in use" location services authorization instead of "always".
 
 Version 1.15
 	- Support of MediumFar and HighFar proximities (split of the Far proximity into two "sub-proximities".

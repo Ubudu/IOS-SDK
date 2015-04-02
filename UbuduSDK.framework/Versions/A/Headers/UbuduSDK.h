@@ -61,6 +61,17 @@
  */
 @property (nonatomic) BOOL beaconsEnabled;
 
+/* Request "When In Use" authorization for location services instead of "Always".
+ * By settings this to YES you won't get background support (your app won't be awaken when near your beacons, rules won't trigger when the app is killed or in the background).
+ * However you will still be able to get rules to trigger when the app is in foreground.
+ * You must set this property before starting the SDK for the first time. Changes done afterward or before next launches won't have any effect.
+ *
+ * Default is NO (which means the SDK will request location "Always" authorization.
+ *
+ * Warning: do not set this to YES if you plan to use geofences features!
+ */
+@property (nonatomic) BOOL requestWhenInUseAuthorization;
+
 /* Enable or disable the geofencing features of the SDK. Enabled by default but only if the device supports geofencing.
  */
 @property (nonatomic) BOOL geofencesEnabled;

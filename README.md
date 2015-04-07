@@ -1,30 +1,33 @@
-IOS-SDK
+Ubudu iOS SDK
 =======
-Ubudu contextual interactions SDK for IOS.
-For information on pricing, features, examples and our fantastic i-beacon compatible beacons please check our web-site [http://www.ubudu.com](http://www.ubudu.com). It is totally free to develop with Ubudu SDKs and we only charge active users above certain thresholds. 
+Ubudu contextual interactions SDK for iOS.
+For information on pricing, features, examples and our fantastic iBeacon compatible beacons please check our web-site [http://www.ubudu.com](http://www.ubudu.com). It is totally free to develop with Ubudu SDKs and we only charge active users above certain thresholds.
 
-### System and hardware requirements
-For beacons related features:
-- IOS 7.0 or higher for supporting iBeacon features / IOS 7.1.2 and IOS 8.0 recommended
-- Iphone 4S / Ipad 3rd generation / iPad mini / iPod touch 5th generation or more recent
+## System and hardware requirements
+For iBeacon related features:
+
+- iOS 7.0 or higher (IOS 7.1.2 or iOS 8.0+ recommended)
+- iPhone 4S / iPad 3rd generation / iPad mini / iPod touch 5th generation, or any more recent device
 
 For geofencing:
-- IOS 6.0 or higher
-- Iphone 4 or more recent
 
-## I. Adding the Ubudu SDK framework to your project
+- iOS 6.0 or higher
+- iPhone 4 or more recent
 
-Starting to use the Ubudu SDK on IOS native app should be a 5 to 10 minutes process. Have a look at the demo app in the directory for a complete example.
+## I. Adding the Ubudu SDK to a project
+
+Starting to use the Ubudu SDK on iOS native app should be a 5 to 10 minutes process. Have a look at the demo app in the directory for a complete example.
 
 ### Using CocoaPods
 
-This is the prefered and simplest way to get started. Just add the following line to your Podfile:
+This is the prefered and simplest way to get started. Just add the following line to your *Podfile*
 
 ```
-pod "UbuduSDK"
+pod 'UbuduSDK'
 ```
 
 then execute `pod install`.
+
 If you are not already using CocoaPods for your project you can get started by reading the [CocoaPods documentation](http://guides.cocoapods.org/).
 
 ### Manually
@@ -35,47 +38,79 @@ If you don't want to use CocoaPods you can install the SDK manually by following
 Check the **"Copy items into destination group's folder (if needed)"** option.
 
 2. Add the following frameworks and libraries to your project if they are not already present:
- - CoreLocation.framework
- - CoreBluetooth.framework
- - CoreData.framework
- - PassKit.framework
- - SystemConfiguration.framework
- - MobileCoreServices.framework
- - UIKit.framework
- - CoreGraphics.framework
- - Foundation.framework
- - libz.dylib
+	- CoreLocation.framework
+	- CoreBluetooth.framework
+	- CoreData.framework
+	- PassKit.framework
+	- SystemConfiguration.framework
+	- MobileCoreServices.framework
+	- UIKit.framework
+	- CoreGraphics.framework
+	- Foundation.framework
+	- libz.dylib
 
   If you don't know how to add an Apple framework to your project [follow these instructions.](https://developer.apple.com/library/ios/recipes/xcode_help-project_editor/Articles/AddingaLibrarytoaTarget.html#//apple_ref/doc/uid/TP40010155-CH17)
-
+  
   Your framework folder should look like this:
-
-  ![Framework list](/__media-files/images/ios_frameworks_list.png) 
-
+  
+  ![Framework list](__media-files/images/ios_frameworks_list.png)  
 3. In the project settings, go to `"General" -> "Your Target" -> "Build Settings" -> "Other Linker Flags"` and add the following flags: **-ObjC -all_load**
 
-  ![Linker flag](/__media-files/images/ios_linker_flags.png) 
+  ![Linker flag](__media-files/images/ios_linker_flags.png)
 
-## II. Background Location Capability
+## II. Project configuration
 
-* In your *Info.plist* file add the **"location"** capability to the "Required background modes" section. If you plan to use Maps or Passbook in your proximity aware application you should enable the corresponding capabilities as well.
-The simplest way to do that is to go in the project settings and the in `"Capabilities" -> "Background Modes"`
+### Location authorization
 
+Since **iOS 8.0** it is required to add an entry to the *Info.plist* file that indicates wich location authorization is required by your app:
 
-  ![Capabilities](/__media-files/images/ios_capabilities.png) 
+* To use the **"Always"** mode, which the SDK is primarily designed to work with, add the `NSLocationAlwaysUsageDescription` key. This mode allows your app to be awaken when near beacons (*via* beacon region monitoring) and to receive detailled beacon data updates (*via* beacon ranging) for a few minutes while the app is in background. There is no restriction applying when the app in foreground.
 
+* If you decide to use the **"When In Use"** mode then add the `NSLocationWhenInUseUsageDescription` key. With this mode your app cannot be awaken when near beacons and cannot receive detailed beacon data updates when in background. Your app will only get detailed beacon data updates (beacon ranging) while in foreground.
 
-Since IOS 8.0 it is also required to add an entry in **Info.plist** to indicate wich location access method is required (always or when in use - region monitoring requires always) `NSLocationAlwaysUsageDescription` or `NSLocationWhenInUseUsageDescription` with a string message to be used in the prompt. If these keys are not added the prompt is not presented to the user.
+![Framework list](__media-files/images/location_authorization_info_plist_key.png)  
 
-## III. Starting and hooking to the Ubudu SDK
+##### Support both modes (optional)
 
-### Starting and hooking to the Ubudu SDK in an Objective C project
+You can decide to support both modes by providing the two keys. In this case the Ubudu SDK will by default try to get the **"Always"** location authorization but your users will have the possibility to "downgrade" the app location authorization to **"When In Use"** from the device settings.
+
+If you'd rather have the SDK require "When In Use" authorization first (and let your user the possibility to "upgrade" the authorization to "Always" later) set the following option on the SDK to *YES* **/!\\ before calling start /!\\**.
+
+```
+[UbuduSDK sharedInstance].requestWhenInUseAuthorization = YES;
+```
+
+##### Support only "When In Use" mode (optional)
+
+If you decide to support exclusively the "When In Use" mode then add only the `NSLocationWhenInUseUsageDescription` key to your *Info.plist* file **AND** set the same option as above to *YES* so the SDK will ask for the correct authorization.
+
+```
+[UbuduSDK sharedInstance].requestWhenInUseAuthorization = YES;
+```
+
+##### Remarks
+
+```
+The value(s) for the key(s) can be left empty, but if provided will be displayed in the alert asking the user if he'd like to grant access to his physical location to the app. You should provide a description of one or two line(s) of why you need to access your user's location so he will be more enclined to accept.
+```
+```
+Warning: if you fail to properly provide the required key then the location access alert won't be displayed and your app will never get access to the location of the user.
+```
+
+### Other capabilities
+
+If you plan to use the Passbook feature of the SDK in your application you should enable the corresponding capability in the **"Capabilities"** tab of XCode.
+
+![Framework list](__media-files/images/passbook_capability.png)
+
+## III. Starting and hooking to the Ubudu SDK - Objective-C
 
 1. In your *AppDelegate.m* file add the following statement:
 `#import <UbuduSDK/UbuduSDK.h>`
 
 2. Add this to you `didFinishLaunchingWithOptions:` method
 You need to replace the app namespace by the one you created in the [back-office.](https://manager.ubudu.com)
+
 ```
 [UbuduSDK sharedInstance].appNamespace = @"634b207ee2f313c109c58675b44324ac2d41e61e";
 [UbuduSDK sharedInstance].delegate = self;
@@ -83,11 +118,12 @@ NSError *error = nil;
 BOOL started = [[UbuduSDK sharedInstance] start:&error];
 if (!started) {
     NSLog(@"UbuduSDK start error: %@", error);
-    // Handle error
 }
 ```
 
-3. To allow to the SDK to work as expected with background support you need to implement the UIKit callback `application:didReceiveLocalNotification:` like this:
+  The delegate is the object which will be receiving all the notifications via callbacks defined in the **UbuduSDKDelegate** protocol. This might be your AppDelegate for example.  
+    
+3. To allow to the SDK to work as expected (executing the actions other than "notifications", i.e. open a web page) you need to implement the UIKit callback `application:didReceiveLocalNotification:` like this:
 
 ```
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
@@ -96,21 +132,21 @@ if (!started) {
 }
 ```
 
-The delegate is the object which will be receiving all the notifications via callbacks defined in the **UbuduSDKDelegate** protocol. This might be your AppDelegate for example.
-
 ### Stop the SDK
 
 If you want the SDK to stop running then call:
-```objective-c
+
+```
 [[UbuduSDK sharedInstance] stop];
 ```
+
 Stopping the SDK will stop it from updating location and tracking geofences and beacons. It will also prevent your app from being awaken by the system (you will not have background support after that).
 
 ### Full code example
 
 Here is a full example on how to initialize and start the SDK:
 
-```objective-c
+```
 /* AppDelegate.m */
 #import <UbuduSDK/UbuduSDK.h>
 
@@ -121,13 +157,12 @@ Here is a full example on how to initialize and start the SDK:
     if ([[UbuduSDK sharedInstance] isRunning] == NO) {
         [UbuduSDK sharedInstance].appNamespace = @"634b207ee2f313c109c58675b44324ac2d41e61e";
         [UbuduSDK sharedInstance].delegate = self;
-        /** optionally, provide the ID of your user so we can link the Ubudu user with the IDs of your information system. */
+        /* optionally, provide the ID of your user so we can link the Ubudu user with the IDs of your information system. */
         //[UbuduSDK sharedInstance].user = [[UbuduUser alloc] initWithID:@"Your client ID" withProperties:@{@"foo_property":@"bar_value"}];
         NSError *error = nil;
         BOOL started = [[UbuduSDK sharedInstance] start:&error];
         if (!started) {
             NSLog(@"UbuduSDK start error: %@", error);
-            // Handle error
         }
     }
 }
@@ -138,9 +173,9 @@ Here is a full example on how to initialize and start the SDK:
 }
 ```
 
-## III. Bis - Starting and hooking to the Ubudu SDK in a Swift project (XCode 6.0)
+## III. Bis - Starting and hooking to the Ubudu SDK in a Swift project (requires XCode 6+)
 
-Once the framework or pod has been installed you need to add a bridging header, which Xcode automatically creates when you want to add the first Objective-C file to a Swift project.
+Once the framework or pod has been installed you need to add a bridging header, which XCode automatically creates when you want to add the first Objective-C file to a Swift project.
 So in an empty project we just add a file called “dummy”. This file can be deleted later.
 
 ![BridgingFile_add](http://happy-coding.org/wp-content/uploads/2014/06/Screen-Shot-2014-06-04-at-23.17.13.png)
@@ -149,7 +184,7 @@ Then Xcode will ask
 
 ![dialog_x_code](http://happy-coding.org/wp-content/uploads/2014/06/Screen-Shot-2014-06-04-at-23.18.09.png)
 
-This auto-generation will also add the corresponding path to this header file into your Build Settings.
+This auto-generation will also add the corresponding path to this header file into your Build Settings
 
 ![build_settings](http://happy-coding.org/wp-content/uploads/2014/06/Screen-Shot-2014-06-04-at-23.18.31.png)
 
@@ -159,8 +194,7 @@ Into this header file *cocoapods-test-Bridging-Header.h* you can then add the re
 Then in the *AppDelegate.swift* add the protocol `UbuduSDKDelegate`, the initialization of the UbuduSDK and the minimal callbacks functions. For instance:
 
 ```swift
-//add AdSupport for optional profiling step
-import AdSupport
+import AdSupport // add AdSupport for optional profiling step
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UbuduSDKDelegate {
@@ -173,9 +207,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UbuduSDKDelegate {
         let namespace : NSString = "634b207ee2f313c109c58675b44324ac2d41e61e"
         ubuduSDK.appNamespace=namespace
         
-        //Optional profiling step: if user as enabled advertising, we add the idfa as the external id of the user
-        //in order to  allow cross-application advertsing targeting. The id used by the hosting application could be used as well
-        //We could also add tags which can be used to target interactions;
+        // Optional profiling step: if user as enabled advertising, we add the idfa as the external id of the user
+        // in order to  allow cross-application advertsing targeting. The id used by the hosting application could be used as well
+        // We could also add tags which can be used to target interactions;
         var idfa_mgr = ASIdentifierManager.sharedManager() as ASIdentifierManager
         var idfa_s : NSString?
         if idfa_mgr.advertisingTrackingEnabled {
@@ -183,36 +217,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UbuduSDKDelegate {
             idfa_s = idfa.UUIDString
         }
         ubuduSDK.user = UbuduUser(ID: idfa_s, withProperties: nil, tags: nil)
-        //end of optional profiling step
+        // End of optional profiling step
         
         ubuduSDK.delegate = self
         var error: NSError?
         ubuduSDK.start(&error)
         if error != nil {
-            println("Error in starting the Ubudu SDK")
+            println("Error while starting Ubudu SDK")
         }
         return true
     }
     
     func application(application: UIApplication!, didReceiveLocalNotification notification: UILocalNotification!) {
-        // let it handle by default by the Ubudu SDK
+        // Let the Ubudu SDK handle the notification
         UbuduSDK.sharedInstance().executeLocalNotificationActions(notification)
         
     }
-...
 }
 ```
 
-The namespace value i.e. `634b207ee2f313c109c58675b44324ac2d41e61e` in the example above is the namespace UID of the application creatd in the [back-office manager web interface](https://manager.ubudu.com) of your application. 
+The namespace value i.e. `634b207ee2f313c109c58675b44324ac2d41e61e` in the example above is the namespace of the application created in the [back-office manager web interface](https://manager.ubudu.com) of your application. 
 When you access the back-office web interface in the details of the application you created you will find an example of integration with the correct UID for your application.
 Then still in the AppDelegate implement the callbacks that you would like to overwrite to handle the actions that have been programmed in the back-office.
-There are 4 types of actions that can be executed when entering or exiting a zone: 
+There are 5 types of actions that can be executed when entering or exiting a zone: 
 - Post a callback to a server URL: the server can then "decide" the next action or execute custom code (such as adding entries into a CRM, sending a push notification or sending a push notification to a client). Note that the SDK will automatically take advantage of some wildcards that you can use to identify the actions in your callback. Example of URL: 'https://yourserver.com/push_event_to_app.json?event=exit&udid={udid}'.
 - Post a local notification: a local notification can contain a message and a custom payload see [Apple documentation](https://developer.apple.com/library/ios/documentation/iPhone/Reference/UILocalNotification_Class/Reference/Reference.html#//apple_ref/occ/instp/UILocalNotification/alertAction).
 ![Back-office configuration local notification](/__media-files/images/back_office_action_1.jpg) 
 - Open a web-page in a web-view: note that the page can be either online (http:// or https://) or in the application bundle (in this case use the file:// protocol in the URL).
 ![Back-office configuration open web view notification](/__media-files/images/back_office_action.jpg) 
 - Open a passbook: note that the pass can be either online (http:// or https://) or in the application bundle (in this case use the file:// protocol in the URL).
+- Open a deeplink URL. The link can be handled by your app itself (in which case you need to register the URL Scheme and handle the incoming URLs), or open a third party app, i.e. Twitter.
 
 
 ### UbuduSDKDelegate Callbacks
@@ -305,7 +339,7 @@ Example of implementation of Ubudu SDK delegate methods:
     application.applicationIconBadgeNumber--;
 }
 
-#pragma mark - Click & Collect Alert
+#pragma mark - Alert
 
 - (void)displayOrderAwaitingAlert:(NSString *)message
 {
@@ -333,9 +367,9 @@ Example of implementation of Ubudu SDK delegate methods:
 ### Users segmentation - Tags
 
 If you want to target only a subset of your users, it is possible to associate arbitrary tags to them.
-Then you define the conditions that must or must not be met for your rules and actions to trigger.
+Then you define the conditions that must or must not be met to trigger your rules and actions.
 
-You can define the conditions for a beacon or geofence rule in the back-office, from the beacon and geofence edition page.
+You can define the conditions for a beacon or geofence rule in the back-office, from the beacon and geofence edition pages.
 
 ![Capabilities](/__media-files/images/back_office_target_user_segments.png)
 
@@ -350,11 +384,11 @@ This is very simple and is done typically before starting the SDK, as following:
 NSError *error = nil;
 BOOL started = [[UbuduSDK sharedInstance] start:&error];
 if (started == NO) {
-  // Handle error
+  NSLog(@"UbuduSDK start error: %@", error);
 }
 ```
 
-If you need to update the tags of your user once the SDK has been started, just re-assign the tags property of the user, and the SDK will automatically send the updated data to the back-office.
+If you need to update the tags (or user ID / properties) of your user once the SDK has been started, just re-assign the corresponding property on the user object, the SDK will automatically send the updated data to the back-office.
 
 ```objective-c
 // Could be called if the user changes his age in the settings for example

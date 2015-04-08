@@ -12,6 +12,15 @@ Each addition should contain a short explanation of what added or changed.
 For more information please refer to the API documentation.
 -------------------------------------------------------------------------------
 
+Ubudu SDK API Changes between v1.15.1 and v1.15.2
+-------------------------------------------------
+
+REMOVED METHOD
+[ubuduSDK updateUserInformation]
+	This method is not required anymore and can be safely removed from your code as the SDK takes care of checking if the UbuduUser object assigned to the UbuduSDK or any of its properties change. A user data update will be automatically sent to the server when required.
+
+
+
 Ubudu SDK API Changes between v1.15 and v1.15.1
 -----------------------------------------------
 

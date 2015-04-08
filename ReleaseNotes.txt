@@ -1,6 +1,6 @@
 
 --------------------------------------
-Ubudu SDK Version 1.15.1 Release Notes
+Ubudu SDK Version 1.15.2 Release Notes
 --------------------------------------
 
 Platform Support
@@ -13,22 +13,22 @@ Platform Support
 	- iPhone 4S / iPad 3rd gen. / iPod 5th gen. or more recent
 
 
-Features Added in Version 1.15.1
+Features Added in Version 1.15.2
 --------------------------------
 
 None
 
-Improvements Done in Version 1.15.1
+
+Improvements Done in Version 1.15.2
 -----------------------------------
 
-* Improved support of beacons ranging while in background.
-* Possible for the SDK to request "when in use" location services authorization instead of "always" (still the default).
+* Network optimization: avoid sending UbuduUser info update if not required.
 
 
-Issues Addressed in Version 1.15.1
+Issues Addressed in Version 1.15.2
 ----------------------------------
 
-None
+* Fixed a crash occuring if the payload of a notification action of a rule contained a null value. Null values are now replaced by empty strings.
 
 
 Known Issues
@@ -44,9 +44,9 @@ Compatibility
 
 Public API has been greatly modified in version 1.1, therefore applications written for version 1.0 must be adapted to compile with Ubudu SDK v1.1 and above.
 
-Some URLs of the back-office API have changed in version 1.3.1. It is strongly advised so use this version to access the last version of the back-office API.
+Some URLs of the back-office API have changed in version 1.3.1. It is strongly advised so use this version or above to access the last version of the back-office API.
 
-Changes have been done on the public API in version 1.4 to follow more thoroughly Objective-C coding style and naming recommandations. You may have to proceed to a few adaptations in your code if you were using a previous version.
+Changes have been done on the public API in version 1.4 to follow more thoroughly Objective-C coding style and naming conventions. You may have to proceed to a few adaptations in your code if you were using a previous version.
 
 Support for iOS 8 has been introduced in version 1.7. The SDK still compiles fine against the previously supported iOS SDK versions.
 
@@ -55,6 +55,10 @@ Methods related to 'localized ads' feature have been removed in version 1.14. If
 
 Change history
 --------------
+
+Version 1.15.2
+	- Network optimization (don't send UbuduUser info update if not required).
+	- Bug fix (crash if a notification payload contained a null value).
 
 Version 1.15.1
 	- Improved support of beacons ranging while in background.

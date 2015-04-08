@@ -137,11 +137,6 @@
  */
 - (void)executeLocalNotificationActions:(UILocalNotification *)localNotification;
 
-/* Update the information associated to the Ubudu user (provided in the user property).
- * This will force the user data being (re-)sent to the back office and the rules to be update to match the new user tags.
- */
-- (void)updateUserInformation;
-
 /* Reset the trigger counters of all rules, for geofences and beacons. The per-rule and per-group counters will be reset.
  * This is handy for developping and testing purpose. You should not call this method when your app is in production because it will mess with the min & max event limits set in the back-office.
  */

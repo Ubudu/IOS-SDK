@@ -1,7 +1,7 @@
 Ubudu iOS SDK
 =======
 Ubudu contextual interactions SDK for iOS.
-For information on pricing, features, examples and our fantastic iBeacon compatible beacons please check our web-site [http://www.ubudu.com](http://www.ubudu.com). It is totally free to develop with Ubudu SDKs and we only charge active users above certain thresholds.
+For information on pricing, features, examples and our fantastic iBeacon compatible beacons please check our website [http://www.ubudu.com](http://www.ubudu.com). It is totally free to develop with Ubudu SDKs and we only charge active users above certain thresholds.
 
 ## System and hardware requirements
 For iBeacon related features:

@@ -76,7 +76,7 @@ You can decide to support both modes by providing the two keys. In this case the
 
 If you'd rather have the SDK require "When In Use" authorization first (and let your user the possibility to "upgrade" the authorization to "Always" later) set the following option on the SDK to *YES* **/!\\ before calling start /!\\**.
 
-```
+```objective-c
 [UbuduSDK sharedInstance].requestWhenInUseAuthorization = YES;
 ```
 
@@ -84,7 +84,7 @@ If you'd rather have the SDK require "When In Use" authorization first (and let 
 
 If you decide to support exclusively the "When In Use" mode then add only the `NSLocationWhenInUseUsageDescription` key to your *Info.plist* file **AND** set the same option as above to *YES* so the SDK will ask for the correct authorization.
 
-```
+```objective-c
 [UbuduSDK sharedInstance].requestWhenInUseAuthorization = YES;
 ```
 
@@ -114,7 +114,7 @@ If you plan to use the Passbook feature of the SDK in your application you shoul
 
 2. Add this to you `didFinishLaunchingWithOptions:` method. You need to replace the app namespace by the one you created on the [Ubudu manager platform.](https://manager.ubudu.com)
 
-    ```
+    ```objective-c
 [UbuduSDK sharedInstance].appNamespace = @"634b207ee2f313c109c58675b44324ac2d41e61e";
 [UbuduSDK sharedInstance].delegate = self;
 NSError *error = nil;
@@ -127,7 +127,7 @@ The delegate is the object which will be receiving all the notifications via cal
 
 3. To allow to the SDK to work as expected (automatic execution of the actions other than "notifications", i.e. open a web page) you need to implement the UIKit callback `application:didReceiveLocalNotification:` like this:
 
-    ```
+    ```objective-c
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
 {
     [[UbuduSDK sharedInstance] executeLocalNotificationActions:notification];
@@ -138,7 +138,7 @@ The delegate is the object which will be receiving all the notifications via cal
 
 If you want the SDK to stop running then call:
 
-```
+```objective-c
 [[UbuduSDK sharedInstance] stop];
 ```
 
@@ -148,7 +148,7 @@ Stopping the SDK will stop it from updating location and tracking geofences and 
 
 Here is a full example on how to initialize and start the SDK:
 
-```
+```objective-c
 // AppDelegate.m
 
 #import <UbuduSDK/UbuduSDK.h>
@@ -194,7 +194,7 @@ Into this header file *cocoapods-test-Bridging-Header.h* you can then import the
 
 Then in the *AppDelegate.swift* add the protocol `UbuduSDKDelegate`, the initialization of the UbuduSDK and the minimal callbacks functions. For instance:
 
-```
+```swift
 import AdSupport // add AdSupport for optional profiling step
 
 @UIApplicationMain
@@ -260,7 +260,7 @@ The methods below are called, if implemented, when an action of a rule that has 
 
 Please check on the manager platform if the feature you want to implement to control the triggering of the rules is not already built-in, as it would be less work for you and better integrated.
 
-```
+```objective-c
 - (BOOL)ubudu:(UbuduSDK *)ubuduSDK shouldExecuteServerNotificationRequest:(NSURL *)url triggeredBy:(UbuduTriggerSource)trigger;
 
 - (BOOL)ubudu:(UbuduSDK *)ubuduSDK shouldExecuteLocalNotificationRequest:(UILocalNotification *)localNotification triggeredBy:(UbuduTriggerSource)trigger;
@@ -274,7 +274,7 @@ Please check on the manager platform if the feature you want to implement to con
 
 Uncomment and implement any of the methods below to customize the execution of any type of actions. If you use an empty implementation for any of the action type then nothing will happen for these actions, so carefully pick which ones you want to customize and how.
 
-```
+```objective-c
 - (void)ubudu:(UbuduSDK *)ubuduSDK executeServerNotificationRequest:(NSURL *)url triggeredBy:(UbuduTriggerSource)trigger
      success:(void (^)())successHandler failure:(void (^)(NSError* error))failureHandler {
      // By default the SDK sends an HTTP request to url
@@ -301,7 +301,7 @@ Uncomment and implement any of the methods below to customize the execution of a
 
 Example of implementation of Ubudu SDK delegate methods:
 
-```
+```objective-c
 // AppDelegate.m
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -389,7 +389,7 @@ Then you define the conditions that must or must not be met to trigger your rule
 Once you have defined your conditions in the manager, you need to assign tags to your mobile users using the Ubudu iOS SDK.
 This is done as following:
 
-```
+```objective-c
 [UbuduSDK sharedInstance].appNamespace = @"634b207ee2f313c109c58675b44324ac2d41e61e";
 [UbuduSDK sharedInstance].delegate = self;
 
@@ -404,7 +404,7 @@ if (started == NO) {
 
 If you need to update the tags (or user ID, or properties) of your user once the SDK has been started, just re-assign the corresponding property on the user object, the SDK will automatically send the updated data to the back-office:
 
-```
+```objective-c
 // Could be called if the user changes his age in the settings for example
 [UbuduSDK sharedInstance].user.tags = @[@"female", @"under_25"];
 ```

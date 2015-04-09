@@ -91,10 +91,14 @@ If you decide to support exclusively the "When In Use" mode then add only the `N
 ##### Remarks
 
 ```
-The value(s) for the key(s) can be left empty, but if provided will be displayed in the alert asking the user if he'd like to grant access to his physical location to the app. You should provide a description of one or two line(s) of why you need to access your user's location so he will be more enclined to accept.
+The value(s) for the key(s) can be left empty, but if provided will be displayed in the alert
+asking the user if he'd like to grant access to his physical location to the app.
+You should provide a description of one or two line(s) of why you need to access your user's location so he will be more enclined to accept.
 ```
+
 ```
-Warning: if you fail to properly provide the required key then the location access alert won't be displayed and your app will never get access to the location of the user.
+Warning: if you fail to properly provide the required key then the location access alert 
+won't be displayed and your app will never get access to the location of the user.
 ```
 
 ### Other capabilities
@@ -103,15 +107,14 @@ If you plan to use the Passbook feature of the SDK in your application you shoul
 
 ![Framework list](__media-files/images/passbook_capability.png)
 
-## III. Starting and hooking to the Ubudu SDK - Objective-C
+## III. Configure and start the SDK - Objective-C
 
 1. In your *AppDelegate.m* file add the following statement:
 `#import <UbuduSDK/UbuduSDK.h>`
 
-2. Add this to you `didFinishLaunchingWithOptions:` method
-You need to replace the app namespace by the one you created in the [back-office.](https://manager.ubudu.com)
+2. Add this to you `didFinishLaunchingWithOptions:` method. You need to replace the app namespace by the one you created on the [Ubudu manager platform.](https://manager.ubudu.com)
 
-```
+    ```
 [UbuduSDK sharedInstance].appNamespace = @"634b207ee2f313c109c58675b44324ac2d41e61e";
 [UbuduSDK sharedInstance].delegate = self;
 NSError *error = nil;
@@ -120,12 +123,11 @@ if (!started) {
     NSLog(@"UbuduSDK start error: %@", error);
 }
 ```
+The delegate is the object which will be receiving all the notifications via callbacks defined in the **UbuduSDKDelegate** protocol. This might be your AppDelegate for example.  
 
-  The delegate is the object which will be receiving all the notifications via callbacks defined in the **UbuduSDKDelegate** protocol. This might be your AppDelegate for example.  
-    
-3. To allow to the SDK to work as expected (executing the actions other than "notifications", i.e. open a web page) you need to implement the UIKit callback `application:didReceiveLocalNotification:` like this:
+3. To allow to the SDK to work as expected (automatic execution of the actions other than "notifications", i.e. open a web page) you need to implement the UIKit callback `application:didReceiveLocalNotification:` like this:
 
-```
+    ```
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
 {
     [[UbuduSDK sharedInstance] executeLocalNotificationActions:notification];
@@ -147,23 +149,22 @@ Stopping the SDK will stop it from updating location and tracking geofences and 
 Here is a full example on how to initialize and start the SDK:
 
 ```
-/* AppDelegate.m */
+// AppDelegate.m
+
 #import <UbuduSDK/UbuduSDK.h>
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    if ([[UbuduSDK sharedInstance] isRunning] == NO) {
-        [UbuduSDK sharedInstance].appNamespace = @"634b207ee2f313c109c58675b44324ac2d41e61e";
-        [UbuduSDK sharedInstance].delegate = self;
-        /* optionally, provide the ID of your user so we can link the Ubudu user with the IDs of your information system. */
-        //[UbuduSDK sharedInstance].user = [[UbuduUser alloc] initWithID:@"Your client ID" withProperties:@{@"foo_property":@"bar_value"}];
-        NSError *error = nil;
-        BOOL started = [[UbuduSDK sharedInstance] start:&error];
-        if (!started) {
-            NSLog(@"UbuduSDK start error: %@", error);
-        }
+    [UbuduSDK sharedInstance].appNamespace = @"634b207ee2f313c109c58675b44324ac2d41e61e";
+    [UbuduSDK sharedInstance].delegate = self;
+    /* Optionally, provide the ID of your user so we can link the Ubudu user with the IDs of your information system. */
+    //[UbuduSDK sharedInstance].user = [[UbuduUser alloc] initWithID:@"Your client ID" withProperties:@{@"foo_property":@"bar_value"}];
+    NSError *error = nil;
+    BOOL started = [[UbuduSDK sharedInstance] start:&error];
+    if (!started) {
+        NSLog(@"UbuduSDK start error: %@", error);
     }
 }
 
@@ -173,27 +174,27 @@ Here is a full example on how to initialize and start the SDK:
 }
 ```
 
-## III. Bis - Starting and hooking to the Ubudu SDK in a Swift project (requires XCode 6+)
+## III Bis. Configure and start the SDK - Swift
 
 Once the framework or pod has been installed you need to add a bridging header, which XCode automatically creates when you want to add the first Objective-C file to a Swift project.
-So in an empty project we just add a file called “dummy”. This file can be deleted later.
+So in an empty project we just add a file called "dummy"". This file can be deleted later.
 
-![BridgingFile_add](http://happy-coding.org/wp-content/uploads/2014/06/Screen-Shot-2014-06-04-at-23.17.13.png)
+![BridgingFile_add](__media-files/images/swift_add_bridging_file.png)
 
 Then Xcode will ask
 
-![dialog_x_code](http://happy-coding.org/wp-content/uploads/2014/06/Screen-Shot-2014-06-04-at-23.18.09.png)
+![dialog_x_code](__media-files/images/swift_bridging_header_dialog.png)
 
 This auto-generation will also add the corresponding path to this header file into your Build Settings
 
-![build_settings](http://happy-coding.org/wp-content/uploads/2014/06/Screen-Shot-2014-06-04-at-23.18.31.png)
+![dialog_x_code](__media-files/images/swift_bridging_header_build_settings.png)
 
-Into this header file *cocoapods-test-Bridging-Header.h* you can then add the required header
+Into this header file *cocoapods-test-Bridging-Header.h* you can then import the required header
 `#import <UbuduSDK/UbuduSDK.h>`
 
 Then in the *AppDelegate.swift* add the protocol `UbuduSDKDelegate`, the initialization of the UbuduSDK and the minimal callbacks functions. For instance:
 
-```swift
+```
 import AdSupport // add AdSupport for optional profiling step
 
 @UIApplicationMain
@@ -202,14 +203,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UbuduSDKDelegate {
     var window: UIWindow?
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
         var ubuduSDK = UbuduSDK.sharedInstance() as UbuduSDK
         let namespace : NSString = "634b207ee2f313c109c58675b44324ac2d41e61e"
-        ubuduSDK.appNamespace=namespace
+        ubuduSDK.appNamespace = namespace
         
-        // Optional profiling step: if user as enabled advertising, we add the idfa as the external id of the user
+        // BEGIN Optional profiling step
+        // If user as enabled advertising, we add the idfa as the external id of the user
         // in order to  allow cross-application advertsing targeting. The id used by the hosting application could be used as well
-        // We could also add tags which can be used to target interactions;
+        // We could also add tags which could be used to target interactions
         var idfa_mgr = ASIdentifierManager.sharedManager() as ASIdentifierManager
         var idfa_s : NSString?
         if idfa_mgr.advertisingTrackingEnabled {
@@ -217,7 +218,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UbuduSDKDelegate {
             idfa_s = idfa.UUIDString
         }
         ubuduSDK.user = UbuduUser(ID: idfa_s, withProperties: nil, tags: nil)
-        // End of optional profiling step
+        // END Optional profiling step
         
         ubuduSDK.delegate = self
         var error: NSError?
@@ -231,69 +232,82 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UbuduSDKDelegate {
     func application(application: UIApplication!, didReceiveLocalNotification notification: UILocalNotification!) {
         // Let the Ubudu SDK handle the notification
         UbuduSDK.sharedInstance().executeLocalNotificationActions(notification)
-        
     }
 }
 ```
 
-The namespace value i.e. `634b207ee2f313c109c58675b44324ac2d41e61e` in the example above is the namespace of the application created in the [back-office manager web interface](https://manager.ubudu.com) of your application. 
-When you access the back-office web interface in the details of the application you created you will find an example of integration with the correct UID for your application.
-Then still in the AppDelegate implement the callbacks that you would like to overwrite to handle the actions that have been programmed in the back-office.
-There are 5 types of actions that can be executed when entering or exiting a zone: 
-- Post a callback to a server URL: the server can then "decide" the next action or execute custom code (such as adding entries into a CRM, sending a push notification or sending a push notification to a client). Note that the SDK will automatically take advantage of some wildcards that you can use to identify the actions in your callback. Example of URL: 'https://yourserver.com/push_event_to_app.json?event=exit&udid={udid}'.
-- Post a local notification: a local notification can contain a message and a custom payload see [Apple documentation](https://developer.apple.com/library/ios/documentation/iPhone/Reference/UILocalNotification_Class/Reference/Reference.html#//apple_ref/occ/instp/UILocalNotification/alertAction).
-![Back-office configuration local notification](/__media-files/images/back_office_action_1.jpg) 
-- Open a web-page in a web-view: note that the page can be either online (http:// or https://) or in the application bundle (in this case use the file:// protocol in the URL).
-![Back-office configuration open web view notification](/__media-files/images/back_office_action.jpg) 
-- Open a passbook: note that the pass can be either online (http:// or https://) or in the application bundle (in this case use the file:// protocol in the URL).
-- Open a deeplink URL. The link can be handled by your app itself (in which case you need to register the URL Scheme and handle the incoming URLs), or open a third party app, i.e. Twitter.
+The namespace value (**634b207ee2f313c109c58675b44324ac2d41e61e** in the example above) is the namespace of the application created in the [back-office manager platform](https://manager.ubudu.com) of your application. 
+When you access the back-office web interface in the details of the application you created you will find an example of integration with the correct namespace for your application.
+
+### SDK Default Behavior & Customization
+
+The SDK can execute 5 types of actions when entering or exiting a zone:
+
+* Post an HTTP callback to a server URL: the server can then "decide" the next action to perform for the SDK or execute custom actions on the server side (such as adding an entry into a CRM or sending a push notification to a client). Note that the SDK will automatically take advantage of some wildcards that you can use to identify the actions in your callback. Example of URL: *https://yourserver.com/push_event_to_app.json?event=exit&udid={udid}*
+* Post a local notification on the device: a local notification can contain a message and a custom payload see [Apple documentation](https://developer.apple.com/library/ios/documentation/iPhone/Reference/UILocalNotification_Class/Reference/Reference.html#//apple_ref/occ/instp/UILocalNotification/alertAction).
+![Back-office configuration local notification](__media-files/images/back_office_action_1.jpg) 
+* Open a web-page in a web-view: note that the page can be either online (http:// or https://) or in the application bundle (in this case use the file:// protocol in the URL).
+![Back-office configuration open web view notification](__media-files/images/back_office_action.jpg) 
+* Open a passbook: note that the pass can be either online (http:// or https://) or in the application bundle (in this case use the file:// protocol in the URL).
+* Open a deeplink URL. The link can be handled by your app itself (in which case you need to register the URL Scheme and handle the incoming URLs), or open a third party app, i.e. Twitter.
 
 
-### UbuduSDKDelegate Callbacks
+#### Ubudu SDK Delegate
 
+The Ubudu SDK provides callback methods which can be used to control and override the behaviour of the SDK.
 
-UbuduSDK provides a couple of callback methods which can be used to override the default behaviour of the SDK.
+The methods below are called, if implemented, when an action of a rule that has triggered is about to be executed. You can prevent this action from being executed by returning NO from your delegate implementation.
 
-The methods below are called, if implemented, when an action of a rule that has triggered is about to be executed. You can prevent this action from being executed by returning NO from your delegate.
+Please check on the manager platform if the feature you want to implement to control the triggering of the rules is not already built-in, as it would be less work for you and better integrated.
 
-Please check on the manager platform if the feature you want to implement to control the triggering of the rules is not already built-in, as it would be less work for you.
-
-```objective-c
+```
 - (BOOL)ubudu:(UbuduSDK *)ubuduSDK shouldExecuteServerNotificationRequest:(NSURL *)url triggeredBy:(UbuduTriggerSource)trigger;
+
 - (BOOL)ubudu:(UbuduSDK *)ubuduSDK shouldExecuteLocalNotificationRequest:(UILocalNotification *)localNotification triggeredBy:(UbuduTriggerSource)trigger;
+
 - (BOOL)ubudu:(UbuduSDK *)ubuduSDK shouldExecuteOpenWebPageRequest:(NSURL *)url triggeredBy:(UbuduTriggerSource)trigger;
+
 - (BOOL)ubudu:(UbuduSDK *)ubuduSDK shouldExecuteOpenPassbookRequest:(NSURL *)passUrl triggeredBy:(UbuduTriggerSource)trigger;
+
 - (BOOL)ubudu:(UbuduSDK *)ubuduSDK shouldExecuteOpenDeepLinkRequest:(NSURL *)url triggeredBy:(UbuduTriggerSource)trigger;
 ```
 
-Uncomment and implement any of the methods below to customize the execution of any type of action.
+Uncomment and implement any of the methods below to customize the execution of any type of actions. If you use an empty implementation for any of the action type then nothing will happen for these actions, so carefully pick which ones you want to customize and how.
 
-```objective-c
+```
 - (void)ubudu:(UbuduSDK *)ubuduSDK executeServerNotificationRequest:(NSURL *)url triggeredBy:(UbuduTriggerSource)trigger
-     success:(void (^)())successHandler failure:(void (^)(NSError* error))failureHandler {}
+     success:(void (^)())successHandler failure:(void (^)(NSError* error))failureHandler {
+     // By default the SDK sends an HTTP request to url
+}
 
-- (void)ubudu:(UbuduSDK *)ubuduSDK executeLocalNotificationRequest:(UILocalNotification *)localNotification triggeredBy:(UbuduTriggerSource)triggeredBy
-{
-   // That is what the SDK does by default
+- (void)ubudu:(UbuduSDK *)ubuduSDK executeLocalNotificationRequest:(UILocalNotification *)localNotification triggeredBy:(UbuduTriggerSource)triggeredBy {
+   // That is what the SDK does by default (post the prepared local notification)
    [[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
 }
 
-- (void)ubudu:(UbuduSDK *)ubuduSDK executeOpenWebPageRequest:(NSURL *)url triggeredBy:(UbuduTriggerSource)trigger {}
+- (void)ubudu:(UbuduSDK *)ubuduSDK executeOpenWebPageRequest:(NSURL *)url triggeredBy:(UbuduTriggerSource)trigger {
+    // By default the SDK modally presents a view controller with a web view loading the content at url on the currently top most view controller
+}
 
-- (void)ubudu:(UbuduSDK *)ubuduSDK executeOpenPassbookRequest:(NSURL *)passbookUrl triggeredBy:(UbuduTriggerSource)trigger {}
+- (void)ubudu:(UbuduSDK *)ubuduSDK executeOpenPassbookRequest:(NSURL *)passbookUrl triggeredBy:(UbuduTriggerSource)trigger {
+    // By default the SDK modally presents a PKAddPassesViewController loading the pass at url
+}
 
-- (void)ubudu:(UbuduSDK *)ubuduSDK executeOpenDeepLinkRequest:(NSURL *)url triggeredBy:(UbuduTriggerSource)trigger {}
+- (void)ubudu:(UbuduSDK *)ubuduSDK executeOpenDeepLinkRequest:(NSURL *)url triggeredBy:(UbuduTriggerSource)trigger {
+    // By default the SDK opens the url like this
+    [[UIApplication sharedApplication] openURL:url];
+}
 ```
 
 Example of implementation of Ubudu SDK delegate methods:
 
-```objective-c
-//AppDelegate.m
+```
+// AppDelegate.m
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     NSError *error = nil;
-    [UbuduSDK sharedInstance].appNamespace = kUDUbuduAppNamespace;
+    [UbuduSDK sharedInstance].appNamespace = @"634b207ee2f313c109c58675b44324ac2d41e61e";
     [UbuduSDK sharedInstance].delegate = self;
     BOOL started = [[UbuduSDK sharedInstance] start:&error];
     if (!started) {
@@ -312,7 +326,7 @@ Example of implementation of Ubudu SDK delegate methods:
 
 - (void)ubudu:(UbuduSDK *)ubuduSDK didReceiveErrorNotification:(NSError *)error;
 {
-    NSLog(@"UBUDU SDK ERROR: %@", error);
+    NSLog(@"Ubudu SDK Error: %@", error);
 }
 
 #pragma mark - Local Notifications
@@ -322,7 +336,7 @@ Example of implementation of Ubudu SDK delegate methods:
     NSString *notifType = [notification.userInfo valueForKeyPath:@"payload.type"];
     
     // If the notification contains a custom payload that we want to handle
-    // In this case we display a custom alert view instead of posting a normal notification
+    // In this case we display a custom alert view
     if ([notifType isEqualToString:@"order"]) {
         [self displayOrderAwaitingAlert:@"Do you want to send your order to preparation now?"];
     } else {
@@ -331,7 +345,7 @@ Example of implementation of Ubudu SDK delegate methods:
     }
     
     // Send back to the SDK the notification (that may have been received in background)
-    // So it can trigger the right action (passbook or web view for example)
+    // So it can trigger the right actions linked to the notification (open a web view or passboon pass for example)
     [[UbuduSDK sharedInstance] executeLocalNotificationActions:notification];
 
     // Clear the received notification
@@ -364,21 +378,21 @@ Example of implementation of Ubudu SDK delegate methods:
 }
 ```
 
-### Users segmentation - Tags
+#### Users segmentation - Tags
 
-If you want to target only a subset of your users, it is possible to associate arbitrary tags to them.
-Then you define the conditions that must or must not be met to trigger your rules and actions.
+If you want to target only a subset of your users, it is possible to associate arbitrary tags, defined following your business needs, to them.
 
-You can define the conditions for a beacon or geofence rule in the back-office, from the beacon and geofence edition pages.
+Then you define the conditions that must or must not be met to trigger your rules. The edition is done from the beacon and geofence edition pages on the [manager platform](http://manager.ubudu.com):
 
-![Capabilities](/__media-files/images/back_office_target_user_segments.png)
+![Capabilities](__media-files/images/back_office_target_user_segments.png)
 
-Once you have defined your conditions in the back-office, you need to assign tags to your mobile users using the Ubudu iOS SDK.
-This is very simple and is done typically before starting the SDK, as following:
+Once you have defined your conditions in the manager, you need to assign tags to your mobile users using the Ubudu iOS SDK.
+This is done as following:
 
-```objective-c
+```
 [UbuduSDK sharedInstance].appNamespace = @"634b207ee2f313c109c58675b44324ac2d41e61e";
 [UbuduSDK sharedInstance].delegate = self;
+
 [UbuduSDK sharedInstance].user = [[UbuduUser alloc] initWithID:@"your_user_id" withProperties:@{@"foo_property": @"bar_value"} tags:@[@"female", @"under_40"]];
 
 NSError *error = nil;
@@ -388,9 +402,9 @@ if (started == NO) {
 }
 ```
 
-If you need to update the tags (or user ID / properties) of your user once the SDK has been started, just re-assign the corresponding property on the user object, the SDK will automatically send the updated data to the back-office.
+If you need to update the tags (or user ID, or properties) of your user once the SDK has been started, just re-assign the corresponding property on the user object, the SDK will automatically send the updated data to the back-office:
 
-```objective-c
+```
 // Could be called if the user changes his age in the settings for example
 [UbuduSDK sharedInstance].user.tags = @[@"female", @"under_25"];
 ```

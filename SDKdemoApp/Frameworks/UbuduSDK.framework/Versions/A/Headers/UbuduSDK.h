@@ -35,6 +35,11 @@
 #import "UbuduUser.h"
 #import "UbuduAuthorizationManager.h"
 
+typedef NS_ENUM(NSUInteger, UbuduServerSyncResult) {
+    UbuduServerSyncResultUpdated,
+    UbuduServerSyncResultFailed
+};
+
 @interface UbuduSDK : NSObject
 
 /* The delegate object that will receive the SDK events.
@@ -131,11 +136,21 @@
 - (void)stop;
 
 /* Call this method in order to give back to the SDK a notification that had been presented to the user.
- * This will permit to the SDK to execute the action associated to the local notification, like an open passbook request or an open web page request.
+ * This will permit to the SDK to execute the action associated to the local notification, like an open webpage (or passbook) request.
  *
  * Typically you should call this from the application:didReceiveLocalNotification: method of your AppDelegate.
  */
 - (void)executeLocalNotificationActions:(UILocalNotification *)localNotification;
+
+/* Call this method to give a chance to the SDK to synchronize its local content (mainly, your rules) with the server.
+ *
+ * This method is mainly intended to be called via the background fetch feature (introduced with iOS 7) from the application:performFetchWithCompletionHandler: method.
+ * You can call it from elsewhere but note that you are not assured the SDK will perform an update of the content.
+ * Indeed if an update has already been performed recently enough the SDK may silently ignore your request.
+ */
+
+- (void)performServerSyncWithCompletionHandler:(void (^)(UbuduServerSyncResult))completionHandler;
+
 
 /* Reset the trigger counters of all rules, for geofences and beacons. The per-rule and per-group counters will be reset.
  * This is handy for developping and testing purpose. You should not call this method when your app is in production because it will mess with the min & max event limits set in the back-office.

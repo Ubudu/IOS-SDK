@@ -1,6 +1,6 @@
 
 --------------------------------------
-Ubudu SDK Version 1.15.2 Release Notes
+Ubudu SDK Version 1.15.3 Release Notes
 --------------------------------------
 
 Platform Support
@@ -13,22 +13,22 @@ Platform Support
 	- iPhone 4S / iPad 3rd gen. / iPod 5th gen. or more recent
 
 
-Features Added in Version 1.15.2
+Features Added in Version 1.15.3
 --------------------------------
+
+* Added support for background fetch.
+
+
+Improvements Done in Version 1.15.3
+-----------------------------------
 
 None
 
 
-Improvements Done in Version 1.15.2
------------------------------------
-
-* Network optimization: avoid sending UbuduUser info update if not required.
-
-
-Issues Addressed in Version 1.15.2
+Issues Addressed in Version 1.15.3
 ----------------------------------
 
-* Fixed a crash occuring if the payload of a notification action of a rule contained a null value. Null values are now replaced by empty strings.
+None
 
 
 Known Issues
@@ -55,6 +55,9 @@ Methods related to 'localized ads' feature have been removed in version 1.14. If
 
 Change history
 --------------
+
+Version 1.15.3
+	- Added support for background fetch.
 
 Version 1.15.2
 	- Network optimization (don't send UbuduUser info update if not required).

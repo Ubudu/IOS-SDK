@@ -55,7 +55,6 @@
     NSString *clientName = [[alertView textFieldAtIndex:0] text];
     self.clientNameLabel.text = clientName;
     [[UbuduSDK sharedInstance] setUser:[[UbuduUser alloc] initWithID:clientName withProperties:nil]];
-    [[UbuduSDK sharedInstance] updateUserInformation];
 }
 
 #pragma mark - UI Touch Events

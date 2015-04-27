@@ -1,6 +1,6 @@
 
 --------------------------------------
-Ubudu SDK Version 1.15.3 Release Notes
+Ubudu SDK Version 1.15.4 Release Notes
 --------------------------------------
 
 Platform Support
@@ -13,22 +13,22 @@ Platform Support
 	- iPhone 4S / iPad 3rd gen. / iPod 5th gen. or more recent
 
 
-Features Added in Version 1.15.3
+Features Added in Version 1.15.4
 --------------------------------
 
-* Added support for background fetch.
+None
 
 
-Improvements Done in Version 1.15.3
+Improvements Done in Version 1.15.4
 -----------------------------------
 
 None
 
 
-Issues Addressed in Version 1.15.3
+Issues Addressed in Version 1.15.4
 ----------------------------------
 
-None
+* Fixed a crash when using secure beacons mode.
 
 
 Known Issues
@@ -55,6 +55,9 @@ Methods related to 'localized ads' feature have been removed in version 1.14. If
 
 Change history
 --------------
+
+Version 1.15.4
+	- Fixed a crash when using secure beacons mode.
 
 Version 1.15.3
 	- Added support for background fetch.

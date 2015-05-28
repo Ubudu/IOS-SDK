@@ -1,7 +1,7 @@
 
---------------------------------------
-Ubudu SDK Version 1.15.4 Release Notes
---------------------------------------
+----------------------------------------
+Ubudu SDK Version 1.15.5 - Release Notes
+----------------------------------------
 
 Platform Support
 ----------------
@@ -13,22 +13,22 @@ Platform Support
 	- iPhone 4S / iPad 3rd gen. / iPod 5th gen. or more recent
 
 
-Features Added in Version 1.15.4
---------------------------------
+Features Added
+--------------
 
 None
 
 
-Improvements Done in Version 1.15.4
------------------------------------
+Improvements
+------------
 
 None
 
 
-Issues Addressed in Version 1.15.4
-----------------------------------
+Issues Addressed
+----------------
 
-* Fixed a crash when using secure beacons mode.
+* Fixed a crash when using a rule schedule that contained null values.
 
 
 Known Issues
@@ -55,6 +55,9 @@ Methods related to 'localized ads' feature have been removed in version 1.14. If
 
 Change history
 --------------
+
+Version 1.15.5
+	- Fixed a crash when using a rule schedule that contains null values.
 
 Version 1.15.4
 	- Fixed a crash when using secure beacons mode.

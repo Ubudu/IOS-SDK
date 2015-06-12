@@ -22,7 +22,6 @@
 		01507E4518D8558B00BD6487 /* menu_store_invitation@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 01507E3918D8558B00BD6487 /* menu_store_invitation@2x.png */; };
 		01507E4618D8558B00BD6487 /* menu_vip_welcome.png in Resources */ = {isa = PBXBuildFile; fileRef = 01507E3A18D8558B00BD6487 /* menu_vip_welcome.png */; };
 		01507E4718D8558B00BD6487 /* menu_vip_welcome@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 01507E3B18D8558B00BD6487 /* menu_vip_welcome@2x.png */; };
-		016F83581B17DAE0002A156C /* UbuduSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 016F83571B17DAE0002A156C /* UbuduSDK.framework */; };
 		01847A1D18D73B5200782B69 /* www in Resources */ = {isa = PBXBuildFile; fileRef = 01847A1C18D73B5200782B69 /* www */; };
 		01847A2318D745ED00782B69 /* UDOrderSummaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01847A2218D745ED00782B69 /* UDOrderSummaryViewController.m */; };
 		0191E4DB18C7757D00E5E18E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0191E4DA18C7757D00E5E18E /* CoreLocation.framework */; };
@@ -58,6 +57,7 @@
 		01A3DD3018C8951500E1E865 /* UDAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A3DD2F18C8951500E1E865 /* UDAboutViewController.m */; };
 		01A3DDE118C8F8C900E1E865 /* UDAislePromotionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A3DDE018C8F8C900E1E865 /* UDAislePromotionViewController.m */; };
 		01CEF42F19263C4400845872 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01CEF42E19263C4400845872 /* CoreGraphics.framework */; };
+		A41A7F121B2AF6C80088F95D /* UbuduSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A41A7F111B2AF6C80088F95D /* UbuduSDK.framework */; };
 		A4EC5EDC1A8E56FC001FDE12 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4EC5EDB1A8E56FC001FDE12 /* LaunchScreen.xib */; };
 		F5AF2FD469874381A23DDD70 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A07DF3C5DCCB4C48AFCC3F5F /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -79,7 +79,6 @@
 		01507E3918D8558B00BD6487 /* menu_store_invitation@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu_store_invitation@2x.png"; sourceTree = "<group>"; };
 		01507E3A18D8558B00BD6487 /* menu_vip_welcome.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu_vip_welcome.png; sourceTree = "<group>"; };
 		01507E3B18D8558B00BD6487 /* menu_vip_welcome@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu_vip_welcome@2x.png"; sourceTree = "<group>"; };
-		016F83571B17DAE0002A156C /* UbuduSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UbuduSDK.framework; sourceTree = "<group>"; };
 		01847A1C18D73B5200782B69 /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; path = www; sourceTree = "<group>"; };
 		01847A2118D745ED00782B69 /* UDOrderSummaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UDOrderSummaryViewController.h; path = Controllers/UDOrderSummaryViewController.h; sourceTree = "<group>"; };
 		01847A2218D745ED00782B69 /* UDOrderSummaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UDOrderSummaryViewController.m; path = Controllers/UDOrderSummaryViewController.m; sourceTree = "<group>"; };
@@ -139,6 +138,7 @@
 		4C554C1512F2E76A8A888B41 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		6553B50F83E744008AD479C0 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		A07DF3C5DCCB4C48AFCC3F5F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		A41A7F111B2AF6C80088F95D /* UbuduSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UbuduSDK.framework; path = ../UbuduSDK.framework; sourceTree = "<group>"; };
 		A4EC5EDB1A8E56FC001FDE12 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -147,11 +147,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				016F83581B17DAE0002A156C /* UbuduSDK.framework in Frameworks */,
 				0191E4DB18C7757D00E5E18E /* CoreLocation.framework in Frameworks */,
 				0191E4E518C775CD00E5E18E /* CoreData.framework in Frameworks */,
 				0191E4E718C775D400E5E18E /* PassKit.framework in Frameworks */,
 				0191E4DD18C7758700E5E18E /* SystemConfiguration.framework in Frameworks */,
+				A41A7F121B2AF6C80088F95D /* UbuduSDK.framework in Frameworks */,
 				0191E4E318C7759E00E5E18E /* MobileCoreServices.framework in Frameworks */,
 				0191E4E118C7759600E5E18E /* libz.dylib in Frameworks */,
 				019C743618C72206006FFB4F /* Foundation.framework in Frameworks */,
@@ -223,7 +223,7 @@
 		019C743418C72206006FFB4F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				016F83571B17DAE0002A156C /* UbuduSDK.framework */,
+				A41A7F111B2AF6C80088F95D /* UbuduSDK.framework */,
 				0191E4DA18C7757D00E5E18E /* CoreLocation.framework */,
 				0191E4E418C775CD00E5E18E /* CoreData.framework */,
 				0191E4E618C775D400E5E18E /* PassKit.framework */,
@@ -678,6 +678,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
 					"$(PROJECT_DIR)",
+					"/Users/ubudu/Documents/dev/public/IOS-SDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Ubudu-demo/Ubudu-demo-Prefix.pch";
@@ -707,6 +708,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
 					"$(PROJECT_DIR)",
+					"/Users/ubudu/Documents/dev/public/IOS-SDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Ubudu-demo/Ubudu-demo-Prefix.pch";

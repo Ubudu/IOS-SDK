@@ -1,7 +1,7 @@
 
-----------------------------------------
-Ubudu SDK Version 1.15.5 - Release Notes
-----------------------------------------
+--------------------------------------
+Ubudu SDK Version 1.16 - Release Notes
+--------------------------------------
 
 Platform Support
 ----------------
@@ -16,19 +16,19 @@ Platform Support
 Features Added
 --------------
 
-None
+* Added an "extended backgroung ranging time" feature allowing to take advantage of the "location" background mode.
 
 
 Improvements
 ------------
 
-None
+* API Documentation now in Appledoc format.
 
 
 Issues Addressed
 ----------------
 
-* Fixed a crash when using a rule schedule that contained null values.
+None
 
 
 Known Issues
@@ -55,6 +55,10 @@ Methods related to 'localized ads' feature have been removed in version 1.14. If
 
 Change history
 --------------
+
+Version 1.16
+	- Added "extended backgroung ranging time" feature.
+	- Documentation in Appledoc format.
 
 Version 1.15.5
 	- Fixed a crash when using a rule schedule that contains null values.

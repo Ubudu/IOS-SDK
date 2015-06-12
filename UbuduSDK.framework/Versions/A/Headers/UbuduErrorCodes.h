@@ -29,23 +29,29 @@
 
 #import <Foundation/Foundation.h>
 
-// Error returned as the domain to NSError from Ubudu.
+/**
+ *  Domain of the NSError objects returned by `UbuduSDK`
+ */
 #define kUbuduErrorDomain @"UbuduErrorDomain"
 
+/**
+ *  Error codes of the NSError objects returned by `UbuduSDK`
+ */
 typedef NS_ENUM(NSUInteger, UbuduErrorCodes) {
     UbuduError_None = 0,
     UbuduError_UnknownError = 1,
     UbuduError_SDKNotStarted = 2,
     UbuduError_SDKAlreadyStarted = 3,
     UbuduError_DataInitializationError = 4,
-    UbuduError_DeviceDoesNotSupportRegionMonitoring = 5,
+    UbuduError_DeviceDoesNotSupportGeofences = 5,
     UbuduError_DeviceDoesNotSupportBeacons = 6,
     UbuduError_NamespaceNotSet = 7,
     UbuduError_GeofencesDisabled = 8,
     UbuduError_BeaconsDisabled = 9,
 
     UbuduError_Actions_Error = 200,
-    UbuduError_Actions_NoDataFoundForRegionEntered = 201, // Odd error. Happens when there is no data for a region which was registered which means that it was in the data storage before. Could've been removed in the meantime.
+    /** Odd error. Happens when there is no data for a region which was registered which means that it was in the data storage before. Could've been removed in the meantime. */
+    UbuduError_Actions_NoDataFoundForRegionEntered = 201,
     UbuduError_Actions_DataForRegionNotYetAvailableDueToStartDate = 202,
     UbuduError_Actions_DataForRegionNotAvailableDueToEndDateExpiration = 203,
     UbuduError_Actions_DataForRegionNotAvailableDueToSchedule = 204,
@@ -55,7 +61,8 @@ typedef NS_ENUM(NSUInteger, UbuduErrorCodes) {
     UbuduError_API_ResponseParsingError = 402,
     UbuduError_API_SecondGeofencesRequestsLaunched = 403,
     UbuduError_API_RegionsDownloadResponseCodeNot200 = 404,
-    UbuduError_API_RequestServerBadParam = 405, // Received invalid JSON from HTTP request for notify_server action
+    /** Received invalid JSON from HTTP request for a notify_server (server notification) action */
+    UbuduError_API_RequestServerBadParam = 405,
     
     UbuduError_Data_Error = 600,
     UbuduError_Data_NSPersistentStoreOldVersionMigrationError = 601,

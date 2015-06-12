@@ -32,27 +32,76 @@
 
 #import "UbuduAuthorizationDelegate.h"
 
+/**
+ *  Module that allows you to easily check the status of various status required or useful for geofence and beacons monitoring.
+ */
 @interface UbuduAuthorizationManager : NSObject
 
-@property (nonatomic, readonly, getter = isUbuduBeaconsServiceEnabled) BOOL ubuduBeaconsServiceEnabled; // YES if UbuduSDK.beaconsEnabled is set to YES and UbuduSDK is currently running.
-@property (nonatomic, readonly, getter = isUbuduGeofencesServiceEnabled) BOOL ubuduGeofencesServiceEnabled; // YES if UbuduSDK.geofencesEnabled is set to YES and UbuduSDK is currently running.
-@property (nonatomic, readonly, getter = isLocationServiceEnabled) BOOL locationServiceEnabled; // YES if both global and app-specific location services are enabled.
-@property (nonatomic, readonly, getter = isBluetoothEnabled) BOOL bluetoothEnabled;
-@property (nonatomic, readonly, getter = isBackgroundRefreshEnabled) BOOL backgroundRefreshEnabled;
-@property (nonatomic, readonly, getter = areAllNotificationRightsGranted) BOOL allNotificationRightsGranted; // YES if user has accepted notifications and not turned off any of the rights (banner, sound & badge)
-@property (nonatomic, readonly, getter = isBannerNotificationRightGranted) BOOL bannerNotificationRightGranted; // You are most likely interested in this specific right (banner, which means display a message to the user. Details on how the message is precisely presented depends on user settings, can't know them programatically)
+/**
+ *  Will be YES if beacon features of `UbuduSDK` are enabled and UbuduSDK is currently running.
+ *
+ *  @see UbuduSDK.beaconsEnabled
+ */
+@property (nonatomic, readonly, getter = isUbuduBeaconsServiceEnabled) BOOL ubuduBeaconsServiceEnabled;
 
-/* Delegate to receive notifications when the value of one of the above properties changes. */
+/**
+ *  Will be YES if geofence features of `UbuduSDK` are enabled and UbuduSDK is currently running.
+ *
+ *  @see UbuduSDK.geofencesEnabled
+ */
+@property (nonatomic, readonly, getter = isUbuduGeofencesServiceEnabled) BOOL ubuduGeofencesServiceEnabled;
+
+/**
+ *  Will be YES if both global and app-specific location services are enabled.
+ */
+@property (nonatomic, readonly, getter = isLocationServiceEnabled) BOOL locationServiceEnabled;
+
+/**
+ *  YES if bluetooth is turned on.
+ */
+@property (nonatomic, readonly, getter = isBluetoothEnabled) BOOL bluetoothEnabled;
+
+/**
+ *  YES if background refresh is enabled for the application.
+ */
+@property (nonatomic, readonly, getter = isBackgroundRefreshEnabled) BOOL backgroundRefreshEnabled;
+
+/**
+ *  Can the application post notifications containing a banner, a sound and a badge.
+ *
+ *  This will be YES if user has accepted notifications from your app and has not turned off any of the rights (banner, sound & badge).
+ */
+@property (nonatomic, readonly, getter = areAllNotificationRightsGranted) BOOL allNotificationRightsGranted;
+
+/**
+ *  Can the application post notifications containing a banner (sound and badge rights may not be allowed).
+ *
+ *  You are most likely interested in this specific right (banner right, which means display a message to the user.
+ *  Details on how the message is precisely presented (alert, banner, ignored) depend on user's settings, we can't know them programatically.
+ */
+@property (nonatomic, readonly, getter = isBannerNotificationRightGranted) BOOL bannerNotificationRightGranted;
+
+/**
+ *  Delegate to receive notifications when the value of one of the above properties changes.
+ */
 @property (nonatomic, weak) id<UbuduAuthorizationDelegate> authorizationDelegate;
 
-/* Shows an alert with a button that redirects to Settings app, directly on Bluetooth view. */
+/**
+ *  Shows a system `UIAlertView` with a button that redirects to the application settings, directly on Bluetooth view.
+ */
 - (void)showEnableBluetoothAlert;
 
-/* Opens app settings on iOS 8, shows an alert with instructions to enable location service on iOS 7 and below.
+/**
+ *  Opens the application settings on iOS 8, shows an alert with instructions to enable location service on iOS 7 and below.
+ *
+ *  Message of the alert can currently only be in English.
  */
 - (void)showEnableLocationServiceUI;
 
-/* Opens app settings on iOS 8, shows an alert with instructions to enable background refresh on iOS 7 and below.
+/**
+ *  Opens the application settings on iOS 8, shows an alert with instructions to enable background refresh on iOS 7 and below.
+ *
+ *  Message of the alert can currently only be in English.
  */
 - (void)showEnableBackgroundRefreshUI;
 

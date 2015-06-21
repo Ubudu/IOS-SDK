@@ -23,7 +23,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     NSError *error = nil;
-    [UbuduSDK sharedInstance].appNamespace = kUDUbuduAppNamespace;
+    [UbuduSDK sharedInstance].appNamespace = @"634b207ee2f313c109c58675b44324ac2d41e61e";
     [UbuduSDK sharedInstance].delegate = self;
     [UbuduSDK sharedInstance].user = [[UbuduUser alloc] initWithID:kUDDefaultClientName];
     BOOL started = [[UbuduSDK sharedInstance] start:&error];

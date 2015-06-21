@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <scenes>
         <!--Drawer View Controller-->
@@ -25,7 +25,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1095" y="346"/>
+            <point key="canvasLocation" x="-1037" y="62"/>
         </scene>
         <!--Retail-->
         <scene sceneID="lKS-Ok-1oD">
@@ -274,46 +274,6 @@
                                             <segue destination="6sV-7M-GuV" kind="custom" customClass="UDDrawerMenuSegue" id="0lo-CQ-UkI"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="p0w-bC-5E1" style="IBUITableViewCellStyleDefault" id="tQw-GR-WMP" userLabel="Table View Cell - Setings">
-                                        <rect key="frame" x="0.0" y="100" width="320" height="50"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tQw-GR-WMP" id="sgx-0j-iO6">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Settings" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="p0w-bC-5E1">
-                                                    <rect key="frame" x="15" y="0.0" width="290" height="49"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="y6b-r1-bHK" kind="custom" customClass="UDDrawerMenuSegue" id="Dre-Sa-P17"/>
-                                        </connections>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="3O3-EP-Sth" style="IBUITableViewCellStyleDefault" id="UEt-DO-tJl" userLabel="Table View Cell - About">
-                                        <rect key="frame" x="0.0" y="150" width="320" height="50"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UEt-DO-tJl" id="gTK-2e-HoL">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="About" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="3O3-EP-Sth">
-                                                    <rect key="frame" x="15" y="0.0" width="290" height="49"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="fI5-de-Gfk" kind="custom" customClass="UDDrawerMenuSegue" id="chf-Le-QtG"/>
-                                        </connections>
-                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -325,7 +285,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FTB-bf-aTz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-554" y="736"/>
+            <point key="canvasLocation" x="-528" y="62"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="7JT-sF-Ipk">
@@ -350,43 +310,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OEB-9N-Xfw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-6" y="-350"/>
-        </scene>
-        <!--Settings View Controller-->
-        <scene sceneID="vXy-Fa-9KF">
-            <objects>
-                <viewController id="y6b-r1-bHK" customClass="UDSettingsViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="G9Z-k7-ACs"/>
-                        <viewControllerLayoutGuide type="bottom" id="bjJ-ue-Vyd"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="qzT-mb-sAO">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No settings available for now" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FWF-77-uyW">
-                                <rect key="frame" x="49" y="273" width="222" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="centerX" secondItem="FWF-77-uyW" secondAttribute="centerX" id="WUK-DY-2B0"/>
-                            <constraint firstAttribute="centerY" secondItem="FWF-77-uyW" secondAttribute="centerY" constant="0.5" id="luV-V8-ylG"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="bUh-Hh-DjA">
-                        <barButtonItem key="leftBarButtonItem" title="Menu" id="9WY-0u-m9l" customClass="MMDrawerBarButtonItem">
-                            <connections>
-                                <action selector="leftDrawerButtonTouched:" destination="y6b-r1-bHK" id="wou-By-RXm"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="L6Q-mB-JqB" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-6" y="1014"/>
         </scene>
         <!--Aisle Promotion-->
         <scene sceneID="qQB-G7-Cze">
@@ -630,42 +553,6 @@ Please present this receipt at take-away counter.</string>
                 <exit id="Xtx-D4-cMU" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="-885" y="-624"/>
-        </scene>
-        <!--About View Controller-->
-        <scene sceneID="mrM-xQ-wL0">
-            <objects>
-                <viewController id="fI5-de-Gfk" customClass="UDAboutViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="WfM-5Z-EXT"/>
-                        <viewControllerLayoutGuide type="bottom" id="ABN-Ym-39j"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="idT-bd-MFm">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Powered by Ubudu" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5An-hs-Vy7">
-                                <rect key="frame" x="87" y="273" width="148" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="centerY" secondItem="5An-hs-Vy7" secondAttribute="centerY" constant="0.5" id="K2h-6L-TIE"/>
-                            <constraint firstAttribute="centerX" secondItem="5An-hs-Vy7" secondAttribute="centerX" constant="-0.5" id="Yti-or-FiJ"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="oXg-5O-IT7">
-                        <barButtonItem key="leftBarButtonItem" title="Menu" id="R7s-Kv-u9v" customClass="MMDrawerBarButtonItem">
-                            <connections>
-                                <action selector="leftDrawerButtonTouched:" destination="fI5-de-Gfk" id="cXL-jd-hrl"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="XCe-Cc-YmD" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-6" y="1696"/>
         </scene>
         <!--Mall Guest Service-->
         <scene sceneID="XfU-pt-eSQ">
@@ -969,6 +856,6 @@ Please present this receipt at take-away counter.</string>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="d51-6t-mRc"/>
+        <segue reference="8Ye-yR-HTQ"/>
     </inferredMetricsTieBreakers>
 </document>

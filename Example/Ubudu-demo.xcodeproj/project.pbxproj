@@ -53,13 +53,11 @@
 		01A0FAF018CF1C6200FAEC70 /* scenario_mall_guest_service.png in Resources */ = {isa = PBXBuildFile; fileRef = 01A0FADF18CF1C6200FAEC70 /* scenario_mall_guest_service.png */; };
 		01A0FAF118CF1C6200FAEC70 /* scenario_mobile_check_out.png in Resources */ = {isa = PBXBuildFile; fileRef = 01A0FAE018CF1C6200FAEC70 /* scenario_mobile_check_out.png */; };
 		01A0FAF218CF1C6200FAEC70 /* scenario_vip_welcome.png in Resources */ = {isa = PBXBuildFile; fileRef = 01A0FAE118CF1C6200FAEC70 /* scenario_vip_welcome.png */; };
-		01A3DD2C18C894FE00E1E865 /* UDSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A3DD2B18C894FE00E1E865 /* UDSettingsViewController.m */; };
-		01A3DD3018C8951500E1E865 /* UDAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A3DD2F18C8951500E1E865 /* UDAboutViewController.m */; };
 		01A3DDE118C8F8C900E1E865 /* UDAislePromotionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A3DDE018C8F8C900E1E865 /* UDAislePromotionViewController.m */; };
 		01CEF42F19263C4400845872 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01CEF42E19263C4400845872 /* CoreGraphics.framework */; };
+		01FCD7A41B372C0800C14959 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01FCD7A31B372C0800C14959 /* CoreBluetooth.framework */; };
 		A41A7F121B2AF6C80088F95D /* UbuduSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A41A7F111B2AF6C80088F95D /* UbuduSDK.framework */; };
 		A4EC5EDC1A8E56FC001FDE12 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4EC5EDB1A8E56FC001FDE12 /* LaunchScreen.xib */; };
-		F5AF2FD469874381A23DDD70 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A07DF3C5DCCB4C48AFCC3F5F /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -101,7 +99,6 @@
 		019C744518C72206006FFB4F /* UDAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UDAppDelegate.m; sourceTree = "<group>"; };
 		019C744818C72206006FFB4F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		019C744D18C72206006FFB4F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		019C745418C72206006FFB4F /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		019C746D18C725E1006FFB4F /* MMDrawerBarButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMDrawerBarButtonItem.h; sourceTree = "<group>"; };
 		019C746E18C725E1006FFB4F /* MMDrawerBarButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMDrawerBarButtonItem.m; sourceTree = "<group>"; };
 		019C746F18C725E1006FFB4F /* MMDrawerController+Subclass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MMDrawerController+Subclass.h"; sourceTree = "<group>"; };
@@ -128,16 +125,10 @@
 		01A0FADF18CF1C6200FAEC70 /* scenario_mall_guest_service.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = scenario_mall_guest_service.png; sourceTree = "<group>"; };
 		01A0FAE018CF1C6200FAEC70 /* scenario_mobile_check_out.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = scenario_mobile_check_out.png; sourceTree = "<group>"; };
 		01A0FAE118CF1C6200FAEC70 /* scenario_vip_welcome.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = scenario_vip_welcome.png; sourceTree = "<group>"; };
-		01A3DD2A18C894FE00E1E865 /* UDSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UDSettingsViewController.h; path = Controllers/UDSettingsViewController.h; sourceTree = "<group>"; };
-		01A3DD2B18C894FE00E1E865 /* UDSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UDSettingsViewController.m; path = Controllers/UDSettingsViewController.m; sourceTree = "<group>"; };
-		01A3DD2E18C8951500E1E865 /* UDAboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UDAboutViewController.h; path = Controllers/UDAboutViewController.h; sourceTree = "<group>"; };
-		01A3DD2F18C8951500E1E865 /* UDAboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UDAboutViewController.m; path = Controllers/UDAboutViewController.m; sourceTree = "<group>"; };
 		01A3DDDF18C8F8C900E1E865 /* UDAislePromotionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UDAislePromotionViewController.h; path = Controllers/UDAislePromotionViewController.h; sourceTree = "<group>"; };
 		01A3DDE018C8F8C900E1E865 /* UDAislePromotionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UDAislePromotionViewController.m; path = Controllers/UDAislePromotionViewController.m; sourceTree = "<group>"; };
 		01CEF42E19263C4400845872 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		4C554C1512F2E76A8A888B41 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		6553B50F83E744008AD479C0 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		A07DF3C5DCCB4C48AFCC3F5F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		01FCD7A31B372C0800C14959 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		A41A7F111B2AF6C80088F95D /* UbuduSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UbuduSDK.framework; path = ../UbuduSDK.framework; sourceTree = "<group>"; };
 		A4EC5EDB1A8E56FC001FDE12 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -147,6 +138,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				01FCD7A41B372C0800C14959 /* CoreBluetooth.framework in Frameworks */,
 				0191E4DB18C7757D00E5E18E /* CoreLocation.framework in Frameworks */,
 				0191E4E518C775CD00E5E18E /* CoreData.framework in Frameworks */,
 				0191E4E718C775D400E5E18E /* PassKit.framework in Frameworks */,
@@ -157,7 +149,6 @@
 				019C743618C72206006FFB4F /* Foundation.framework in Frameworks */,
 				01CEF42F19263C4400845872 /* CoreGraphics.framework in Frameworks */,
 				019C743A18C72206006FFB4F /* UIKit.framework in Frameworks */,
-				F5AF2FD469874381A23DDD70 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -208,7 +199,6 @@
 				019C746B18C725E1006FFB4F /* Libraries */,
 				019C743418C72206006FFB4F /* Frameworks */,
 				019C743318C72206006FFB4F /* Products */,
-				A94B4F68D82180B6E943EA12 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -225,6 +215,7 @@
 			children = (
 				A41A7F111B2AF6C80088F95D /* UbuduSDK.framework */,
 				0191E4DA18C7757D00E5E18E /* CoreLocation.framework */,
+				01FCD7A31B372C0800C14959 /* CoreBluetooth.framework */,
 				0191E4E418C775CD00E5E18E /* CoreData.framework */,
 				0191E4E618C775D400E5E18E /* PassKit.framework */,
 				0191E4DC18C7758700E5E18E /* SystemConfiguration.framework */,
@@ -233,8 +224,6 @@
 				019C743518C72206006FFB4F /* Foundation.framework */,
 				019C743918C72206006FFB4F /* UIKit.framework */,
 				01CEF42E19263C4400845872 /* CoreGraphics.framework */,
-				019C745418C72206006FFB4F /* XCTest.framework */,
-				A07DF3C5DCCB4C48AFCC3F5F /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -271,8 +260,6 @@
 			children = (
 				0191E4C918C7513200E5E18E /* Menu */,
 				0191E4CA18C7513B00E5E18E /* Home */,
-				01A3DD2D18C8950200E1E865 /* Settings */,
-				01A3DD3118C8951900E1E865 /* About */,
 				01A3DD2918C894DB00E1E865 /* Scenarios */,
 			);
 			name = Controllers;
@@ -387,24 +374,6 @@
 			name = Scenarios;
 			sourceTree = "<group>";
 		};
-		01A3DD2D18C8950200E1E865 /* Settings */ = {
-			isa = PBXGroup;
-			children = (
-				01A3DD2A18C894FE00E1E865 /* UDSettingsViewController.h */,
-				01A3DD2B18C894FE00E1E865 /* UDSettingsViewController.m */,
-			);
-			name = Settings;
-			sourceTree = "<group>";
-		};
-		01A3DD3118C8951900E1E865 /* About */ = {
-			isa = PBXGroup;
-			children = (
-				01A3DD2E18C8951500E1E865 /* UDAboutViewController.h */,
-				01A3DD2F18C8951500E1E865 /* UDAboutViewController.m */,
-			);
-			name = About;
-			sourceTree = "<group>";
-		};
 		01A3DDE218C8F93300E1E865 /* Aisle Promotion */ = {
 			isa = PBXGroup;
 			children = (
@@ -414,15 +383,6 @@
 			name = "Aisle Promotion";
 			sourceTree = "<group>";
 		};
-		A94B4F68D82180B6E943EA12 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				4C554C1512F2E76A8A888B41 /* Pods.debug.xcconfig */,
-				6553B50F83E744008AD479C0 /* Pods.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -430,11 +390,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 019C746418C72206006FFB4F /* Build configuration list for PBXNativeTarget "Ubudu-demo" */;
 			buildPhases = (
-				610C48F039F74756A388E584 /* Check Pods Manifest.lock */,
 				019C742E18C72206006FFB4F /* Sources */,
 				019C742F18C72206006FFB4F /* Frameworks */,
 				019C743018C72206006FFB4F /* Resources */,
-				82EA758861D045A4960EB7A6 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -456,7 +414,11 @@
 				ORGANIZATIONNAME = Ubudu;
 				TargetAttributes = {
 					019C743118C72206006FFB4F = {
-						DevelopmentTeam = 7V494GRC23;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -513,51 +475,16 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		610C48F039F74756A388E584 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		82EA758861D045A4960EB7A6 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		019C742E18C72206006FFB4F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				01A3DD2C18C894FE00E1E865 /* UDSettingsViewController.m in Sources */,
 				019C747818C725E1006FFB4F /* MMDrawerVisualState.m in Sources */,
 				019C747C18C728F1006FFB4F /* MMDrawerController+Storyboard.m in Sources */,
 				0191E4EA18C7840F00E5E18E /* UDMenuViewController.m in Sources */,
 				01A3DDE118C8F8C900E1E865 /* UDAislePromotionViewController.m in Sources */,
 				019C744218C72206006FFB4F /* main.m in Sources */,
-				01A3DD3018C8951500E1E865 /* UDAboutViewController.m in Sources */,
 				019C748418C730BD006FFB4F /* UDVIPWelcomeViewController.m in Sources */,
 				019C748018C72ACE006FFB4F /* UDDrawerViewController.m in Sources */,
 				019C748818C73138006FFB4F /* UDClickAndCollectViewController.m in Sources */,
@@ -627,7 +554,6 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "06942B58-9074-4458-8E6D-C010978972E9";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -659,7 +585,6 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				PROVISIONING_PROFILE = "06942B58-9074-4458-8E6D-C010978972E9";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -667,18 +592,12 @@
 		};
 		019C746518C72206006FFB4F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4C554C1512F2E76A8A888B41 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(SRCROOT)/Frameworks",
 					"$(inherited)",
-					"$(PROJECT_DIR)/Frameworks",
-					"$(PROJECT_DIR)",
-					"/Users/ubudu/Documents/dev/public/IOS-SDK",
+					"$(PROJECT_DIR)/..",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Ubudu-demo/Ubudu-demo-Prefix.pch";
@@ -689,7 +608,6 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "82755eab-9954-4864-8701-b014591f938b";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -697,18 +615,12 @@
 		};
 		019C746618C72206006FFB4F /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6553B50F83E744008AD479C0 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(SRCROOT)/Frameworks",
 					"$(inherited)",
-					"$(PROJECT_DIR)/Frameworks",
-					"$(PROJECT_DIR)",
-					"/Users/ubudu/Documents/dev/public/IOS-SDK",
+					"$(PROJECT_DIR)/..",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Ubudu-demo/Ubudu-demo-Prefix.pch";
@@ -719,7 +631,6 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "82755eab-9954-4864-8701-b014591f938b";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};

@@ -1,7 +1,7 @@
 
---------------------------------------
-Ubudu SDK Version 1.16 - Release Notes
---------------------------------------
+----------------------------------------
+Ubudu SDK Version 1.16.1 - Release Notes
+----------------------------------------
 
 Platform Support
 ----------------
@@ -16,19 +16,19 @@ Platform Support
 Features Added
 --------------
 
-* Added an "extended backgroung ranging time" feature allowing to take advantage of the "location" background mode.
+None
 
 
 Improvements
 ------------
 
-* API Documentation now in Appledoc format.
+None
 
 
 Issues Addressed
 ----------------
 
-None
+* Removed some spammy debug logs in release build.
 
 
 Known Issues
@@ -55,6 +55,9 @@ Methods related to 'localized ads' feature have been removed in version 1.14. If
 
 Change history
 --------------
+
+Version 1.16.1
+	- Removed some spammy debug logs in release build.
 
 Version 1.16
 	- Added "extended backgroung ranging time" feature.

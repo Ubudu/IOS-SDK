@@ -1,6 +1,6 @@
 
 ----------------------------------------
-Ubudu SDK Version 1.16.1 - Release Notes
+Ubudu SDK Version 1.16.2 - Release Notes
 ----------------------------------------
 
 Platform Support
@@ -22,13 +22,14 @@ None
 Improvements
 ------------
 
-None
+* Diagnostic logs are sended to the server in batches every 20 minutes
 
 
 Issues Addressed
 ----------------
 
-* Removed some spammy debug logs in release build.
+* Fixed a crash which may occasionally occurs while setting new user
+* Fixed diagnostic logs sended to the server
 
 
 Known Issues
@@ -55,6 +56,10 @@ Methods related to 'localized ads' feature have been removed in version 1.14. If
 
 Change history
 --------------
+Version 1.16.2
+	- Fixed an issue with diagnostc logs
+	- Send logs in a batches every 20 minutes
+	- Fix crash while setting a new user
 
 Version 1.16.1
 	- Removed some spammy debug logs in release build.

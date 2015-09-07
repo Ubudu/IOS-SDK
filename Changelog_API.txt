@@ -13,6 +13,13 @@ For more information please refer to the API documentation.
 -------------------------------------------------------------------------------
 
 
+Ubudu SDK API Changes between v1.16.0 and v1.16.2
+-------------------------------------------------
+
+None
+
+
+
 Ubudu SDK API Changes between v1.16 and v1.16.1
 -----------------------------------------------
 

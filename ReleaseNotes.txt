@@ -1,6 +1,6 @@
 
 ----------------------------------------
-Ubudu SDK Version 1.16.2 - Release Notes
+Ubudu SDK Version 1.16.3 - Release Notes
 ----------------------------------------
 
 Platform Support
@@ -22,14 +22,13 @@ None
 Improvements
 ------------
 
-* Diagnostic logs are sended to the server in batches every 20 minutes
+* Smarter way to send event logs to server. Logs are sent every 40 secs but if app stays in background for longer than 3 minutes sdk will send logs no more than once per 5 minutes.
 
 
 Issues Addressed
 ----------------
 
-* Fixed a crash which may occasionally occurs while setting new user
-* Fixed diagnostic logs sended to the server
+None
 
 
 Known Issues
@@ -56,6 +55,9 @@ Methods related to 'localized ads' feature have been removed in version 1.14. If
 
 Change history
 --------------
+Version 1.16.3
+	- Smarter way to send event logs to server
+
 Version 1.16.2
 	- Fixed an issue with diagnostc logs
 	- Send logs in a batches every 20 minutes

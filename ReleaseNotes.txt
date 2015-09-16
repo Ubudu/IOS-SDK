@@ -22,13 +22,13 @@ None
 Improvements
 ------------
 
-* Smarter way to send event logs to server. Logs are sent every 40 secs but if app stays in background for longer than 3 minutes sdk will send logs no more than once per 5 minutes.
+None
 
 
 Issues Addressed
 ----------------
 
-None
+* Fix a rare bug which may crash the app when trying to upload log events
 
 
 Known Issues
@@ -55,13 +55,16 @@ Methods related to 'localized ads' feature have been removed in version 1.14. If
 
 Change history
 --------------
+Version 1.16.4
+	- Fix a rare bug which may crash the app when trying to upload log event.s
+
 Version 1.16.3
-	- Smarter way to send event logs to server
+	- Smarter way to send event logs to server.
 
 Version 1.16.2
-	- Fixed an issue with diagnostc logs
-	- Send logs in a batches every 20 minutes
-	- Fix crash while setting a new user
+	- Fixed an issue with diagnostc logs.
+	- Send logs in a batches every 20 minutes.
+	- Fix crash while setting a new user.
 
 Version 1.16.1
 	- Removed some spammy debug logs in release build.

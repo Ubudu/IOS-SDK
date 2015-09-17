@@ -1,6 +1,6 @@
 
 ----------------------------------------
-Ubudu SDK Version 1.16.3 - Release Notes
+Ubudu SDK Version 1.16.5 - Release Notes
 ----------------------------------------
 
 Platform Support
@@ -28,8 +28,7 @@ None
 Issues Addressed
 ----------------
 
-* Fix a rare bug which may crash the app when trying to upload log events
-
+* 1.16.4 release ewas missing the framework and contains only headers. This release fixes that.
 
 Known Issues
 ------------
@@ -55,6 +54,9 @@ Methods related to 'localized ads' feature have been removed in version 1.14. If
 
 Change history
 --------------
+Version 1.16.5
+	- 1.16.4 release ewas missing the framework and contains only headers. This release fixes that.
+
 Version 1.16.4
 	- Fix a rare bug which may crash the app when trying to upload log event.s
 

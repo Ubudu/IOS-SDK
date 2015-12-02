@@ -11,7 +11,7 @@ For iBeacon related features:
 
 For geofencing:
 
-- iOS 6.0 or higher
+- iOS 7.0 or higher
 - iPhone 4 or more recent
 
 ## I. Adding the Ubudu SDK to a project
@@ -264,6 +264,8 @@ Please check on the manager platform if the feature you want to implement to con
 - (BOOL)ubudu:(UbuduSDK *)ubuduSDK shouldExecuteServerNotificationRequest:(NSURL *)url triggeredBy:(UbuduTriggerSource)trigger;
 
 - (BOOL)ubudu:(UbuduSDK *)ubuduSDK shouldExecuteLocalNotificationRequest:(UILocalNotification *)localNotification triggeredBy:(UbuduTriggerSource)trigger;
+
+- (void)ubudu:(UbuduSDK *)ubuduSDK shouldExecuteLocalNotificationRequest:(UILocalNotification *)localNotification triggeredBy:(UbuduTriggerSource)trigger completionBlock:(void(^)(BOOL shouldExecuteLocalNotificationRequest))completionBlock;
 
 - (BOOL)ubudu:(UbuduSDK *)ubuduSDK shouldExecuteOpenWebPageRequest:(NSURL *)url triggeredBy:(UbuduTriggerSource)trigger;
 

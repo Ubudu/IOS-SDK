@@ -6,34 +6,36 @@ Ubudu SDK Version 1.16.5 - Release Notes
 Platform Support
 ----------------
 * General:
-	- iOS 6.x or higher
-	- iPhone 4 or more recent
+	- iOS 7.x or higher
+	- iPhone 4s or more recent
 * Beacon features:
-	- iOS 7.0 or higher (iOS 7.1.2 or iOS 8.x recommended)
+	- iOS 7.0 or higher (iOS 8.2 or higher is recomended)
 	- iPhone 4S / iPad 3rd gen. / iPod 5th gen. or more recent
 
 
 Features Added
 --------------
 
-None
+- Added new method in UbuduSDKDelegate to support long-lasting checking if local notification request should be executed.
+- Added API method to reset rule counter only for rule by it's rule id.
 
 
 Improvements
 ------------
 
-None
-
+- Added support for rules which are not under global control counter.
+- Added support for "max distnace" treshold of medium far proximity for each rule.
+- Fix an issue when local notification built on server respons (server notification) was incompete.
+- Other improvements.
 
 Issues Addressed
 ----------------
 
-* 1.16.4 release ewas missing the framework and contains only headers. This release fixes that.
+* 1.16.4 release was missing the framework and contains only headers. This release fixes that.
 
 Known Issues
 ------------
 
- * Latch time feature for beacons rules with "on_exit" trigger does not work.
  * Latch time feature for geofences rules do not check if the device exited the geofence before executing the actions.
  * When a rule contains a local notification action + at least 2 other actions (except server notification) then only the first action is executed when the user clicks on the local notification (problem arises only when the app is in background).
 
@@ -54,6 +56,14 @@ Methods related to 'localized ads' feature have been removed in version 1.14. If
 
 Change history
 --------------
+Version 1.17.0
+	- Added new method in UbuduSDKDelegate to support long-lasting checking if local notification request should be executed.
+	- Added API method to reset rule counter only for rule by it's rule id.
+	- Added support for rules which are not under global control counter.
+	- Added support for "max distnace" treshold of medium far proximity for each rule.
+	- Fix an issue when local notification built on server respons (server notification) was incompete.
+	- Other improvements.
+
 Version 1.16.5
 	- 1.16.4 release ewas missing the framework and contains only headers. This release fixes that.
 

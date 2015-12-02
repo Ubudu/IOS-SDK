@@ -80,6 +80,16 @@ typedef NS_ENUM(NSUInteger, UbuduTriggerSource){
 - (BOOL)ubudu:(UbuduSDK *)ubuduSDK shouldExecuteLocalNotificationRequest:(UILocalNotification *)localNotification triggeredBy:(UbuduTriggerSource)trigger;
 
 /**
+ *  Invoked before an action of type "local notification" is executed. Gives you the opportunity to stop its execution. This method is useful if decision about executing the action is a long lasting process. Just call completionBlock with YES to execute an action or call it with NO to stop its execution. Implement it instead of - (BOOL)ubudu:(UbuduSDK *)ubuduSDK shouldExecuteServerNotificationRequest:(NSURL *)url triggeredBy:(UbuduTriggerSource)trigger
+ *
+ *  @param ubuduSDK The Ubudu SDK singleton object.
+ *  @param localNotification The local notification that would be presented.
+ *  @param trigger The type of source at the origin of the rule triggering.
+ *  @param completionBlock the block to call after making a decision. YES to execute the action. NO otherwise.
+ *
+ */
+- (void)ubudu:(UbuduSDK *)ubuduSDK shouldExecuteLocalNotificationRequest:(UILocalNotification *)localNotification triggeredBy:(UbuduTriggerSource)trigger completionBlock:(void(^)(BOOL shouldExecuteLocalNotificationRequest))completionBlock;
+/**
  *  Invoked before an action of type "open web page" is executed. Gives you the opportunity to stop its execution.
  *
  *  @param ubuduSDK The Ubudu SDK singleton object.

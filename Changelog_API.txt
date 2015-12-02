@@ -12,6 +12,18 @@ Each addition should contain a short explanation of what added or changed.
 For more information please refer to the API documentation.
 -------------------------------------------------------------------------------
 
+Ubudu SDK API Changes betweem v1.16.5 and v1.17.0
+-------------------------------------------------
+
+NEW METHOD
+[ubuduSDKDelegate ubudu:shouldExecuteLocalNotificationRequest:triggeredBy:completionBlock:]
+	Called by the SDK before executing local notification request
+
+NEW METHOD
+[ubuduSDK resetBeaconRuleCounterByRuleId:forGroup:]
+	Reset counter for the rule
+
+
 Ubudu SDK API Changes between v1.16.4 and v1.16.5
 -------------------------------------------------
 

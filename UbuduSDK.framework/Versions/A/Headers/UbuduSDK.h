@@ -224,6 +224,11 @@ typedef NS_ENUM(NSUInteger, UbuduServerSyncResult){
 - (void)executeLocalNotificationActions:(UILocalNotification *)localNotification;
 
 /**
+ *  This method sets the custom headers used for server notifications requests only.
+ */
+- (void)setServerNotificationRequestHeader:(NSString *)header value:(NSString *)value;
+
+/**
  *  Call this method to give a chance to the SDK to synchronize its local content (mainly, your rules) with the online manegement platform.
  *
  *  This method is mainly intended to be called via the background fetch feature (introduced with iOS 7) from the `application:performFetchWithCompletionHandler:` method of your `UIApplicationDelegate`, however it is not an error to call this from elsewhere.

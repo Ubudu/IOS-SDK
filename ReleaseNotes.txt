@@ -1,6 +1,6 @@
 
 ----------------------------------------
-Ubudu SDK Version 1.17.1 - Release Notes
+Ubudu SDK Version 1.18.0 - Release Notes
 ----------------------------------------
 
 Platform Support
@@ -16,7 +16,7 @@ Platform Support
 Features Added
 --------------
 
-None
+- Add possibility to set custom headers for server notifications
 
 Improvements
 ------------
@@ -26,7 +26,7 @@ None
 Issues Addressed
 ----------------
 
-- Hot fix where new delegate method (shouldExecuteLocalNotificationRequest:triggeredBy:completionBlock:) was not called
+- Fix for "max distnace" treshold of medium far proximity for each rule, that was occuring this way that global treshold for application was used.
 
 Known Issues
 ------------
@@ -51,16 +51,20 @@ Methods related to 'localized ads' feature have been removed in version 1.14. If
 
 Change history
 --------------
+Version 1.18.0
+	- Add possibility to set custom headers for server notifications
+	- Fix for "max distnace" treshold of medium far proximity for each rule, that was occuring this way that global treshold for application was used.
+	 
 Vaersion 1.17.1
 
 	- Hot fix where new delegate method (shouldExecuteLocalNotificationRequest:triggeredBy:completionBlock:) was not called.
 
 Version 1.17.0
 	- Added new method in UbuduSDKDelegate to support long-lasting checking if local notification request should be executed.
-	- Added API method to reset rule counter only for a single rule using it's object id.
+	- Added API method to reset rule counter only for rule by it's rule id.
 	- Added support for rules which are not under global control counter.
-	- Added support for "max distance" treshold of medium far proximity for each rule.
-	- Fix an issue when local notification built on server response (server notification) was incompete.
+	- Added support for "max distnace" treshold of medium far proximity for each rule.
+	- Fix an issue when local notification built on server respons (server notification) was incompete.
 	- Other improvements.
 
 Version 1.16.5

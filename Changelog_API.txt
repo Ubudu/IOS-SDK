@@ -12,6 +12,13 @@ Each addition should contain a short explanation of what added or changed.
 For more information please refer to the API documentation.
 -------------------------------------------------------------------------------
 
+Ubudu SDK API Changes betweem v1.18.1 and v1.18.2
+-------------------------------------------------
+
+None
+
+
+
 Ubudu SDK API Changes betweem v1.18.0 and v1.18.1
 -------------------------------------------------
 

@@ -1,6 +1,6 @@
 
 ----------------------------------------
-Ubudu SDK Version 1.18.1 - Release Notes
+Ubudu SDK Version 1.18.2 - Release Notes
 ----------------------------------------
 
 Platform Support
@@ -26,7 +26,7 @@ None
 Issues Addressed
 ----------------
 
-- Fix issue with recognizing immeadiate and near proximities. (bug introduced in version 1.18.0)
+- Fix redundant action triggers for rules with custom medium far treshold.
 
 Known Issues
 ------------
@@ -51,6 +51,9 @@ Methods related to 'localized ads' feature have been removed in version 1.14. If
 
 Change history
 --------------
+Version 1.18.2
+	- Fix redundant action triggers for rules with custom medium far treshold.
+
 Version 1.18.1
 	- Fix issue with recognizing immeadiate and near proximities. (bug introduced in version 1.18.0)
 

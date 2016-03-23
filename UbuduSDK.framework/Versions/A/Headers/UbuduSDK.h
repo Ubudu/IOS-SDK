@@ -254,16 +254,6 @@ typedef NS_ENUM(NSUInteger, UbuduServerSyncResult){
 - (BOOL)resetCounters:(NSError **)error;
 
 /**
- *  Reset the trigger counters of the rule.
- *
- *  The per-rule will be reset. Counter for proper groups and global counter will be decremented by proper value.
- *
- *  @return YES if all counters have been successfully reset, NO otherwise.
- */
-- (BOOL)resetBeaconRuleCounterByRuleId:(NSString *)ruleID forGroup:(NSString *)group;
-
-
-/**
  *  Clear all data stored by the SDK.
  *
  *  If the SDK is started, it will be stopped, the data will be cleared, then the SDK will be restarted.

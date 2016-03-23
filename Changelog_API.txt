@@ -12,6 +12,14 @@ Each addition should contain a short explanation of what added or changed.
 For more information please refer to the API documentation.
 -------------------------------------------------------------------------------
 
+Ubudu SDK API Changes betweem v1.18.2 and v1.19.0
+-------------------------------------------------
+
+REMOVED METHOD
+[ubuduSDK resetBeaconRuleCounterById:ForGroup:]
+        This method is not required anymore and can be safely removed from your code as the SDK automatically takes care about trigger counters depending on the fact if the action was executed or not.
+
+
 Ubudu SDK API Changes betweem v1.18.1 and v1.18.2
 -------------------------------------------------
 

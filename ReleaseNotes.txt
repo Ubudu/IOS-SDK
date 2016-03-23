@@ -1,6 +1,6 @@
 
 ----------------------------------------
-Ubudu SDK Version 1.18.2 - Release Notes
+Ubudu SDK Version 1.19.0 - Release Notes
 ----------------------------------------
 
 Platform Support
@@ -21,12 +21,16 @@ None
 Improvements
 ------------
 
-None
+- Trigger counters are incremented after latch time, not before.
+- Trigger counters are automatically decremented if action is not executed when proper delegate methods are implemented.
+
 
 Issues Addressed
 ----------------
 
-- Fix redundant action triggers for rules with custom medium far treshold.
+- Fix extended background ranging mode for iOS 9.X
+- Fix executing actions after latch time for rules with custom medium-far distance treshold.
+- Fix notify user action log is sent before caling delegate to server logs easier to analyze.
 
 Known Issues
 ------------
@@ -51,6 +55,13 @@ Methods related to 'localized ads' feature have been removed in version 1.14. If
 
 Change history
 --------------
+Version 1.19.0
+	- Trigger counters are incremented after latch time, not before.
+	- Trigger counters are automatically decremented if action is not executed when proper delegate methods are implemented.
+	- Fix extended background ranging mode for iOS 9.X
+	- Fix executing actions after latch time for rules with custom medium-far distance treshold.
+	- Fix notify user action log is sent before caling delegate to server logs easier to analyze.
+
 Version 1.18.2
 	- Fix redundant action triggers for rules with custom medium far treshold.
 

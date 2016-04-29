@@ -69,6 +69,15 @@
  */
 @property (nonatomic, copy) NSArray *tags;
 
+/**
+ *  The advertising identifier, alaphanumeric string unique to each device - used only for statistics
+ */
+@property (nonatomic, readonly) NSString *idfa;
+
+/**
+ *  The value that indicates whether the user has limited ad tracking.
+ */
+@property (nonatomic) BOOL advertisingTrackingModeEnabled;
 
 /**
  *  Init a newly created user object with the provided ID. Tags and properties will be set to nil.

@@ -179,6 +179,11 @@ typedef NS_ENUM(NSUInteger, UbuduServerSyncResult){
 @property (nonatomic, getter=isFileLogEnabled) BOOL fileLogEnabled;
 
 /**
+ *  The flag indicates if SDK can collect idfa for advanced user statistics. Note that this value will be NO if a user has limited ad tracking.
+ */
+@property (nonatomic, getter=isIDFACollectionEnabled) BOOL enableIDFACollection;
+
+/**
  *  Version of the SDK.
  */
 @property (nonatomic, readonly) NSString *SDKVersion;

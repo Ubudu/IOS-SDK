@@ -47,6 +47,7 @@ Check the **"Copy items into destination group's folder (if needed)"** option.
 	- UIKit.framework
 	- CoreGraphics.framework
 	- Foundation.framework
+	- AdSupport.framework
 	- libz.dylib
 
   If you don't know how to add an Apple framework to your project [follow these instructions.](https://developer.apple.com/library/ios/recipes/xcode_help-project_editor/Articles/AddingaLibrarytoaTarget.html#//apple_ref/doc/uid/TP40010155-CH17)

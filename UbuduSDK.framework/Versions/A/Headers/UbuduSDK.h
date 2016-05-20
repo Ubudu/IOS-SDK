@@ -229,6 +229,33 @@ typedef NS_ENUM(NSUInteger, UbuduServerSyncResult){
 - (void)executeLocalNotificationActions:(UILocalNotification *)localNotification;
 
 /**
+ *  Display a webpage.
+ *
+ *  @param url - url of the web page
+ *
+ *  @return YES - if web page is dispayed and NO if sdk can't open a web page
+ */
+- (BOOL)openWebPageForUrl:(NSURL *)url;
+
+/**
+ *  Display a wallet ticket.
+ *
+ *  @param url - url of the web page
+ *
+ *  @return YES - if web page is dispayed and NO if sdk can't open a wallet ticket
+ */
+- (BOOL)openPassbookForUrl:(NSURL *)url;
+
+/**
+ *  Display a deep link.
+ *
+ *  @param url - url of the web page
+ *
+ *  @return YES - if web page is dispayed and NO if sdk can't open a deep link
+ */
+- (BOOL)openDeepLinkForURL:(NSURL *)url;
+
+/**
  *  This method sets the custom headers used for server notifications requests only.
  */
 - (void)setServerNotificationRequestHeader:(NSString *)header value:(NSString *)value;

@@ -1,6 +1,6 @@
 
 ----------------------------------------
-Ubudu SDK Version 1.20.0 - Release Notes
+Ubudu SDK Version 1.21.0 - Release Notes
 ----------------------------------------
 
 Platform Support
@@ -16,8 +16,7 @@ Platform Support
 Features Added
 --------------
 
-- Support for new analytics logs related to device bluetooth state and location/notifications permissions
-- IDFA support
+- API for displaying web page / wallet / deeplink without sending event logs
 
 Improvements
 ------------
@@ -52,6 +51,9 @@ Methods related to 'localized ads' feature have been removed in version 1.14. If
 
 Change history
 --------------
+Version 1.21.0
+	- API for displaying web page / wallet / deeplink without sending event logs
+
 Version 1.20.0
 	- Support for new analytics logs related to device bluetooth state and location/notifications permissions
 	- IDFA support

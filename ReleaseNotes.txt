@@ -1,6 +1,6 @@
 
 ----------------------------------------
-Ubudu SDK Version 1.21.0 - Release Notes
+Ubudu SDK Version 1.22.0 - Release Notes
 ----------------------------------------
 
 Platform Support
@@ -16,7 +16,8 @@ Platform Support
 Features Added
 --------------
 
-- API for displaying web page / wallet / deeplink without sending event logs
+- Supports priorities for beacon interaction rules.
+- Supports min interval time for triggering rules. 
 
 Improvements
 ------------
@@ -31,7 +32,6 @@ None
 Known Issues
 ------------
 
- * Latch time feature for geofences rules do not check if the device exited the geofence before executing the actions.
  * When a rule contains a local notification action + at least 2 other actions (except server notification) then only the first action is executed when the user clicks on the local notification (problem arises only when the app is in background).
 
 
@@ -51,6 +51,10 @@ Methods related to 'localized ads' feature have been removed in version 1.14. If
 
 Change history
 --------------
+Version 1.22.0
+	- Supports priorities for beacon interaction rules.
+	- Supports min interval time for triggering rules. 
+
 Version 1.21.0
 	- API for displaying web page / wallet / deeplink without sending event logs
 

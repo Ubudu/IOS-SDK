@@ -12,8 +12,16 @@ Each addition should contain a short explanation of what added or changed.
 For more information please refer to the API documentation.
 -------------------------------------------------------------------------------
 
+Ubudu SDK API Changes betweem v1.21.0 and v1.22.0
+-------------------------------------------------
+
+None
+
+
+
 Ubudu SDK API Changes betweem v1.20.0 and v1.21.0
 -------------------------------------------------
+
 NEW METHOD
 UbuduSDK.openWebPageForUrl
 	Method to open web page by the ubudu sdk without sending log events to the ubudu server.
@@ -27,6 +35,7 @@ UbuduSDK.openDeepLinkForURL
 	Method to open a deeplink without sending log events to the ubudu server.
 
 
+
 Ubudu SDK API Changes betweem v1.19.0 and v1.20.0
 -------------------------------------------------
 
@@ -34,6 +43,8 @@ NEW PROPERTYY
 UbuduSDK.enableIDFACollection 
 	The flag indicates if SDK can collect idfa for advanced user statistics.
 	Note that this value will be NO if a user has limited ad tracking.
+
+
 
 Ubudu SDK API Changes betweem v1.18.1 and v1.18.2
 -------------------------------------------------

@@ -12,12 +12,20 @@ Each addition should contain a short explanation of what added or changed.
 For more information please refer to the API documentation.
 -------------------------------------------------------------------------------
 
-Ubudu SDK API Changes betweem v1.21.0 and v1.22.0
+Ubudu SDK API Changes betweem v1.22.0 and v1.23.0
 -------------------------------------------------
 
-None
+NEW METHOD
+- (void)registerCloudMessagingPushNotificationsDeviceToken:(NSData *) pushToken
+                                                   success:(void (^)()) success
+                                                   failure:(void (^)(NSError *error))failure;
+	Registers the device push notifications token for cloud messaging (e.g. Apple Push Notifications)
 
-
+NEW METHOD
+- (void)setUser:(UbuduUser *)newUser
+        success:(void (^)())success
+        failure:(void (^)(NSError *error))failure;
+	An extention point that permits to link business data about your users to the Ubudu users that the SDK and Ubudu manager platform use. These data are automatically uploaded to the Ubudu platform every time you assign this property or change one of the `UbuduUser` properties.
 
 Ubudu SDK API Changes betweem v1.20.0 and v1.21.0
 -------------------------------------------------

@@ -165,8 +165,10 @@ typedef NS_ENUM(NSUInteger, UbuduServerSyncResult){
  *  An extention point that permits to link business data about your users to the Ubudu users that the SDK and Ubudu manager platform use.
  *
  *  These data are automatically uploaded to the Ubudu platform every time you assign this property or change one of the `UbuduUser` properties.
+ *
+ *  @see setUser:success:failure: method to set new user
  */
-@property (nonatomic, strong) UbuduUser *user;
+@property (nonatomic, strong, readonly) UbuduUser *user;
 
 /**
  *  Enable the generation of a local file that will contain debug log information about what the SDK does. Default is NO.
@@ -227,6 +229,16 @@ typedef NS_ENUM(NSUInteger, UbuduServerSyncResult){
  *  @param localNotification The local notification provided by the system that has been opened.
  */
 - (void)executeLocalNotificationActions:(UILocalNotification *)localNotification;
+
+/**
+ *  Give back to the SDK a local notification previously presented to the user that has been opened.
+ *
+ *  This will permit to the SDK to execute the action associated to the local notification, like an open webpage (or passbook) request.
+ *  Typically you should call this from the `userNotificationCenter:didReceiveNotificationResponse:withCompletionHandler:` method of your `UNUserNotificationCenterDelegate`.
+ *
+ *  @param notificationRequest The notification request provided by the system with the notification response.
+ */
+- (void)executeNotificationRequestActions:(UNNotificationRequest *)notificationRequest;
 
 /**
  *  Display a webpage.
@@ -344,5 +356,36 @@ typedef NS_ENUM(NSUInteger, UbuduServerSyncResult){
  *  @see geofencesEnabled
  */
 - (double)getCurrentLongitude;
+
+/**
+ *  An extention point that permits to link business data about your users to the Ubudu users that the SDK and Ubudu manager platform use.
+ *
+ *  These data are automatically uploaded to the Ubudu platform every time you assign this property or change one of the `UbuduUser` properties.
+ *
+ *  @param newUser UbuduUser object
+ *  @param success block called when new user is properly set
+ *  @param failuer block called when error occured while setting a new user
+ */
+
+/**
+ *  An extention point that permits to link business data about your users to the Ubudu users that the SDK and Ubudu manager platform use.
+ *
+ *  These data are automatically uploaded to the Ubudu platform every time you assign this property or change one of the `UbuduUser` properties.
+ */
+
+- (void)setUser:(UbuduUser *)newUser
+        success:(void (^)())success
+        failure:(void (^)(NSError *error))failure;
+
+/**
+ * Registers the device push notifications token for cloud messaging (e.g. Apple Push Notifications)
+ *
+ * @param pushToken push notifications device token for cloud messaging
+ * @param success completion callback
+ * @param failure completion callback
+ */
+- (void)registerCloudMessagingPushNotificationsDeviceToken:(NSData *) pushToken
+                                                   success:(void (^)()) success
+                                                   failure:(void (^)(NSError *error))failure;
 
 @end

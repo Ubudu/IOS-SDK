@@ -1,6 +1,6 @@
 
 ----------------------------------------
-Ubudu SDK Version 1.22.0 - Release Notes
+Ubudu SDK Version 1.23.0 - Release Notes
 ----------------------------------------
 
 Platform Support
@@ -16,13 +16,15 @@ Platform Support
 Features Added
 --------------
 
-- Supports priorities for beacon interaction rules.
-- Supports min interval time for triggering rules. 
+- Support for rich notifications
+- Support for remote push notifications
 
 Improvements
 ------------
 
-None
+- Replacing a placeholder in a whole payload
+- A callback while setting new user
+
 
 Issues Addressed
 ----------------
@@ -51,6 +53,12 @@ Methods related to 'localized ads' feature have been removed in version 1.14. If
 
 Change history
 --------------
+Version 1.23.0i
+	- Support for rich notifications
+	- Support for remote push notifications
+	- Replacing a placeholder in a whole payload
+	- A callback while setting new user
+
 Version 1.22.0
 	- Supports priorities for beacon interaction rules.
 	- Supports min interval time for triggering rules. 

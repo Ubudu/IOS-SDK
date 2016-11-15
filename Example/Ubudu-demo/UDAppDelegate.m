@@ -25,7 +25,11 @@
     NSError *error = nil;
     [UbuduSDK sharedInstance].appNamespace = @"634b207ee2f313c109c58675b44324ac2d41e61e";
     [UbuduSDK sharedInstance].delegate = self;
-    [UbuduSDK sharedInstance].user = [[UbuduUser alloc] initWithID:kUDDefaultClientName];
+    [[UbuduSDK sharedInstance] setUser:[[UbuduUser alloc] initWithID:kUDDefaultClientName] success:^{
+        //
+    } failure:^(NSError *error) {
+        //
+    }];
     BOOL started = [[UbuduSDK sharedInstance] start:&error];
     if (!started) {
         NSLog(@"UbuduSDK start error: %@", error);

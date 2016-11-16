@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
   s.platform     = :ios, "7.0"
   s.source       = { :git => "https://github.com/Ubudu/IOS-SDK.git", :tag => "v1.23.0" }
   s.vendored_frameworks = "UbuduSDK.framework"
-  s.frameworks = "Foundation", "CoreGraphics", "UIKit", "SystemConfiguration", "MobileCoreServices", "CoreData", "CoreLocation", "CoreBluetooth", "PassKit", "AdSupport"
+  s.frameworks = "Foundation", "CoreGraphics", "UIKit", "SystemConfiguration", "MobileCoreServices", "CoreData", "CoreLocation", "CoreBluetooth", "PassKit", "AdSupport", "UserNotifications"
   s.libraries = "z"
 
   s.requires_arc = true

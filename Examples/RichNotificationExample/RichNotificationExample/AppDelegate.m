@@ -57,10 +57,13 @@
 
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void(^)())completionHandler
 {
+    // Get payload defined in the ubudu.manager.com for the rule
     NSDictionary *payload = [response.notification.request.content.userInfo objectForKey:@"payload"];
     
+    // The identifier of the response action
     NSString *actionIdentifier = response.actionIdentifier;
     
+    // URL which be filled with proper value based on action choosen by the user.
     NSString *urlToOpen = nil;
     
     // In the rule we have specified actions with identifiers:

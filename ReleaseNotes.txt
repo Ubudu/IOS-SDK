@@ -1,6 +1,6 @@
 
 ----------------------------------------
-Ubudu SDK Version 1.23.0 - Release Notes
+Ubudu SDK Version 1.23.1 - Release Notes
 ----------------------------------------
 
 Platform Support
@@ -16,20 +16,17 @@ Platform Support
 Features Added
 --------------
 
-- Support for rich notifications
-- Support for remote push notifications
+None
 
 Improvements
 ------------
 
-- Replacing a placeholder in a whole payload
-- A callback while setting new user
-
+None
 
 Issues Addressed
 ----------------
 
-None
+- Fix the issue where notifications were not triggered on iOS 10 devices
 
 Known Issues
 ------------
@@ -53,7 +50,10 @@ Methods related to 'localized ads' feature have been removed in version 1.14. If
 
 Change history
 --------------
-Version 1.23.0i
+Version 1.23.1
+	- Fix the issue where notifications were not triggered on iOS 10 devices
+
+Version 1.23.0
 	- Support for rich notifications
 	- Support for remote push notifications
 	- Replacing a placeholder in a whole payload

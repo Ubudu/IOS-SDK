@@ -1,6 +1,6 @@
 
 ----------------------------------------
-Ubudu SDK Version 1.23.1 - Release Notes
+Ubudu SDK Version 1.23.2 - Release Notes
 ----------------------------------------
 
 Platform Support
@@ -21,13 +21,14 @@ None
 Improvements
 ------------
 
-None
+- Add SDK version number to log about user info.
+- Improve placeholders when using them in payloads which contain dictionaries and arrays.
 
 Issues Addressed
 ----------------
 
-- Fix the issue where notifications were not triggered on iOS 10 devices
-
+- Fix the issue where action log was not sent to ubudu manager server.
+ 
 Known Issues
 ------------
 
@@ -50,6 +51,11 @@ Methods related to 'localized ads' feature have been removed in version 1.14. If
 
 Change history
 --------------
+Version 1.23.2
+	- Add SDK version number to log about user info.
+	- Improve placeholders when using them in payloads which contain dictionaries and arrays.
+	- Fix the issue where action log was not sent to ubudu manager server.
+ 
 Version 1.23.1
 	- Fix the issue where notifications were not triggered on iOS 10 devices
 

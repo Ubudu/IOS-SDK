@@ -1,6 +1,6 @@
 
 ----------------------------------------
-Ubudu SDK Version 1.23.2 - Release Notes
+Ubudu SDK Version 1.23.3 - Release Notes
 ----------------------------------------
 
 Platform Support
@@ -21,14 +21,15 @@ None
 Improvements
 ------------
 
-- Add SDK version number to log about user info.
-- Improve placeholders when using them in payloads which contain dictionaries and arrays.
+- Add "ok" action for notifications without any actions.
+- Improved responsivity of the SDK when use SDK "always" and not only in the "foreground".
 
 Issues Addressed
 ----------------
 
-- Fix the issue where action log was not sent to ubudu manager server.
- 
+- Fix an issue with triggering local notifications with complex payloads.
+- Fix an issue with restarting the SDK after killing / relaunching the app.
+
 Known Issues
 ------------
 
@@ -51,6 +52,12 @@ Methods related to 'localized ads' feature have been removed in version 1.14. If
 
 Change history
 --------------
+Version 1.23.3
+	- Add "ok" action for notifications without any actions.
+	- Improved responsivity of the SDK when use SDK "always" and not only in the "foreground".
+	- Fix an issue with triggering local notifications with complex payloads.
+	- Fix an issue with restarting the SDK after killing / relaunching the app.
+
 Version 1.23.2
 	- Add SDK version number to log about user info.
 	- Improve placeholders when using them in payloads which contain dictionaries and arrays.

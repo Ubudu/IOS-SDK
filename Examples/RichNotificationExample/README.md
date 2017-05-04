@@ -6,7 +6,7 @@ A simple app to illustrate possible handling of rich notification.
 To test the app set a proximity UUID of your uBeacon to: `F2A74FC4-7625-44DB-9B08-CB7E130B2029`
 with major: `1` and minor: `2`.
 
-###Handling rich notification actions
+### Handling rich notification actions
 Your app has to conform to `UNUserNotificationCenterDelegate` protocol so add the following code in th AppDelegate implementation file.
 
 ```@interface AppDelegate () <UNUserNotificationCenterDelegate>```
@@ -71,7 +71,7 @@ In the example application the implementation is very simple:
 }
 ```
 
-###Defining notification in the ubudu.manager.com
+### Defining notification in the ubudu.manager.com
 To take advantages from rich notifications you need to specify the rule correctly. The json for the rule in this example looks like below:
 
 ```

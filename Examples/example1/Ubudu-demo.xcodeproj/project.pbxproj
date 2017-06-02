@@ -56,8 +56,8 @@
 		01A3DDE118C8F8C900E1E865 /* UDAislePromotionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A3DDE018C8F8C900E1E865 /* UDAislePromotionViewController.m */; };
 		01CEF42F19263C4400845872 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01CEF42E19263C4400845872 /* CoreGraphics.framework */; };
 		01FCD7A41B372C0800C14959 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01FCD7A31B372C0800C14959 /* CoreBluetooth.framework */; };
+		1DA656431EE18EF80066648D /* UbuduSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DA656421EE18EF80066648D /* UbuduSDK.framework */; };
 		1DD4453B1CEF575F001D9EB8 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD4453A1CEF575F001D9EB8 /* AdSupport.framework */; };
-		A41A7F121B2AF6C80088F95D /* UbuduSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A41A7F111B2AF6C80088F95D /* UbuduSDK.framework */; };
 		A4EC5EDC1A8E56FC001FDE12 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4EC5EDB1A8E56FC001FDE12 /* LaunchScreen.xib */; };
 /* End PBXBuildFile section */
 
@@ -130,8 +130,8 @@
 		01A3DDE018C8F8C900E1E865 /* UDAislePromotionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UDAislePromotionViewController.m; path = Controllers/UDAislePromotionViewController.m; sourceTree = "<group>"; };
 		01CEF42E19263C4400845872 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		01FCD7A31B372C0800C14959 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		1DA656421EE18EF80066648D /* UbuduSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UbuduSDK.framework; sourceTree = "<group>"; };
 		1DD4453A1CEF575F001D9EB8 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
-		A41A7F111B2AF6C80088F95D /* UbuduSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UbuduSDK.framework; path = ../UbuduSDK.framework; sourceTree = "<group>"; };
 		A4EC5EDB1A8E56FC001FDE12 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -141,12 +141,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				1DD4453B1CEF575F001D9EB8 /* AdSupport.framework in Frameworks */,
+				1DA656431EE18EF80066648D /* UbuduSDK.framework in Frameworks */,
 				01FCD7A41B372C0800C14959 /* CoreBluetooth.framework in Frameworks */,
 				0191E4DB18C7757D00E5E18E /* CoreLocation.framework in Frameworks */,
 				0191E4E518C775CD00E5E18E /* CoreData.framework in Frameworks */,
 				0191E4E718C775D400E5E18E /* PassKit.framework in Frameworks */,
 				0191E4DD18C7758700E5E18E /* SystemConfiguration.framework in Frameworks */,
-				A41A7F121B2AF6C80088F95D /* UbuduSDK.framework in Frameworks */,
 				0191E4E318C7759E00E5E18E /* MobileCoreServices.framework in Frameworks */,
 				0191E4E118C7759600E5E18E /* libz.dylib in Frameworks */,
 				019C743618C72206006FFB4F /* Foundation.framework in Frameworks */,
@@ -217,7 +217,7 @@
 			isa = PBXGroup;
 			children = (
 				1DD4453A1CEF575F001D9EB8 /* AdSupport.framework */,
-				A41A7F111B2AF6C80088F95D /* UbuduSDK.framework */,
+				1DA656421EE18EF80066648D /* UbuduSDK.framework */,
 				0191E4DA18C7757D00E5E18E /* CoreLocation.framework */,
 				01FCD7A31B372C0800C14959 /* CoreBluetooth.framework */,
 				0191E4E418C775CD00E5E18E /* CoreData.framework */,
@@ -606,6 +606,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/..",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Ubudu-demo/Ubudu-demo-Prefix.pch";
@@ -632,6 +633,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/..",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Ubudu-demo/Ubudu-demo-Prefix.pch";

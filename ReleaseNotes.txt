@@ -1,6 +1,6 @@
 
 ----------------------------------------
-Ubudu SDK Version 1.23.3 - Release Notes
+Ubudu SDK Version 1.24.0 - Release Notes
 ----------------------------------------
 
 Platform Support
@@ -21,19 +21,18 @@ None
 Improvements
 ------------
 
-- Add "ok" action for notifications without any actions.
-- Improved responsivity of the SDK when use SDK "always" and not only in the "foreground".
+- Improved a networking layer
+- other improvements
 
 Issues Addressed
 ----------------
 
-- Fix an issue with triggering local notifications with complex payloads.
-- Fix an issue with restarting the SDK after killing / relaunching the app.
-
 Known Issues
 ------------
 
- * When a rule contains a local notification action + at least 2 other actions (except server notification) then only the first action is executed when the user clicks on the local notification (problem arises only when the app is in background).
+* Temporary disabled wallet integration
+
+* When a rule contains a local notification action + at least 2 other actions (except server notification) then only the first action is executed when the user clicks on the local notification (problem arises only when the app is in background).
 
 
 Compatibility
@@ -52,6 +51,11 @@ Methods related to 'localized ads' feature have been removed in version 1.14. If
 
 Change history
 --------------
+Version 1.24.0
+	- Improved a networking layer
+	- other improvements
+	- Temporary disabled wallet integration
+
 Version 1.23.3
 	- Add "ok" action for notifications without any actions.
 	- Improved responsivity of the SDK when use SDK "always" and not only in the "foreground".

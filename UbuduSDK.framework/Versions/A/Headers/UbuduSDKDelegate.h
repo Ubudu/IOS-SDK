@@ -168,7 +168,7 @@ typedef NS_ENUM(NSUInteger, UbuduTriggerSource){
  *  @param failureHandler Block to call if the execution failed.
  */
 - (void)ubudu:(UbuduSDK *)ubuduSDK executeServerNotificationRequest:(NSURL *)url triggeredBy:(UbuduTriggerSource)trigger
-      success:(void (^)())successHandler failure:(void (^)(NSError* error))failureHandler;
+      success:(void (^)(void))successHandler failure:(void (^)(NSError* error))failureHandler;
 
 /**
  *  If implemented, invoked when an action of type "local notification" needs to be executed.

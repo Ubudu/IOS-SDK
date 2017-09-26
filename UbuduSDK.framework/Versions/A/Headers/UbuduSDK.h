@@ -250,15 +250,6 @@ typedef NS_ENUM(NSUInteger, UbuduServerSyncResult){
 - (BOOL)openWebPageForUrl:(NSURL *)url;
 
 /**
- *  Display a wallet ticket.
- *
- *  @param url - url of the web page
- *
- *  @return YES - if web page is dispayed and NO if sdk can't open a wallet ticket
- */
-- (BOOL)openPassbookForUrl:(NSURL *)url;
-
-/**
  *  Display a deep link.
  *
  *  @param url - url of the web page
@@ -374,7 +365,7 @@ typedef NS_ENUM(NSUInteger, UbuduServerSyncResult){
  */
 
 - (void)setUser:(UbuduUser *)newUser
-        success:(void (^)())success
+        success:(void (^)(void))success
         failure:(void (^)(NSError *error))failure;
 
 /**
@@ -385,7 +376,7 @@ typedef NS_ENUM(NSUInteger, UbuduServerSyncResult){
  * @param failure completion callback
  */
 - (void)registerCloudMessagingPushNotificationsDeviceToken:(NSData *) pushToken
-                                                   success:(void (^)()) success
+                                                   success:(void (^)(void)) success
                                                    failure:(void (^)(NSError *error))failure;
 
 @end

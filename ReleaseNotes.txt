@@ -1,6 +1,6 @@
 
 ----------------------------------------
-Ubudu SDK Version 1.24.0 - Release Notes
+Ubudu SDK Version 1.24.1 - Release Notes
 ----------------------------------------
 
 Platform Support
@@ -21,11 +21,12 @@ None
 Improvements
 ------------
 
-- Improved a networking layer
-- other improvements
+None
 
 Issues Addressed
 ----------------
+
+- Fix a rare crash while fetching geofences
 
 Known Issues
 ------------
@@ -51,6 +52,9 @@ Methods related to 'localized ads' feature have been removed in version 1.14. If
 
 Change history
 --------------
+Version 1.24.1
+	- Fix rare crash while fetching geofences
+
 Version 1.24.0
 	- Improved a networking layer
 	- other improvements

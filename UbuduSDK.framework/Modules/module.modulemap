@@ -1,0 +1,6 @@
+framework module UbuduSDK {
+  umbrella header "UbuduSDK.h"
+
+  export *
+  module * { export * }
+}

@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
   s.author       = { "Ubudu SAS" => "cocoapods@ubudu.com" }
   s.social_media_url = "https://twitter.com/Ubudu"
 
-  s.platform     = :ios, "7.0"
+  s.platform     = :ios, "10.0"
   s.source       = { :git => "https://github.com/Ubudu/IOS-SDK.git", :tag => "v1.24.2-beta" }
   s.vendored_frameworks = "UbuduSDK.framework"
   s.frameworks = "Foundation", "CoreGraphics", "UIKit", "SystemConfiguration", "MobileCoreServices", "CoreData", "CoreLocation", "CoreBluetooth", "AdSupport", "UserNotifications"

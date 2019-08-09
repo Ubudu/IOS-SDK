@@ -70,22 +70,10 @@ typedef NS_ENUM(NSUInteger, UbuduTriggerSource){
 - (BOOL)ubudu:(UbuduSDK *)ubuduSDK shouldExecuteServerNotificationRequest:(NSURL *)url triggeredBy:(UbuduTriggerSource)trigger;
 
 /**
- *  Invoked before an action of type "local notification" is executed. Gives you the opportunity to stop its execution.
+ *  Invoked before an action of type "local notification" is executed. Gives you the opportunity to stop its execution. 
  *
  *  @param ubuduSDK The Ubudu SDK singleton object.
- *  @param localNotification The local notification that would be presented.
- *  @param trigger The type of source at the origin of the rule triggering.
- *
- *  @return Return YES to proceed to the execution of the action, NO to stop it.
- */
-- (BOOL)ubudu:(UbuduSDK *)ubuduSDK shouldExecuteLocalNotificationRequest:(UILocalNotification *)localNotification triggeredBy:(UbuduTriggerSource)trigger;
-
-/**
- *  Invoked before an action of type "local notification" is executed. Gives you the opportunity to stop its execution. This method is called in iOS 10 or newer instead of:
-    - (BOOL)ubudu:(UbuduSDK *)ubuduSDK shouldExecuteLocalNotificationRequest:(UILocalNotification *)localNotification triggeredBy:(UbuduTriggerSource)trigger;
- *
- *  @param ubuduSDK The Ubudu SDK singleton object.
- *  @param localNotification The local notification that would be presented.
+ *  @param notificationRequest The local notification that would be presented.
  *  @param trigger The type of source at the origin of the rule triggering.
  *
  *  @return Return YES to proceed to the execution of the action, NO to stop it.
@@ -96,21 +84,7 @@ typedef NS_ENUM(NSUInteger, UbuduTriggerSource){
  *  Invoked before an action of type "local notification" is executed. Gives you the opportunity to stop its execution. This method is useful if decision about executing the action is a long lasting process. Just call completionBlock with YES to execute an action or call it with NO to stop its execution. Implement it instead of - (BOOL)ubudu:(UbuduSDK *)ubuduSDK shouldExecuteServerNotificationRequest:(NSURL *)url triggeredBy:(UbuduTriggerSource)trigger
  *
  *  @param ubuduSDK The Ubudu SDK singleton object.
- *  @param localNotification The local notification that would be presented.
- *  @param trigger The type of source at the origin of the rule triggering.
- *  @param completionBlock the block to call after making a decision. YES to execute the action. NO otherwise.
- *
- */
-- (void)ubudu:(UbuduSDK *)ubuduSDK shouldExecuteLocalNotificationRequest:(UILocalNotification *)localNotification triggeredBy:(UbuduTriggerSource)trigger completionBlock:(void(^)(BOOL shouldExecuteLocalNotificationRequest))completionBlock;
-
-/**
- *  Invoked before an action of type "local notification" is executed. Gives you the opportunity to stop its execution. This method is useful if decision about executing the action is a long lasting process. Just call completionBlock with YES to execute an action or call it with NO to stop its execution. That method is called only in iOS 10 or newer and is called instead of:
-     - (BOOL)ubudu:(UbuduSDK *)ubuduSDK shouldExecuteServerNotificationRequest:(NSURL *)url triggeredBy:(UbuduTriggerSource)trigger
-     and
-     - (void)ubudu:(UbuduSDK *)ubuduSDK shouldExecuteLocalNotificationRequest:(UILocalNotification *)localNotification triggeredBy:(UbuduTriggerSource)trigger completionBlock:(void(^)(BOOL shouldExecuteLocalNotificationRequest))completionBlock;
- *
- *  @param ubuduSDK The Ubudu SDK singleton object.
- *  @param localNotification The local notification that would be presented.
+ *  @param notificationRequest The local notification that would be presented.
  *  @param trigger The type of source at the origin of the rule triggering.
  *  @param completionBlock the block to call after making a decision. YES to execute the action. NO otherwise.
  *
@@ -161,7 +135,7 @@ typedef NS_ENUM(NSUInteger, UbuduTriggerSource){
  *  You also need to call the success or failure handler to let the SDK know that the action execution is done or failed.
  *  If you don't call any of the handlers the action won't appear in your statistics.
  *
- *  @param ubuduSDKThe Ubudu SDK singleton object.
+ *  @param ubuduSDK The Ubudu SDK singleton object.
  *  @param url The URL to use to perform an HTTP request.
  *  @param trigger The type of source at the origin of the trigger event.
  *  @param successHandler Block to call when the execution is done.
@@ -173,27 +147,13 @@ typedef NS_ENUM(NSUInteger, UbuduTriggerSource){
 /**
  *  If implemented, invoked when an action of type "local notification" needs to be executed.
  *
- *  If you don't implement this method then the SDK automatically presents the `UILocalNotification` to the user
- *  by calling the `presentLocalNotificationNow:` method on the [`UIApplication` sharedApplication] object.
- *
- *  If you implement this method then it is your responsability to present the `UILocalNotification` to the user.
- *
- *  @param ubuduSDK The Ubudu SDK singleton object.
- *  @param localNotification The local notification to present.
- *  @param trigger The type of source at the origin of the trigger event.
- */
-- (void)ubudu:(UbuduSDK *)ubuduSDK executeLocalNotificationRequest:(UILocalNotification *)localNotification triggeredBy:(UbuduTriggerSource)trigger;
-
-/**
- *  If implemented, invoked when an action of type "local notification" needs to be executed.
- *
  *  If you don't implement this method then the SDK automatically presents the `UNNotificationRequest` to the user
  *  by calling the `presentLocalNotificationNow:` method on the [`UIApplication` sharedApplication] object.
  *
- *  If you implement this method then it is your responsability to present the `UILocalNotification` to the user.
+ *  If you implement this method then it is your responsability to present the `UNNotificationRequest` to the user.
  *
  *  @param ubuduSDK The Ubudu SDK singleton object.
- *  @param localNotification The local notification to present.
+ *  @param notificationRequest The local notification to present.
  *  @param trigger The type of source at the origin of the trigger event.
  */
 - (void)ubudu:(UbuduSDK *)ubuduSDK executeNotificationRequest:(UNNotificationRequest *)notificationRequest triggeredBy:(UbuduTriggerSource)trigger;

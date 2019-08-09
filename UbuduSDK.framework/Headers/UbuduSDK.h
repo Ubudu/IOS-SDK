@@ -204,31 +204,12 @@ typedef NS_ENUM(NSUInteger, UbuduServerSyncResult){
 - (BOOL)start:(NSError **)error;
 
 /**
- *  Start the SDK if it was started last time app got killed.
- *
- *  @deprecated Do not use this method, instead set you `appNamespace` and call `start:`, typically from your AppDelegate.
- *
- *  @see start:
- */
-- (BOOL)resume:(UIApplication *)application launchOptions:(NSDictionary *)launchOptions error:(NSError **)error;
-
-/**
  *  Stop the SDK. Do not stop the SDK on app kill if you want to get background support!
  *
  *  Geofences and beacons will not be monitored anymore and no more action will be triggered until you call again the `start:` method.
  *  Your app will not have geofences/beacons background support anymore and won't be awaken.
  */
 - (void)stop;
-
-/**
- *  Give back to the SDK a local notification previously presented to the user that has been opened.
- *
- *  This will permit to the SDK to execute the action associated to the local notification, like an open webpage (or passbook) request.
- *  Typically you should call this from the `application:didReceiveLocalNotification:` method of your `UIApplicationDelegate`.
- *
- *  @param localNotification The local notification provided by the system that has been opened.
- */
-- (void)executeLocalNotificationActions:(UILocalNotification *)localNotification;
 
 /**
  *  Give back to the SDK a local notification previously presented to the user that has been opened.

@@ -7,13 +7,12 @@
 //
 
 import UIKit
-import UbuduSDK
+import UbuduSDKSwift
+import CoreLocation
 import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         setupUbuduSDK()
@@ -57,14 +56,14 @@ extension AppDelegate {
     func setupUbuduSDK() {
         guard let sdk = UbuduSDK.sharedInstance() else { return }
         sdk.appNamespace = "1fe729c967a0a20a0490402adcf585b781181d88"
-        
+
         sdk.beaconsEnabled                      = true
         sdk.geofencesEnabled                    = false
         sdk.isFileLogEnabled                    = false
         sdk.useExtendedBackgroundRangingTime    = false
-        
+
         sdk.delegate = self
-        
+
         do {
             try sdk.start()
         } catch let error {
@@ -83,49 +82,48 @@ extension AppDelegate {
 
 // MARK - Ubudu SDK delegate
 extension AppDelegate: UbuduSDKDelegate {
-    
+
     func ubudu(_ ubuduSDK: UbuduSDK!, didReceiveEnterRegionNotification region: CLRegion!) {
         print("\(#function) region: \(String(describing: region))")
     }
-    
+
     func ubudu(_ ubuduSDK: UbuduSDK!, didReceiveExitRegionNotification region: CLRegion!) {
         print("\(#function) region \(String(describing: region))")
     }
-    
+
     func ubudu(_ ubuduSDK: UbuduSDK!, shouldExecute notificationRequest: UNNotificationRequest!, triggeredBy trigger: UbuduTriggerSource) -> Bool {
         return true
     }
-    
+
     func ubudu(_ ubuduSDK: UbuduSDK!, shouldExecuteOpenWebPageRequest url: URL!, triggeredBy trigger: UbuduTriggerSource) -> Bool {
         return true
     }
-    
+
     func ubudu(_ ubuduSDK: UbuduSDK!, didFindNewBeacon beaconName: String!, userInfo: [AnyHashable : Any]! = [:]) {
         print("\(#function) beaconName: \(String(describing: beaconName))")
     }
-    
+
     func ubudu(_ ubuduSDK: UbuduSDK!, didUpdateBeacon beaconName: String!, userInfo: [AnyHashable : Any]! = [:]) {
         print("\(#function) beaconName: \(String(describing: beaconName)) userInfo: \(String(describing: userInfo))")
     }
-    
+
     func ubudu(_ ubuduSDK: UbuduSDK!, didReceivePingFromBeacon beaconName: String!, userInfo: [AnyHashable : Any]! = [:]) {
         print("\(#function) beaconName: \(beaconName), userInfo: \(String(describing: userInfo))")
     }
-    
+
     func ubudu(_ ubuduSDK: UbuduSDK!, didLoseBeaconSignal beaconName: String!, userInfo: [AnyHashable : Any]! = [:]) {
         print("\(#function) region: \(String(describing: beaconName)), userInfo: \(String(describing: userInfo))")
     }
-    
+
     func ubudu(_ ubuduSDK: UbuduSDK!, didEnterBeaconRegion regionUUID: String!, userInfo: [AnyHashable : Any]! = [:]) {
         print("\(#function) region: \(String(describing: regionUUID)), userInfo: \(String(describing: userInfo))")
     }
-    
+
     func ubudu(_ ubuduSDK: UbuduSDK!, didExitBeaconRegion regionUUID: String!, userInfo: [AnyHashable : Any]! = [:]) {
         print("\(#function) region: \(String(describing: regionUUID)), userInfo: \(String(describing: userInfo))")
     }
-    
+
     func ubudu(_ ubuduSDK: UbuduSDK!, execute notificationRequest: UNNotificationRequest!, triggeredBy trigger: UbuduTriggerSource) {
         print("\(#function) notification request: \(notificationRequest.description) title: \(notificationRequest.content.title) body: \(notificationRequest.content.body)")
     }
 }
-

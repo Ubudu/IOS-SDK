@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import UbuduSDK
 
 class ViewController: UIViewController {
 

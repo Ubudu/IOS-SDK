@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1D171E2123E1D72A000508D7 /* UbuduSDKSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D171E1F23E1D71B000508D7 /* UbuduSDKSwift.framework */; };
+		1D171E2223E1D72A000508D7 /* UbuduSDKSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1D171E1F23E1D71B000508D7 /* UbuduSDKSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1DC450C923DB015600BD5858 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC450C823DB015600BD5858 /* AppDelegate.swift */; };
 		1DC450CB23DB015600BD5858 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC450CA23DB015600BD5858 /* SceneDelegate.swift */; };
 		1DC450CD23DB015600BD5858 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC450CC23DB015600BD5858 /* ViewController.swift */; };
@@ -14,8 +16,6 @@
 		1DC450D223DB015800BD5858 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1DC450D123DB015800BD5858 /* Assets.xcassets */; };
 		1DC450D523DB015800BD5858 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1DC450D323DB015800BD5858 /* LaunchScreen.storyboard */; };
 		1DC450E023DB015800BD5858 /* proximitySDKSwiftSampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC450DF23DB015800BD5858 /* proximitySDKSwiftSampleTests.swift */; };
-		1DC4514323DF030C00BD5858 /* UbuduSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DC4514123DF02DC00BD5858 /* UbuduSDK.framework */; };
-		1DC4514423DF030C00BD5858 /* UbuduSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1DC4514123DF02DC00BD5858 /* UbuduSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,7 +35,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				1DC4514423DF030C00BD5858 /* UbuduSDK.framework in Embed Frameworks */,
+				1D171E2223E1D72A000508D7 /* UbuduSDKSwift.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -43,6 +43,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1D171E1F23E1D71B000508D7 /* UbuduSDKSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UbuduSDKSwift.framework; sourceTree = "<group>"; };
 		1DC450C523DB015600BD5858 /* proximitySDKSwiftSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = proximitySDKSwiftSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DC450C823DB015600BD5858 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1DC450CA23DB015600BD5858 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -54,8 +55,6 @@
 		1DC450DB23DB015800BD5858 /* proximitySDKSwiftSampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = proximitySDKSwiftSampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DC450DF23DB015800BD5858 /* proximitySDKSwiftSampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = proximitySDKSwiftSampleTests.swift; sourceTree = "<group>"; };
 		1DC450E123DB015800BD5858 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1DC450F323DB01AA00BD5858 /* proximitySDKSwiftSample-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "proximitySDKSwiftSample-Bridging-Header.h"; sourceTree = "<group>"; };
-		1DC4514123DF02DC00BD5858 /* UbuduSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UbuduSDK.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,7 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1DC4514323DF030C00BD5858 /* UbuduSDK.framework in Frameworks */,
+				1D171E2123E1D72A000508D7 /* UbuduSDKSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,7 +82,6 @@
 				1DC450C723DB015600BD5858 /* proximitySDKSwiftSample */,
 				1DC450DE23DB015800BD5858 /* proximitySDKSwiftSampleTests */,
 				1DC450C623DB015600BD5858 /* Products */,
-				1DC450F323DB01AA00BD5858 /* proximitySDKSwiftSample-Bridging-Header.h */,
 				1DC4513A23DB165400BD5858 /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -123,7 +121,7 @@
 		1DC4513A23DB165400BD5858 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				1DC4514123DF02DC00BD5858 /* UbuduSDK.framework */,
+				1D171E1F23E1D71B000508D7 /* UbuduSDKSwift.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -409,7 +407,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ubudu.proximitySDKSwiftSample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = zioolek_wildcard_dev_profile;
-				SWIFT_OBJC_BRIDGING_HEADER = "proximitySDKSwiftSample-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -436,7 +434,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ubudu.proximitySDKSwiftSample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = zioolek_wildcard_dev_profile;
-				SWIFT_OBJC_BRIDGING_HEADER = "proximitySDKSwiftSample-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

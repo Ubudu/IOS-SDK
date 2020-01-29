@@ -1,0 +1,6 @@
+framework module UbuduSDKSwift {
+  umbrella header "UbuduSDKSwift.h"
+
+  export *
+  module * { export * }
+}
